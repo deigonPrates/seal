@@ -94,7 +94,21 @@ class Atualizar extends Conexao {
     }
     
     public function atualizandarquestoesAtividade($dados) {
-        
+      $id = $_SESSION['questao_id'];
+      $solucao = $dados['solucao'];
+      unset($dados['solucao']);
+      
+        $indices = implode(", ", array_keys($dados));
+        $valores = "'" . implode("', '", $dados) . "'";
+        $indices= explode(',', $indices);
+        $valores = explode(',', $valores);
+        $aux=[];
+        for($i=0; $i<count($valores); $i++){
+            $aux[] = $indices[$i] .'='.$valores[$i];
+        }
+        $aux = implode(',', $aux);
+        $this->BDExecutaQuery("UPDATE questoes SET {$aux} where id = {$id}");
+        header("Location: /editar/atividade");
     }
     
 
