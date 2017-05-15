@@ -42,7 +42,7 @@ $conexao->BDFecharConexao($con);
                     <div class="form-group">
                         <label class="col-md-3 control-label">Tipo de Questão:</label>
                         <div class="col-md-3">
-                            <select class="form-control" id="tipoQuestao" name="tipoQuestao" onchange="optionCheck()">
+                            <select class="form-control" id="tipoQuestao" name="categoria_id" onchange="optionCheck()">
                                 <option selected="" disabled="">Selecione</option>
                                 <option value='1'>Objetiva</option>
                                 <option value='2'>Subjetiva</option>
@@ -87,7 +87,14 @@ $conexao->BDFecharConexao($con);
                         </div>
                         <label class="col-md-2 control-label">Resposta:</label>
                         <div class="col-md-1">
-                            <input type="text" class="form-control" name="alternativa" value="">
+                            <select class="form-control" id="alternativa" name="alternativa">
+                                <option selected="" disabled=""></option>
+                                <option value='a'>A</option>
+                                <option value='b'>B</option>
+                                <option value='c'>C</option>
+                                <option value='d'>D</option>
+                                <option value='e'>E</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group" id="subjetiva" style="display:none;">
