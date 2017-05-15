@@ -135,7 +135,7 @@ $conexao->BDFecharConexao($con);
                                         echo "<td>{$valor['solucao']}</td>";
                                         $id = $valor['questao_id'];
                                         echo "<td><button type='buttom' class='btn btn-warning  btn-xs' name='questao_id' value='{$id}'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span></button> &nbsp";
-                                        echo "<br><br><button type='buttom' class='btn btn-danger  btn-xs'><a href='/editar/removerQuestao' style='color: white;'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a></button></td>";
+                                        echo "<br><br><a href='/editar/removerQuestao'><span class='btn btn-danger  btn-xs glyphicon glyphicon-remove' aria-hidden='true'></span></a>";
                                         echo "</tr>";
                                     endforeach;
                                 else:
@@ -166,8 +166,6 @@ $conexao->BDFecharConexao($con);
         </div>
     </div>
 </div>
-
-
 <?php
 require_once './footer.php';
 ?>
