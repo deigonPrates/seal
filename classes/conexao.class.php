@@ -115,7 +115,7 @@ class Conexao {
         $sql = "UPDATE {$tabela} SET {$campo} = {$valor} {$filtros}";
         return $this->BDExecutaQuery($sql);
     }
-
+    
     /*
      * @author Deigon Prates <deigonprates@gmail.com>
      *
