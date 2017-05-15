@@ -104,7 +104,7 @@ $conexao->BDFecharConexao($con);
                         <div class="form-group">
                             <div class="col-sm-offset-5 col-sm-9">
                                 <button type="submit" class="btn btn-success waves-effect waves-light">Cadastrar</button>
-                                <a href="/inicio"> <button type="submit" class="btn btn-danger waves-effect waves-light">Canselar</button></a>
+                                <button type="button" class="btn btn-danger waves-effect waves-light"><a href="/inicio" style="color: white;"> Canselar</a></button>
                             </div>
                         </div>
                     </div>
