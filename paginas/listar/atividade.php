@@ -10,7 +10,7 @@ require_once "$header";
 $conexao = new Conexao();
 
 $con = $conexao->BDAbreConexao();
-$dados = $conexao->BDSeleciona('atividades', '*', "WHERE(tipo_id = 2)");
+$dados = $conexao->BDSeleciona('atividades', '*', "WHERE(tipo_id = 2 )order by dataModificacao");
 
 $conexao->BDFecharConexao($con);
 ?>
