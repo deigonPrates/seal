@@ -32,8 +32,7 @@ if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'atualiz
     $atualizar->atualizarSenha($_POST);
 endif;
 if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'atualizando/questoesAtividade')):
-    include_once'./classes/atualizar.class.php';
-   
+   include_once'./classes/atualizar.class.php';
     $atualizar = new Atualizar();
     $atualizar->atualizandarquestoesAtividade($_POST);
 endif;
@@ -87,7 +86,7 @@ if (file_exists(PASTA . $URL[0] . '.php')):
 elseif ($URL[0] . '/' . $URL[1] == 'cadastrando/aluno'):
     $cadastrar = new Cadastrar();
     $cadastrar->cadastrarAluno($_POST);
-    
+
 elseif (is_dir(PASTA . $URL[0])):
     if (isset($URL[1]) && file_exists(PASTA . $URL[0] . '/' . $URL[1] . '.php')):
         require(PASTA . $URL[0] . '/' . $URL[1] . '.php');
@@ -95,5 +94,5 @@ elseif (is_dir(PASTA . $URL[0])):
         require(PASTA . '404.html');
     endif;
 else:
-        require(PASTA . '404.html');
+    require(PASTA . '404.html');
     endif;

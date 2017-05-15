@@ -228,36 +228,30 @@ class ValidarCampos {
         $objRetorno->dados = [];
         $objRetorno->status = TRUE;
         
-        echo "<pre>";
-        print_r($dados);
-        echo "</pre>";
-        
-        $tipoQuestao = ($dados['tipoQuestao']) ? filter_var($dados['tipoQuestao'], FILTER_SANITIZE_STRING) : null;
+        $categoria_id = ($dados['categoria_id']) ? filter_var($dados['categoria_id'], FILTER_SANITIZE_STRING) : null;
+        $atividade_id = ($dados['atividade_id']) ? filter_var($dados['atividade_id'], FILTER_SANITIZE_STRING) : null;
         $pergunta = ($dados['pergunta']) ? filter_var($dados['pergunta'], FILTER_SANITIZE_STRING) : null;
-        $perguntaSubjetiva = ($dados['perguntaSubjetiva']) ? filter_var($dados['perguntaSubjetiva'], FILTER_SANITIZE_STRING) : null;
         $alternativa_a = ($dados['alternativa_a']) ? filter_var($dados['alternativa_a'], FILTER_SANITIZE_STRING) : null;
         $alternativa_b = ($dados['alternativa_b']) ? filter_var($dados['alternativa_b'], FILTER_SANITIZE_STRING) : null;
         $alternativa_c = ($dados['alternativa_c']) ? filter_var($dados['alternativa_c'], FILTER_SANITIZE_STRING) : null;
         $alternativa_d = ($dados['alternativa_d']) ? filter_var($dados['alternativa_d'], FILTER_SANITIZE_STRING) : null;
         $alternativa_e = ($dados['alternativa_d']) ? filter_var($dados['alternativa_e'], FILTER_SANITIZE_STRING) : null;
-        $alternativa = ($dados['alternativa']) ? filter_var($dados['alternativa'], FILTER_SANITIZE_STRING) : null;
         $solucao = ($dados['solucao']) ? filter_var($dados['solucao'], FILTER_SANITIZE_STRING) : null;
-        $atividade_id = $dados['atividade_id'];
         $numero = $this->retornarNumeroQuestao($atividade_id);
         $nivel_id = ($dados['nivel_id']) ? filter_var($dados['nivel_id'], FILTER_SANITIZE_STRING) : null;
 
-        if ($tipoQuestao == 2) {
-            $objRetorno->dados = array_merge($objRetorno->dados, ['categoria_id' => $tipoQuestao,
-                'atividade_id' => $atividade_id
+        if ($categoria_id == 2) {
+            $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
+                    'categoria_id' => $categoria_id
             ]);
-            if (!is_null($perguntaSubjetiva)) {
+            if (!is_null($pergunta)) {
                 $objRetorno->dados = array_merge($objRetorno->dados, ['solucao' => $solucao]);
             } else {
                 $objRetorno->erro[] = 'O campo solucao nao foi preenchido corretamente';
                 $objRetorno->status = FALSE;
             }
-            if (!is_null($perguntaSubjetiva)) {
-                $objRetorno->dados = array_merge($objRetorno->dados, ['pergunta' => $perguntaSubjetiva]);
+            if (!is_null($pergunta)) {
+                $objRetorno->dados = array_merge($objRetorno->dados, ['pergunta' => $pergunta]);
             } else {
                 $objRetorno->erro[] = 'O campo Pergunta nao foi preenchido corretamente';
                 $objRetorno->status = FALSE;
@@ -268,10 +262,9 @@ class ValidarCampos {
                 $objRetorno->erro[] = 'O campo numero nao foi preenchido corretamente contate o administrado do sistema';
                 $objRetorno->status = FALSE;
             }
-        } elseif ($tipoQuestao == 1) {
-            if (!is_null($tipoQuestao) && (($tipoQuestao > 0) && ($tipoQuestao < 3))) {
-                $objRetorno->dados = array_merge($objRetorno->dados, ['categoria_id' => $tipoQuestao,
-                    'atividade_id' => $atividade_id
+        } elseif ($categoria_id == 1) {
+            if (!is_null($categoria_id) && (($categoria_id > 0) && ($categoria_id < 3))) {
+                $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id
                 ]);
             } else {
                 $objRetorno->erro[] = 'O campo Tipo da questão nao foi preenchido corretamente';
@@ -309,7 +302,6 @@ class ValidarCampos {
             $objRetorno->erro[] = 'O campo Nivel nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
         }
-
 
         return $objRetorno;
     }
