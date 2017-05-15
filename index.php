@@ -41,6 +41,11 @@ if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'editand
     $atualizar = new Atualizar();
     $atualizar->atualizarQuestao($_POST);
 endif;
+if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'atualizando/questoesAtividade')):
+    include_once'./classes/atualizar.class.php';
+    $atualizar = new Atualizar();
+    $atualizar->atualizandarquestoesAtividade($_POST);
+endif;
 if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'adicionando/questao')):
     include_once'./classes/cadastrar.class.php';
     $cadastrar = new Cadastrar();
