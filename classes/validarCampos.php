@@ -130,7 +130,7 @@ class ValidarCampos {
         $dataAtual = date('Y-m-d');
         $dataTermino = $data;
         $dataModificacao = $dataAtual;
-        
+
         if (is_null($assunto)) {
             $objRetorno->erro[] = 'O campo assunto nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
@@ -173,7 +173,7 @@ class ValidarCampos {
         $objRetorno->status = TRUE;
         $dataAtual = date('Y-m-d');
         $dataModificacao = $dataAtual;
-        
+
         $assunto = $dados['assunto'];
         $turma = $dados['turma'];
         $dataInicio = $dados['dataInicio'];
@@ -202,9 +202,9 @@ class ValidarCampos {
             $objRetorno->status = FALSE;
         } else {
             $objRetorno->dados = array_merge($objRetorno->dados, [
-                                        'dataTermino' => $dataTermino,
-                                        'dataModificacao' => $dataModificacao
-                                         ]);
+                'dataTermino' => $dataTermino,
+                'dataModificacao' => $dataModificacao
+            ]);
         }
         if (strtotime($dataInicio) > strtotime($dataTermino)) {
             $objRetorno->erro[] = 'A data de inicio tem que ser menor que a data de termino';
@@ -221,13 +221,12 @@ class ValidarCampos {
         return $objRetorno;
     }
 
-
     public function validarCadastroQuestao($dados) {
         $objRetorno = new stdClass();
         $objRetorno->erro = [];
         $objRetorno->dados = [];
         $objRetorno->status = TRUE;
-        
+
         $categoria_id = ($dados['categoria_id']) ? filter_var($dados['categoria_id'], FILTER_SANITIZE_STRING) : null;
         $atividade_id = ($dados['atividade_id']) ? filter_var($dados['atividade_id'], FILTER_SANITIZE_STRING) : null;
         $pergunta = ($dados['pergunta']) ? filter_var($dados['pergunta'], FILTER_SANITIZE_STRING) : null;
@@ -235,14 +234,14 @@ class ValidarCampos {
         $alternativa_b = ($dados['alternativa_b']) ? filter_var($dados['alternativa_b'], FILTER_SANITIZE_STRING) : null;
         $alternativa_c = ($dados['alternativa_c']) ? filter_var($dados['alternativa_c'], FILTER_SANITIZE_STRING) : null;
         $alternativa_d = ($dados['alternativa_d']) ? filter_var($dados['alternativa_d'], FILTER_SANITIZE_STRING) : null;
-        $alternativa_e = ($dados['alternativa_d']) ? filter_var($dados['alternativa_e'], FILTER_SANITIZE_STRING) : null;
+        $alternativa_e = ($dados['alternativa_e']) ? filter_var($dados['alternativa_e'], FILTER_SANITIZE_STRING) : null;
         $solucao = ($dados['solucao']) ? filter_var($dados['solucao'], FILTER_SANITIZE_STRING) : null;
         $numero = $this->retornarNumeroQuestao($atividade_id);
         $nivel_id = ($dados['nivel_id']) ? filter_var($dados['nivel_id'], FILTER_SANITIZE_STRING) : null;
 
         if ($categoria_id == 2) {
             $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
-                    'categoria_id' => $categoria_id
+                'categoria_id' => $categoria_id
             ]);
             if (!is_null($pergunta)) {
                 $objRetorno->dados = array_merge($objRetorno->dados, ['solucao' => $solucao]);
@@ -284,15 +283,100 @@ class ValidarCampos {
             }
             if (!is_null($alternativa_a) && !is_null($alternativa_b)) {
                 $objRetorno->dados = array_merge($objRetorno->dados, [
-                                                                      'alternativa_a' => $alternativa_a,
-                                                                      'alternativa_b' => $alternativa_b,
-                                                                      'alternativa_c' => $alternativa_c,
-                                                                      'alternativa_d' => $alternativa_d,
-                                                                      'alternativa_e' => $alternativa_e
-                                                                     ]);
-                
+                    'alternativa_a' => $alternativa_a,
+                    'alternativa_b' => $alternativa_b,
+                    'alternativa_c' => $alternativa_c,
+                    'alternativa_d' => $alternativa_d,
+                    'alternativa_e' => $alternativa_e
+                ]);
             } else {
                 $objRetorno->erro[] = 'Deve ter ao menos duas auternativas';
+                $objRetorno->status = FALSE;
+            }
+        }
+        if (!is_null($nivel_id)) {
+            $objRetorno->dados = array_merge($objRetorno->dados, ['nivel_id' => $nivel_id]);
+        } else {
+            $objRetorno->erro[] = 'O campo Nivel nao foi preenchido corretamente';
+            $objRetorno->status = FALSE;
+        }
+
+        return $objRetorno;
+    }
+
+    public function validarAdicaoQuestao($dados) {
+        $objRetorno = new stdClass();
+        $objRetorno->erro = [];
+        $objRetorno->dados = [];
+        $objRetorno->status = TRUE;
+
+        $categoria_id = ($dados['categoria_id']) ? filter_var($dados['categoria_id'], FILTER_SANITIZE_STRING) : null;
+        $nivel_id = ($dados['nivel_id']) ? filter_var($dados['nivel_id'], FILTER_SANITIZE_STRING) : null;
+        $pergunta = ($dados['pergunta']) ? filter_var($dados['pergunta'], FILTER_SANITIZE_STRING) : null;
+        $alternativa_a = ($dados['alternativa_a']) ? filter_var($dados['alternativa_a'], FILTER_SANITIZE_STRING) : null;
+        $alternativa_b = ($dados['alternativa_b']) ? filter_var($dados['alternativa_b'], FILTER_SANITIZE_STRING) : null;
+        $alternativa_c = ($dados['alternativa_c']) ? filter_var($dados['alternativa_c'], FILTER_SANITIZE_STRING) : null;
+        $alternativa_d = ($dados['alternativa_d']) ? filter_var($dados['alternativa_d'], FILTER_SANITIZE_STRING) : null;
+        $alternativa_e = ($dados['alternativa_e']) ? filter_var($dados['alternativa_e'], FILTER_SANITIZE_STRING) : null;
+        $alternativa = ($dados['alternativa']) ? filter_var($dados['alternativa'], FILTER_SANITIZE_STRING) : null;
+        $perguntaSubjetiva = ($dados['perguntaSubjetiva']) ? filter_var($dados['perguntaSubjetiva'], FILTER_SANITIZE_STRING) : null;
+        $solucao = ($dados['solucao']) ? filter_var($dados['solucao'], FILTER_SANITIZE_STRING) : null;
+        $atividade_id = ($dados['atividade_id']) ? filter_var($dados['atividade_id'], FILTER_SANITIZE_STRING) : null;
+        $numero = $this->retornarNumeroQuestao($atividade_id);
+       
+        if ($categoria_id == 2) {
+            $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
+                'categoria_id' => $categoria_id
+            ]);
+            if (!is_null($pergunta)) {
+                $objRetorno->dados = array_merge($objRetorno->dados, ['solucao' => $solucao]);
+            } else {
+                $objRetorno->erro[] = 'O campo solucao nao foi preenchido corretamente';
+                $objRetorno->status = FALSE;
+            }
+            if (!is_null($pergunta)) {
+                $objRetorno->dados = array_merge($objRetorno->dados, ['pergunta' => $perguntaSubjetiva]);
+            } else {
+                $objRetorno->erro[] = 'O campo Pergunta nao foi preenchido corretamente';
+                $objRetorno->status = FALSE;
+            }
+            if ($numero != false) {
+                $objRetorno->dados = array_merge($objRetorno->dados, ['numero' => $numero]);
+            } else {
+                $objRetorno->erro[] = 'O campo numero nao foi preenchido corretamente contate o administrado do sistema';
+                $objRetorno->status = FALSE;
+            }
+        } elseif ($categoria_id == 1) {
+            if (!is_null($categoria_id) && (($categoria_id > 0) && ($categoria_id < 3))) {
+                $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
+                                                                      'categoria_id' => $categoria_id
+                                                                     ]);
+            } else {
+                $objRetorno->erro[] = 'O campo Tipo da questão nao foi preenchido corretamente';
+                $objRetorno->status = FALSE;
+            }
+            if ($numero != false) {
+                $objRetorno->dados = array_merge($objRetorno->dados, ['numero' => $numero]);
+            } else {
+                $objRetorno->erro[] = 'O campo numero nao foi preenchido corretamente contate o administrado do sistema';
+                $objRetorno->status = FALSE;
+            }
+            if (!is_null($pergunta)) {
+                $objRetorno->dados = array_merge($objRetorno->dados, ['pergunta' => $pergunta]);
+            } else {
+                $objRetorno->erro[] = 'O campo pergunta nao foi preenchido corretamente contate';
+                $objRetorno->status = FALSE;
+            }
+            if (!is_null($alternativa_a) && !is_null($alternativa_b)) {
+                $objRetorno->dados = array_merge($objRetorno->dados, [
+                    'alternativa_a' => $alternativa_a,
+                    'alternativa_b' => $alternativa_b,
+                    'alternativa_c' => $alternativa_c,
+                    'alternativa_d' => $alternativa_d,
+                    'alternativa_e' => $alternativa_e
+                ]);
+            } else {
+                $objRetorno->erro[] = 'Deve ter ao menos duas alternativas';
                 $objRetorno->status = FALSE;
             }
         }
