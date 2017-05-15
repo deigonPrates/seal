@@ -87,29 +87,38 @@ class Atualizar extends Conexao {
         $_SESSION['atividade_id'] = $dados['atividade_id'];
         header("Location: /editar/atividade");
     }
-    public function atualizarQuestao($dados){
+
+    public function atualizarQuestao($dados) {
         $_SESSION['questao_id'] = $dados['questao_id'];
-        
+
         header("Location: /editar/questao");
     }
-    
+
     public function atualizandarquestoesAtividade($dados) {
-      $id = $_SESSION['questao_id'];
-      $solucao = $dados['solucao'];
-      unset($dados['solucao']);
-      
+        $id = $_SESSION['questao_id'];
+        $solucao = $dados['solucao'];
+        $alternativa = $dados['alternativa'];
+
+        unset($dados['solucao']);
+        unset($dados['alternativa']);
+
         $indices = implode(", ", array_keys($dados));
         $valores = "'" . implode("', '", $dados) . "'";
-        $indices= explode(',', $indices);
+        $indices = explode(',', $indices);
         $valores = explode(',', $valores);
-        $aux=[];
-        for($i=0; $i<count($valores); $i++){
-            $aux[] = $indices[$i] .'='.$valores[$i];
+        $aux = [];
+        for ($i = 0; $i < count($valores); $i++) {
+            $aux[] = $indices[$i] . '=' . $valores[$i];
         }
         $aux = implode(',', $aux);
         $this->BDExecutaQuery("UPDATE questoes SET {$aux} where id = {$id}");
+
+        if ($dados['categoria_id'] == 2) {
+            $this->BDAtualiza('solucoes', "where questoes_id = {$id}", 'solucao', "'{$solucao}'");
+        } else {
+            $this->BDAtualiza('solucoes', "where (questoes_id = {$id})", 'alternativa', "'{$alternativa}'");
+        }
         header("Location: /editar/atividade");
     }
-    
 
 }
