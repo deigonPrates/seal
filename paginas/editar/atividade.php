@@ -22,9 +22,6 @@ $bdQuestao = $conexao->BDSQL("SELECT questoes.id as 'questao_id', questoes.pergu
                                 WHERE(atividades.id = 24 and questoes.status = 1)");
 
 $conexao->BDFecharConexao($con);
-echo "<pre>";
-var_dump($bdQuestao);
-echo "</pre>";
 
 ?>
 <div class="row">
@@ -138,7 +135,7 @@ echo "</pre>";
                                         echo "<td>{$valor['solucao']}</td>";
                                         $id = $valor['questao_id'];
                                         echo "<td><button type='buttom' class='btn btn-warning  btn-xs' name='questao_id' value='{$id}'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span></button> &nbsp";
-                                        echo "&nbsp<button type='buttom' class='btn btn-danger  btn-xs'><a href='/editar/removerQuestao' style='color: white;'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a></button></td>";
+                                        echo "<br><br><button type='buttom' class='btn btn-danger  btn-xs'><a href='/editar/removerQuestao' style='color: white;'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a></button></td>";
                                         echo "</tr>";
                                     endforeach;
                                 else:
