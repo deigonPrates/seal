@@ -10,7 +10,7 @@ require_once "$header";
 $conexao = new Conexao();
 
 $con = $conexao->BDAbreConexao();
-$dados = $conexao->BDSeleciona('atividades', '*', "WHERE(tipo_id = 2 and status = 1)");
+$dados = $conexao->BDSeleciona('atividades', 'distinct *', "WHERE(tipo_id = 2 and status = 1) order by dataModificacao");
 
 $conexao->BDFecharConexao($con);
 
@@ -80,7 +80,7 @@ $conexao->BDFecharConexao($con);
                                         echo "<td>{$valor['dataInicio']}</td>";
                                         echo "<td>{$valor['dataTermino']}</td>";
                                         $aux = $valor['id'];
-                                        echo "<td><span><button type='submit' class='btn btn-warning btn-xs' name='$aux'>Editar</button></span></td>";
+                                        echo "<td><span><button type='submit' class='btn btn-warning btn-xs' name='atividade_id' value='$aux'>Editar</button></span></td>";
                                         echo "</tr>";
                                     endforeach;
                                 else:
