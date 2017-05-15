@@ -107,7 +107,7 @@ class Cadastrar extends Conexao {
         $this->DBGravar('solucoes', $grava);
     }
     
-    public function adicionarQuestoes($dados) {
+    public function adicionarQuestoes($dados) {   
         session_start();
         
         $validar = new ValidarCampos();
@@ -118,18 +118,24 @@ class Cadastrar extends Conexao {
         $dados = array_merge($dados, [
                 'atividade_id' => $atividade
         ]);
+        $alternativa = $dados['alternativa'];
+        $solucao = $dados['solucao'];
         
-        $objValidar = $validar->validarCadastroQuestao($dados);
+        $cadastroSolucao = [
+            'alternativa' => $alternativa,
+            'solucao' => $solucao
+        ];
+        
+        $objValidar = $validar->validarAdicaoQuestao($dados);
         
         if ($objValidar->status) {
             $dados = $objValidar->dados;
             unset($dados['alternativa']);
             unset($dados['solucao']);
-            unset($dados['perguntaSubjetiva']);
 
             $this->DBGravar('questoes', $dados);
 
-            $this->cadastrarSolucao($objValidar->dados);
+            $this->cadastrarSolucao($cadastroSolucao);
             header("Location: /cadastrar/adicionarQuestao");
         } else {
             print_r($objValidar->erro);
