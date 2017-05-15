@@ -22,7 +22,6 @@ $bdQuestao = $conexao->BDSQL("SELECT questoes.id as 'questao_id', questoes.pergu
                                 WHERE(atividades.id = 24 and questoes.status = 1)");
 
 $conexao->BDFecharConexao($con);
-
 ?>
 <div class="row">
     <div class="col-sm-12">
@@ -84,7 +83,15 @@ $conexao->BDFecharConexao($con);
                             <button type="buttom" class="btn btn-primary waves-effect waves-light"><a href="/cadastrar/adicionarQuestao" style="color: white;">Adicionar</a></button>
                         </div>
                     </div>
-                    <br>
+
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-offset-5 col-sm-9">
+                            <button type="submit" class="btn btn-success waves-effect waves-light">Atualizar</button>
+                        </div>
+                    </div>
+                    <br> 
+                </form>
+                <form action="/editando/questao" class="form-horizontal" role="form" method="post">                                    
                     <div class="card-box">
                         <table id="demo-foo-filtering" class="table table-striped toggle-circle m-b-0" data-page-size="7">
                             <thead>
@@ -155,11 +162,6 @@ $conexao->BDFecharConexao($con);
                                 </tr>
                             </tfoot>
                         </table>
-                    </div>
-                    <div class="form-group m-b-0">
-                        <div class="col-sm-offset-5 col-sm-9">
-                            <button type="submit" class="btn btn-success waves-effect waves-light">Atualizar</button>
-                        </div>
                     </div>
                 </form>
             </div>   
