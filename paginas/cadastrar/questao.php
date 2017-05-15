@@ -87,7 +87,14 @@ $conexao->BDFecharConexao($con);
                         </div>
                         <label class="col-md-2 control-label">Resposta:</label>
                         <div class="col-md-1">
-                            <input type="text" class="form-control" name="alternativa" value="">
+                            <select class="form-control" id="alternativa" name="alternativa">
+                                <option selected="" disabled=""></option>
+                                <option value='a'>A</option>
+                                <option value='b'>B</option>
+                                <option value='c'>C</option>
+                                <option value='d'>D</option>
+                                <option value='e'>E</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group" id="subjetiva" style="display:none;">
@@ -104,7 +111,7 @@ $conexao->BDFecharConexao($con);
                         <div class="form-group">
                             <div class="col-sm-offset-5 col-sm-9">
                                 <button type="submit" class="btn btn-success waves-effect waves-light">Cadastrar</button>
-                                <a href="/inicio"> <button type="submit" class="btn btn-danger waves-effect waves-light">Canselar</button></a>
+                                <button type="button" class="btn btn-danger waves-effect waves-light"><a href=" /inicio" style="color: white;"> Canselar</a></button>
                             </div>
                         </div>
                     </div>
