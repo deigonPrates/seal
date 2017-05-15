@@ -128,9 +128,8 @@ if (!isset($_SESSION["matricula"])) {
                                 <a href="#" class="waves-effect"><i class="ti-spray"></i> <span>Outros</span> </a>
                                 <ul class="list-unstyled">
                                     <li><a href="/outros/historico">Histórico</a></li>
-                                    <li><a href="/outros/recuperarSenha">Recuperar Senha</a></li>
-                                    <li><a href="/outros/bloquearAluno">Bloquear Aluno</a></li>
-                                    <li><a href="/outros/desbloquearAluno">Desbloquear Aluno</a></li>
+                                    <li><a href="/outros/recuperarSenha">Recuperar senha</a></li>
+                                    <li><a href="/outros/statusAluno">Status aluno</a></li>
                                     <li><a href="/outros/visualizarCampeonato">Visualizar campeonato</a></li>
                                 </ul>
                             </li>
