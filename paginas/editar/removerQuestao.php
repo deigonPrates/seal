@@ -35,7 +35,7 @@ $conexao->BDFecharConexao($con);
                 </div>
             </div>
             <div class="row">
-                <center><h4 class="page-title">Listando Questões</h4></center>
+                <center><h4 class="page-title">Remover questões</h4></center>
                 <br>
                 <br>
                 <div class="card-box">
@@ -116,7 +116,7 @@ $conexao->BDFecharConexao($con);
                     <div class="form-group m-b-0">
                         <div class="form-group">
                             <div class="col-sm-offset-5 col-sm-9">
-                                <button type="button" class="btn btn-danger waves-effect waves-light"><a href=" /editar/definirAtividade" style="color: white;"> Canselar</a></button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light"><a href=" /editar/definirAtividade" style="color: white;"> Cancelar</a></button>
                             </div>
                         </div>
                     </div>
