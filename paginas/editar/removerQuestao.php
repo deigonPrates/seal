@@ -112,6 +112,14 @@ $conexao->BDFecharConexao($con);
                                 </tr>
                             </tfoot>
                         </table>
+                        
+                    <div class="form-group m-b-0">
+                        <div class="form-group">
+                            <div class="col-sm-offset-5 col-sm-9">
+                                <button type="button" class="btn btn-danger waves-effect waves-light"><a href=" /editar/definirAtividade" style="color: white;"> Canselar</a></button>
+                            </div>
+                        </div>
+                    </div>
                     </form>
                 </div>
             </div>
