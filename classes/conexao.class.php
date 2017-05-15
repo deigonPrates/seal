@@ -44,6 +44,19 @@ class Conexao {
         return $this->BDExecutaQuery($sql);
     }
 
+    public function BDSQL($sql) {
+        $resultado = $this->BDExecutaQuery($sql);
+
+        if (!mysqli_num_rows($resultado)) {
+            return false;
+        } else {
+            while ($aux = mysqli_fetch_assoc($resultado)) {
+                $dados[] = $aux;
+            }
+            return $dados;
+        }
+    }
+
     /**
      * @author Deigon Prates <deigonprates@gmail.com>
      * 
