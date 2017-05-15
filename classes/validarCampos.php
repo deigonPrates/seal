@@ -129,7 +129,8 @@ class ValidarCampos {
         $valor = $dados['valor'];
         $dataAtual = date('Y-m-d');
         $dataTermino = $data;
-
+        $dataModificacao = $dataAtual;
+        
         if (is_null($assunto)) {
             $objRetorno->erro[] = 'O campo assunto nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
@@ -148,7 +149,8 @@ class ValidarCampos {
         } else {
             $objRetorno->dados = array_merge($objRetorno->dados, [
                 'dataInicio' => $data,
-                'dataTermino' => $data
+                'dataTermino' => $data,
+                'dataModificacao' => $dataModificacao
             ]);
         }
         if (is_null($valor)) {
@@ -170,7 +172,8 @@ class ValidarCampos {
         $objRetorno->dados = [];
         $objRetorno->status = TRUE;
         $dataAtual = date('Y-m-d');
-
+        $dataModificacao = $dataAtual;
+        
         $assunto = $dados['assunto'];
         $turma = $dados['turma'];
         $dataInicio = $dados['dataInicio'];
@@ -198,7 +201,10 @@ class ValidarCampos {
             $objRetorno->erro[] = 'O campo data de termino nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
         } else {
-            $objRetorno->dados = array_merge($objRetorno->dados, ['dataTermino' => $dataTermino]);
+            $objRetorno->dados = array_merge($objRetorno->dados, [
+                                        'dataTermino' => $dataTermino,
+                                        'dataModificacao' => $dataModificacao
+                                         ]);
         }
         if (strtotime($dataInicio) > strtotime($dataTermino)) {
             $objRetorno->erro[] = 'A data de inicio tem que ser menor que a data de termino';
@@ -221,7 +227,11 @@ class ValidarCampos {
         $objRetorno->erro = [];
         $objRetorno->dados = [];
         $objRetorno->status = TRUE;
-
+        
+        echo "<pre>";
+        print_r($dados);
+        echo "</pre>";
+        
         $tipoQuestao = ($dados['tipoQuestao']) ? filter_var($dados['tipoQuestao'], FILTER_SANITIZE_STRING) : null;
         $pergunta = ($dados['pergunta']) ? filter_var($dados['pergunta'], FILTER_SANITIZE_STRING) : null;
         $perguntaSubjetiva = ($dados['perguntaSubjetiva']) ? filter_var($dados['perguntaSubjetiva'], FILTER_SANITIZE_STRING) : null;
@@ -229,7 +239,6 @@ class ValidarCampos {
         $alternativa_b = ($dados['alternativa_b']) ? filter_var($dados['alternativa_b'], FILTER_SANITIZE_STRING) : null;
         $alternativa_c = ($dados['alternativa_c']) ? filter_var($dados['alternativa_c'], FILTER_SANITIZE_STRING) : null;
         $alternativa_d = ($dados['alternativa_d']) ? filter_var($dados['alternativa_d'], FILTER_SANITIZE_STRING) : null;
-        $alternativa_e = ($dados['alternativa_d']) ? filter_var($dados['alternativa_e'], FILTER_SANITIZE_STRING) : null;
         $alternativa_e = ($dados['alternativa_d']) ? filter_var($dados['alternativa_e'], FILTER_SANITIZE_STRING) : null;
         $alternativa = ($dados['alternativa']) ? filter_var($dados['alternativa'], FILTER_SANITIZE_STRING) : null;
         $solucao = ($dados['solucao']) ? filter_var($dados['solucao'], FILTER_SANITIZE_STRING) : null;
@@ -280,40 +289,17 @@ class ValidarCampos {
                 $objRetorno->erro[] = 'O campo pergunta nao foi preenchido corretamente contate';
                 $objRetorno->status = FALSE;
             }
-            if (!is_null($alternativa_a)) {
-                $objRetorno->dados = array_merge($objRetorno->dados, ['alternativa_a' => $alternativa_a]);
+            if (!is_null($alternativa_a) && !is_null($alternativa_b)) {
+                $objRetorno->dados = array_merge($objRetorno->dados, [
+                                                                      'alternativa_a' => $alternativa_a,
+                                                                      'alternativa_b' => $alternativa_b,
+                                                                      'alternativa_c' => $alternativa_c,
+                                                                      'alternativa_d' => $alternativa_d,
+                                                                      'alternativa_e' => $alternativa_e
+                                                                     ]);
+                
             } else {
-                $objRetorno->erro[] = 'O campo alternativa a nao foi preenchido corretamente contate';
-                $objRetorno->status = FALSE;
-            }
-            if (!is_null($alternativa_b)) {
-                $objRetorno->dados = array_merge($objRetorno->dados, ['alternativa_b' => $alternativa_b]);
-            } else {
-                $objRetorno->erro[] = 'O campo alternativa a nao foi preenchido corretamente contate';
-                $objRetorno->status = FALSE;
-            }
-            if (!is_null($alternativa_c)) {
-                $objRetorno->dados = array_merge($objRetorno->dados, ['alternativa_c' => $alternativa_c]);
-            } else {
-                $objRetorno->erro[] = 'O campo alternativa c nao foi preenchido corretamente';
-                $objRetorno->status = FALSE;
-            }
-            if (!is_null($alternativa_d)) {
-                $objRetorno->dados = array_merge($objRetorno->dados, ['alternativa_d' => $alternativa_d]);
-            } else {
-                $objRetorno->erro[] = 'O campo alternativa d nao foi preenchido corretamente';
-                $objRetorno->status = FALSE;
-            }
-            if (!is_null($alternativa_a)) {
-                $objRetorno->dados = array_merge($objRetorno->dados, ['alternativa_a' => $alternativa_a]);
-            } else {
-                $objRetorno->erro[] = 'O campo alternativa a nao foi preenchido corretamente';
-                $objRetorno->status = FALSE;
-            }
-            if (!is_null($alternativa)) {
-                $objRetorno->dados = array_merge($objRetorno->dados, ['alternativa' => $alternativa]);
-            } else {
-                $objRetorno->erro[] = 'O campo alternativa nao foi preenchido corretamente';
+                $objRetorno->erro[] = 'Deve ter ao menos duas auternativas';
                 $objRetorno->status = FALSE;
             }
         }
