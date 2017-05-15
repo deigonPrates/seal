@@ -16,7 +16,6 @@ $bdNivel = $conexao->BDSeleciona('niveis');
 $bdQuestao = $conexao->BDSeleciona('questoes', '*', "where(id = {$questoes_id})");
 $bdSolucao = $conexao->BDSeleciona('solucoes', '*', "where(questoes_id = {$questoes_id})");
 $conexao->BDFecharConexao($con);
-
 ?>
 <div class="row">
     <div class="col-sm-12">
@@ -44,7 +43,7 @@ $conexao->BDFecharConexao($con);
                     <div class="form-group">
                         <label class="col-md-3 control-label">Tipo de Questão:</label>
                         <div class="col-md-3">
-                            <select class="form-control" id="tipoQuestao" name="tipoQuestao" onchange="optionCheck()">
+                            <select class="form-control" id="tipoQuestao" name="categoria_id" onchange="optionCheck()">
                                 <option selected="" disabled="">Selecione</option>
                                 <?php
                                 if ($bdQuestao[0]['categoria_id'] == 1) {
@@ -73,7 +72,23 @@ $conexao->BDFecharConexao($con);
                             </select>
                         </div>
                     </div>
-                    <div class="form-group" id="objetiva" style="display:none;">
+                    <?php
+                    switch ($bdQuestao[0]['categoria_id']) {
+                        case '1':
+                            $style1 = "style='display:block;'";
+                            $style2 = "style='display:none;'";
+                            break;
+                        case '2':
+                            $style1 = "style='display:none;'";
+                            $style2 = "style='display:block;'";
+                            break;
+                        default:
+                            $style1 = "style='display:none;'";
+                            $style2 = "style='display:none;'";
+                    }
+                    
+                    ?>
+                    <div class="form-group" id="objetiva"<?php echo $style1;?>>
                         <label class="col-md-2 control-label">Pergunta:</label>
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="pergunta" value="">
@@ -103,7 +118,7 @@ $conexao->BDFecharConexao($con);
                             <select class="form-control" id="alternativa" name="alternativa">
                                 <option selected="" disabled=""></option>
                                 <?php
-                                switch ($bdSolucao[0]['alternativa']){
+                                switch ($bdSolucao[0]['alternativa']) {
                                     case 'a':
                                         echo "<option selected value = 'a'>A</option>";
                                         break;
@@ -126,16 +141,15 @@ $conexao->BDFecharConexao($con);
                                         echo "<option value = 'd'>D</option>";
                                         echo "<option value = 'e'>E</option>";
                                 }
-                                
                                 ?>
 
                             </select>
                         </div>
                     </div>
-                    <div class="form-group" id="subjetiva" style="display:none;">
+                    <div class="form-group" id="subjetiva" <?php echo $style2;?>>
                         <label class="col-md-2 control-label">Pergunta:</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="perguntaSubjetiva" value="<?php echo $bdQuestao[0]['pergunta']; ?>">
+                            <input type="text" class="form-control" name="pergunta" value="<?php echo $bdQuestao[0]['pergunta']; ?>">
                         </div>
                         <label class="col-md-2 control-label">Solucao:</label>
                         <div class="col-md-10">
