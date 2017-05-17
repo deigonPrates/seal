@@ -2,11 +2,17 @@
 
 class Conexao {
 
+
     private $localhost = 'localhost';
     private $user = 'root';
     private $pass = '';
     private $bd = 'seal2';
-
+/*	
+    private $localhost = 'mysql.hostinger.com.br';
+    private $user = 'u953174532_root';
+    private $pass = '|]5TNJ8VOmp!/LDkW&';
+    private $bd = 'u953174532_seal';
+*/
     /**
      * @author Deigon Prates <deigonprates@gmail.com>
      * @return obj Retorna um objeto contendo a conexao;

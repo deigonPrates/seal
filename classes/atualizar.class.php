@@ -84,11 +84,9 @@ class Atualizar extends Conexao {
     }
 
     public function atualizarAtividade($dados) {
-        if (isset($_SESSION['atividade_id']) && !empty($_SESSION['atividade_id'])) {
-            unset($_SESSION['atividade_id']);
-        } else {
-            $_SESSION['atividade_id'] = $dados['atividade_id'];
-        }
+
+        $_SESSION['atividade_id'] = $dados['atividade_id'];
+
         header("Location: /editar/atividade");
     }
 
@@ -98,7 +96,7 @@ class Atualizar extends Conexao {
         $atividade_id = $dados['atividade_id'];
         $teste = $validar->validarCabecalhoQuestao($dados);
         $dados = $teste->dados;
-        
+
         if ($teste->status) {
             $indices = implode(", ", array_keys($dados));
             $valores = "'" . implode("', '", $dados) . "'";
@@ -131,43 +129,107 @@ class Atualizar extends Conexao {
 
         $id = $_SESSION['questao_id'];
 
+
+        $validar = new ValidarCampos();
+        $conn = $this->BDAbreConexao();
+
+        $atividade = $_SESSION['atividade_id'];
+
+        $dados = array_merge($dados, [
+            'atividade_id' => $atividade
+        ]);
+        $solucao = $dados['solucao'];
+
         if ($dados['categoria_id'] == 1) {
             $alternativa = $dados['alternativa'];
-            unset($dados['perguntaSubjetiva']);
+
+            $cadastroSolucao = [
+                'alternativa' => $alternativa,
+                'solucao' => $solucao
+            ];
+        }
+        $cadastroSolucao = [
+            'questao_id' => $id,
+            'solucao' => $solucao
+        ];
+
+        $objValidar = $validar->validarAdicaoQuestao($dados);
+
+        if ($objValidar->status) {
+            $dados = $objValidar->dados;
+            unset($dados['alternativa']);
             unset($dados['solucao']);
-            unset($dados['alternativa']);
-        } elseif ($dados['categoria_id'] == 2) {
-            $solucao = $dados['solucao'];
-            unset($dados['pergunta']);
-            unset($dados['alternativa_a']);
-            unset($dados['alternativa_b']);
-            unset($dados['alternativa_c']);
-            unset($dados['alternativa_d']);
-            unset($dados['alternativa_e']);
-            unset($dados['alternativa']);
-        }
+            $indices = implode(", ", array_keys($dados));
+            $valores = "'" . implode("', '", $dados) . "'";
 
-        $indices = implode(", ", array_keys($dados));
-        $valores = "'" . implode("', '", $dados) . "'";
+            $indices = explode(',', $indices);
+            $valores = explode(',', $valores);
 
-        $indices = explode(',', $indices);
-        $valores = explode(',', $valores);
+            $aux = [];
 
-        $aux = [];
+            for ($i = 0; $i < count($valores); $i++) {
+                $aux[] = $indices[$i] . '=' . $valores[$i];
+            }
 
-        for ($i = 0; $i < count($valores); $i++) {
-            $aux[] = $indices[$i] . '=' . $valores[$i];
-        }
+            $aux = implode(',', $aux);
 
-        $aux = implode(',', $aux);
+            $this->BDExecutaQuery("UPDATE questoes SET {$aux} where id = {$id}");
 
-        $this->BDExecutaQuery("UPDATE questoes SET {$aux} where id = {$id}");
-
-        if ($dados['categoria_id'] == 2) {
-            $this->BDAtualiza('solucoes', "where questoes_id = {$id}", 'solucao', "'{$solucao}'");
+            if ($dados['categoria_id'] == 2) {
+                $this->BDAtualiza('solucoes', "where questoes_id = {$id}", 'solucao', "'{$solucao}'");
+            } else {
+                $this->BDAtualiza('solucoes', "where (questoes_id = {$id})", 'alternativa', "'{$alternativa}'");
+            }
+            $this->BDExecutaQuery("UPDATE questoes SET {$aux} where id = {$id}");
         } else {
-            $this->BDAtualiza('solucoes', "where (questoes_id = {$id})", 'alternativa', "'{$alternativa}'");
+            print_r($objValidar->erro);
         }
+        $this->BDFecharConexao($conn);
+        
+        /*
+          if ($dados['categoria_id'] == 1) {
+          $alternativa = $dados['alternativa'];
+          unset($dados['perguntaSubjetiva']);
+          unset($dados['solucao']);
+          unset($dados['alternativa']);
+          } elseif ($dados['categoria_id'] == 2) {
+          $solucao = $dados['solucao'];
+          unset($dados['pergunta']);
+          unset($dados['alternativa_a']);
+          unset($dados['alternativa_b']);
+          unset($dados['alternativa_c']);
+          unset($dados['alternativa_d']);
+          unset($dados['alternativa_e']);
+          unset($dados['alternativa']);
+          unset($dados['solucao']);
+          unset($dados['perguntaSubjetiva']);
+          }
+
+          $indices = implode(", ", array_keys($dados));
+          $valores = "'" . implode("', '", $dados) . "'";
+
+          $indices = explode(',', $indices);
+          $valores = explode(',', $valores);
+
+          $aux = [];
+
+          for ($i = 0; $i < count($valores); $i++) {
+          $aux[] = $indices[$i] . '=' . $valores[$i];
+          }
+
+          $aux = implode(',', $aux);
+
+          $this->BDExecutaQuery("UPDATE questoes SET {$aux} where id = {$id}");
+
+          if ($dados['categoria_id'] == 2) {
+          $this->BDAtualiza('solucoes', "where questoes_id = {$id}", 'solucao', "'{$solucao}'");
+          } else {
+          $this->BDAtualiza('solucoes', "where (questoes_id = {$id})", 'alternativa', "'{$alternativa}'");
+          }
+
+         */
+
+        #$this->BDExecutaQuery("UPDATE questoes SET {$aux} where id = {$id}");
         header("Location: /editar/atividade");
     }
 
