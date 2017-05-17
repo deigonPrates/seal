@@ -95,22 +95,39 @@ class Atualizar extends Conexao {
     }
 
     public function atualizandarquestoesAtividade($dados) {
+
         $id = $_SESSION['questao_id'];
-        $solucao = $dados['solucao'];
-        $alternativa = $dados['alternativa'];
 
-        unset($dados['solucao']);
-        unset($dados['alternativa']);
-
+        if ($dados['categoria_id'] == 1) {
+            $alternativa = $dados['alternativa'];
+            unset($dados['perguntaSubjetiva']);
+            unset($dados['solucao']);
+            unset($dados['alternativa']);
+        } elseif ($dados['categoria_id'] == 2) {
+            $solucao = $dados['solucao'];
+            unset($dados['pergunta']);
+            unset($dados['alternativa_a']);
+            unset($dados['alternativa_b']);
+            unset($dados['alternativa_c']);
+            unset($dados['alternativa_d']);
+            unset($dados['alternativa_e']);
+            unset($dados['alternativa']);
+        }
+        
         $indices = implode(", ", array_keys($dados));
         $valores = "'" . implode("', '", $dados) . "'";
+
         $indices = explode(',', $indices);
         $valores = explode(',', $valores);
+
         $aux = [];
+
         for ($i = 0; $i < count($valores); $i++) {
             $aux[] = $indices[$i] . '=' . $valores[$i];
         }
+
         $aux = implode(',', $aux);
+
         $this->BDExecutaQuery("UPDATE questoes SET {$aux} where id = {$id}");
 
         if ($dados['categoria_id'] == 2) {
