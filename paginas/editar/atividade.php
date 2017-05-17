@@ -77,21 +77,24 @@ $conexao->BDFecharConexao($con);
                             <input type="date" class="form-control" name="dataTermino" value="<?php echo $bdAtividade[0]['dataTermino']; ?>" placeholder="">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Nova questões:</label>
-                        <div class="col-md-4">
-                            <button type="buttom" class="btn btn-primary waves-effect waves-light"><a href="/cadastrar/adicionarQuestao" style="color: white;">Adicionar</a></button>
-                        </div>
-                    </div>
-
                     <div class="form-group m-b-0">
                         <div class="col-sm-offset-5 col-sm-9">
                             <button type="submit" class="btn btn-success waves-effect waves-light">Atualizar</button>
                         </div>
                     </div>
-                    <br> 
+                    <br>
+
                 </form>
+                <div class="form-group">
+                    <div class="col-md-9">
+                        <label class="col-md-2 control-label">Nova questões:</label>
+                        <button type="buttom" class="btn btn-primary waves-effect waves-light"><a href="/cadastrar/adicionarQuestao" style="color: white;">Adicionar</a></button>
+                    </div>
+                </div>
+                <br> 
+                <br> 
                 <form action="/editando/questao" class="form-horizontal" role="form" method="post">                                    
+
                     <div class="card-box">
                         <table id="demo-foo-filtering" class="table table-striped toggle-circle m-b-0" data-page-size="7">
                             <thead>
