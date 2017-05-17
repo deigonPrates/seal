@@ -546,7 +546,69 @@ class ValidarCampos {
 
         return $objRetorno;
     }
+    
+    public function validarCabecalhoQuestao($dados){
+        $objRetorno = new stdClass();
+        $objRetorno->erro = [];
+        $objRetorno->dados = [];
+        $objRetorno->status = TRUE;
+        $dataAtual = date('Y-m-d');
+        $dataModificacao = $dataAtual;
+        
+        $assunto = ($dados['assunto']) ? filter_var($dados['assunto'], FILTER_SANITIZE_STRING) : NULL;
+        $turma = ($dados['turma']) ? filter_var($dados['turma'], FILTER_SANITIZE_STRING) : false;
+        $dataInicio = $dados['dataInicio'];
+        $dataTermino = $dados['dataTermino'];
 
+        if (is_null($assunto)) {
+            $objRetorno->erro[] = 'O campo assunto nao foi preenchido corretamente';
+            $objRetorno->status = FALSE;
+        } else {
+            $objRetorno->dados = array_merge($objRetorno->dados, ['conteudo' => $assunto]);
+        }
+        if (is_null($turma)) {
+            $objRetorno->erro[] = 'O campo turma nao foi preenchido corretamente';
+            $objRetorno->status = FALSE;
+        } else {
+            $objRetorno->dados = array_merge($objRetorno->dados, ['turma_id' => $turma]);
+        }
+        if (is_null($dataInicio)) {
+            $objRetorno->erro[] = 'O campo data de inicio nao foi preenchido corretamente';
+            $objRetorno->status = FALSE;
+        } else {
+            $objRetorno->dados = array_merge($objRetorno->dados, ['dataInicio' => $dataInicio]);
+        }
+        if (is_null($dataTermino)) {
+            $objRetorno->erro[] = 'O campo data de termino nao foi preenchido corretamente';
+            $objRetorno->status = FALSE;
+        } else {
+            $objRetorno->dados = array_merge($objRetorno->dados, [
+                'dataTermino' => $dataTermino,
+                'dataModificacao' => $dataModificacao
+            ]);
+        }
+        if ($dataInicio > $dataTermino) {
+            $objRetorno->erro[] = 'A data de inicio tem que ser menor ou igual a data de termino';
+            $objRetorno->status = FALSE;
+        }
+        if ($dataInicio < $dataAtual) {
+            $objRetorno->erro[] = 'A data de inicio esta menor que a data atual por favor corrija';
+            $objRetorno->status = FALSE;
+        }
+        if ($dataTermino < $dataAtual) {
+            $objRetorno->erro[] = 'A data de termino esta menor que a data atual por favor corrija';
+            $objRetorno->status = FALSE;
+        }
+        return $objRetorno;
+    }
+
+
+    /**
+     *  funcao feita para verificar se já existe um determinado dado numa determinada tabela
+     * @param type $variavel 
+     * @param type $descricao
+     * @return boolean
+     */
     public function validarEntrada($variavel, $descricao) {
         $conexao = new Conexao;
         $aluno = $conexao->BDSeleciona('alunos', "{$descricao}", "WHERE({$descricao} like '{$variavel}')");
