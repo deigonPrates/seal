@@ -318,26 +318,26 @@ class ValidarCampos {
         $alternativa_c = ($dados['alternativa_c']) ? filter_var($dados['alternativa_c'], FILTER_SANITIZE_STRING) : null;
         $alternativa_d = ($dados['alternativa_d']) ? filter_var($dados['alternativa_d'], FILTER_SANITIZE_STRING) : null;
         $alternativa_e = ($dados['alternativa_e']) ? filter_var($dados['alternativa_e'], FILTER_SANITIZE_STRING) : null;
-        $alternativa = ($dados['alternativa']) ? filter_var($dados['alternativa'], FILTER_SANITIZE_STRING) : null;
         $perguntaSubjetiva = ($dados['perguntaSubjetiva']) ? filter_var($dados['perguntaSubjetiva'], FILTER_SANITIZE_STRING) : null;
         $solucao = ($dados['solucao']) ? filter_var($dados['solucao'], FILTER_SANITIZE_STRING) : null;
         $atividade_id = ($dados['atividade_id']) ? filter_var($dados['atividade_id'], FILTER_SANITIZE_STRING) : null;
         $numero = $this->retornarNumeroQuestao($atividade_id);
        
         if ($categoria_id == 2) {
+            
             $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
                 'categoria_id' => $categoria_id
             ]);
-            if (!is_null($pergunta)) {
+            if (!is_null($perguntaSubjetiva) ) {
+                $objRetorno->dados = array_merge($objRetorno->dados, ['pergunta' => $perguntaSubjetiva]);
+            } else {
+                $objRetorno->erro[] = 'O campo pergunta nao foi preenchido corretamente';
+                $objRetorno->status = FALSE;
+            }
+            if (!is_null($solucao)) {
                 $objRetorno->dados = array_merge($objRetorno->dados, ['solucao' => $solucao]);
             } else {
                 $objRetorno->erro[] = 'O campo solucao nao foi preenchido corretamente';
-                $objRetorno->status = FALSE;
-            }
-            if (!is_null($pergunta)) {
-                $objRetorno->dados = array_merge($objRetorno->dados, ['pergunta' => $perguntaSubjetiva]);
-            } else {
-                $objRetorno->erro[] = 'O campo Pergunta nao foi preenchido corretamente';
                 $objRetorno->status = FALSE;
             }
             if ($numero != false) {
