@@ -36,6 +36,11 @@ if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'atualiz
     $atualizar = new Atualizar();
     $atualizar->atualizandarquestoesAtividade($_POST);
 endif;
+if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'atualizando/cabecalhoQuestao')):
+   include_once'./classes/atualizar.class.php';
+    $atualizar = new Atualizar();
+    $atualizar->atualizarCabecalhoQuestao($_POST);
+endif;
 if ((isset($URL[0])) && (isset($URL[1])) && (isset($URL[2])) && ($URL[0] . '/' . $URL[1] == 'atualizar/status')):
     include_once'./classes/atualizar.class.php';
     $atualizar = new Atualizar();
