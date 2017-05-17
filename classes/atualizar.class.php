@@ -84,8 +84,41 @@ class Atualizar extends Conexao {
     }
 
     public function atualizarAtividade($dados) {
-        $_SESSION['atividade_id'] = $dados['atividade_id'];
+        if (isset($_SESSION['atividade_id']) && !empty($_SESSION['atividade_id'])) {
+            unset($_SESSION['atividade_id']);
+        } else {
+            $_SESSION['atividade_id'] = $dados['atividade_id'];
+        }
         header("Location: /editar/atividade");
+    }
+
+    public function atualizarCabecalhoQuestao($dados) {
+
+        $validar = new ValidarCampos();
+        $atividade_id = $dados['atividade_id'];
+        $teste = $validar->validarCabecalhoQuestao($dados);
+        $dados = $teste->dados;
+        
+        if ($teste->status) {
+            $indices = implode(", ", array_keys($dados));
+            $valores = "'" . implode("', '", $dados) . "'";
+
+            $indices = explode(',', $indices);
+            $valores = explode(',', $valores);
+
+            $aux = [];
+
+            for ($i = 0; $i < count($valores); $i++) {
+                $aux[] = $indices[$i] . '=' . $valores[$i];
+            }
+
+            $aux = implode(',', $aux);
+
+            $this->BDExecutaQuery("UPDATE atividades SET {$aux} where id = {$atividade_id}");
+            header("Location: /editar/atividade");
+        } else {
+            print_r($teste->erro);
+        }
     }
 
     public function atualizarQuestao($dados) {
@@ -113,7 +146,7 @@ class Atualizar extends Conexao {
             unset($dados['alternativa_e']);
             unset($dados['alternativa']);
         }
-        
+
         $indices = implode(", ", array_keys($dados));
         $valores = "'" . implode("', '", $dados) . "'";
 
