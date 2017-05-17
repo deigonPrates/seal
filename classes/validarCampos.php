@@ -226,8 +226,9 @@ class ValidarCampos {
         $objRetorno->erro = [];
         $objRetorno->dados = [];
         $objRetorno->status = TRUE;
-
-        $categoria_id = ($dados['categoria_id']) ? filter_var($dados['categoria_id'], FILTER_SANITIZE_STRING) : null;
+        
+        var_dump($dados);
+        $categoria_id = ($dados['tipoQuestao']) ? filter_var($dados['tipoQuestao'], FILTER_SANITIZE_STRING) : null;
         $atividade_id = ($dados['atividade_id']) ? filter_var($dados['atividade_id'], FILTER_SANITIZE_STRING) : null;
         $pergunta = ($dados['pergunta']) ? filter_var($dados['pergunta'], FILTER_SANITIZE_STRING) : null;
         $alternativa_a = ($dados['alternativa_a']) ? filter_var($dados['alternativa_a'], FILTER_SANITIZE_STRING) : null;
@@ -238,19 +239,21 @@ class ValidarCampos {
         $solucao = ($dados['solucao']) ? filter_var($dados['solucao'], FILTER_SANITIZE_STRING) : null;
         $numero = $this->retornarNumeroQuestao($atividade_id);
         $nivel_id = ($dados['nivel_id']) ? filter_var($dados['nivel_id'], FILTER_SANITIZE_STRING) : null;
-
+        $perguntaSubjetiva = ($dados['perguntaSubjetiva']) ? filter_var($dados['perguntaSubjetiva'], FILTER_SANITIZE_STRING) : null;
+        
+        var_dump($categoria_id);
         if ($categoria_id == 2) {
             $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
                 'categoria_id' => $categoria_id
             ]);
-            if (!is_null($pergunta)) {
+            if (!is_null($solucao)) {
                 $objRetorno->dados = array_merge($objRetorno->dados, ['solucao' => $solucao]);
             } else {
                 $objRetorno->erro[] = 'O campo solucao nao foi preenchido corretamente';
                 $objRetorno->status = FALSE;
             }
-            if (!is_null($pergunta)) {
-                $objRetorno->dados = array_merge($objRetorno->dados, ['pergunta' => $pergunta]);
+            if (!is_null($perguntaSubjetiva)) {
+                $objRetorno->dados = array_merge($objRetorno->dados, ['pergunta' => $perguntaSubjetiva]);
             } else {
                 $objRetorno->erro[] = 'O campo Pergunta nao foi preenchido corretamente';
                 $objRetorno->status = FALSE;

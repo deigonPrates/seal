@@ -35,7 +35,7 @@ $conexao->BDFecharConexao($con);
                 </div>
             </div>
             <div class="row">
-                <center><h4 class="page-title">Definir atividade para Edição</h4></center>
+                <center><h4 class="page-title">Definir avaliação para Edição</h4></center>
                 <br>
                 <br>
                 <div class="card-box">
@@ -80,7 +80,7 @@ $conexao->BDFecharConexao($con);
                                         echo "<td>{$valor['dataInicio']}</td>";
                                         echo "<td>{$valor['dataTermino']}</td>";
                                         $aux = $valor['id'];
-                                        echo "<td><span><button type='submit' class='btn btn-warning btn-xs' name='$aux'>Editar</button></span></td>";
+                                        echo "<td><span><button type='submit' class='btn btn-warning btn-xs' name='atividade_id' value='$aux'>Editar</button></span></td>";
                                         echo "</tr>";
                                     endforeach;
                                 else:
