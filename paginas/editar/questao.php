@@ -86,12 +86,11 @@ $conexao->BDFecharConexao($con);
                             $style1 = "style='display:none;'";
                             $style2 = "style='display:none;'";
                     }
-                    
                     ?>
-                    <div class="form-group" id="objetiva"<?php echo $style1;?>>
+                    <div class="form-group" id="objetiva"<?php echo $style1; ?>>
                         <label class="col-md-2 control-label">Pergunta:</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="pergunta" value="">
+                            <input type="text" class="form-control" name="pergunta" value="<?php echo $bdQuestao[0]['pergunta']; ?>">
                         </div>
                         <label class="col-md-2 control-label">A:</label>
                         <div class="col-md-10">
@@ -121,18 +120,38 @@ $conexao->BDFecharConexao($con);
                                 switch ($bdSolucao[0]['alternativa']) {
                                     case 'a':
                                         echo "<option selected value = 'a'>A</option>";
+                                        echo "<option value = 'b'>B</option>";
+                                        echo "<option value = 'c'>C</option>";
+                                        echo "<option value = 'd'>D</option>";
+                                        echo "<option value = 'e'>E</option>";
                                         break;
                                     case 'b':
                                         echo "<option selected value = 'b'>b</option>";
+                                        echo "<option value = 'b'>B</option>";
+                                        echo "<option value = 'c'>C</option>";
+                                        echo "<option value = 'd'>D</option>";
+                                        echo "<option value = 'e'>E</option>";
                                         break;
                                     case 'c':
                                         echo "<option selected value = 'c'>C</option>";
+                                        echo "<option value = 'b'>B</option>";
+                                        echo "<option value = 'c'>C</option>";
+                                        echo "<option value = 'd'>D</option>";
+                                        echo "<option value = 'e'>E</option>";
                                         break;
                                     case 'd':
                                         echo "<option selected value = 'd'>D</option>";
+                                        echo "<option value = 'b'>B</option>";
+                                        echo "<option value = 'c'>C</option>";
+                                        echo "<option value = 'd'>D</option>";
+                                        echo "<option value = 'e'>E</option>";
                                         break;
                                     case 'e':
                                         echo "<option selected value = 'e'>E</option>";
+                                        echo "<option value = 'b'>B</option>";
+                                        echo "<option value = 'c'>C</option>";
+                                        echo "<option value = 'd'>D</option>";
+                                        echo "<option value = 'e'>E</option>";
                                         break;
                                     default :
                                         echo "<option value = 'a'>A</option>";
@@ -146,10 +165,10 @@ $conexao->BDFecharConexao($con);
                             </select>
                         </div>
                     </div>
-                    <div class="form-group" id="subjetiva" <?php echo $style2;?>>
+                    <div class="form-group" id="subjetiva" <?php echo $style2; ?>>
                         <label class="col-md-2 control-label">Pergunta:</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="pergunta" value="<?php echo $bdQuestao[0]['pergunta']; ?>">
+                            <input type="text" class="form-control" name="perguntaSubjetiva" value="<?php echo $bdQuestao[0]['pergunta']; ?>">
                         </div>
                         <label class="col-md-2 control-label">Solucao:</label>
                         <div class="col-md-10">
