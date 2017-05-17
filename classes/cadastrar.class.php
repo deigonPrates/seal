@@ -118,9 +118,17 @@ class Cadastrar extends Conexao {
         $dados = array_merge($dados, [
                 'atividade_id' => $atividade
         ]);
-        $alternativa = $dados['alternativa'];
         $solucao = $dados['solucao'];
         
+        if($dados['categoria_id'] == 1){
+            $alternativa = $dados['alternativa'];
+
+            $cadastroSolucao = [
+            'alternativa' => $alternativa,
+            'solucao' => $solucao
+        ];
+
+        }
         $cadastroSolucao = [
             'alternativa' => $alternativa,
             'solucao' => $solucao
