@@ -46,7 +46,7 @@ $conexao->BDFecharConexao($con);
                 <center><h4 class="page-title">Editar atividade</h4></center>
                 <br>
                 <br>
-                <form action="/editando/questao" class="form-horizontal" role="form" method="post">                                    
+                <form action="/atualizando/cabecalhoQuestao" class="form-horizontal" role="form" method="post">                                    
                     <div class="form-group">
                         <label class="col-md-2 control-label">Assunto:</label>
                         <div class="col-md-5">
@@ -79,7 +79,7 @@ $conexao->BDFecharConexao($con);
                     </div>
                     <div class="form-group m-b-0">
                         <div class="col-sm-offset-5 col-sm-9">
-                            <button type="submit" class="btn btn-success waves-effect waves-light">Atualizar</button>
+                            <button type="submit" class="btn btn-success waves-effect waves-light" name="atividade_id" value="<?php echo $bdAtividade[0]['id']; ?>">Atualizar</button>
                         </div>
                     </div>
                     <br>
