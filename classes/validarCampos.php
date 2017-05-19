@@ -226,7 +226,7 @@ class ValidarCampos {
         $objRetorno->erro = [];
         $objRetorno->dados = [];
         $objRetorno->status = TRUE;
-        
+
         var_dump($dados);
         $categoria_id = ($dados['tipoQuestao']) ? filter_var($dados['tipoQuestao'], FILTER_SANITIZE_STRING) : null;
         $atividade_id = ($dados['atividade_id']) ? filter_var($dados['atividade_id'], FILTER_SANITIZE_STRING) : null;
@@ -240,7 +240,7 @@ class ValidarCampos {
         $numero = $this->retornarNumeroQuestao($atividade_id);
         $nivel_id = ($dados['nivel_id']) ? filter_var($dados['nivel_id'], FILTER_SANITIZE_STRING) : null;
         $perguntaSubjetiva = ($dados['perguntaSubjetiva']) ? filter_var($dados['perguntaSubjetiva'], FILTER_SANITIZE_STRING) : null;
-        
+
         var_dump($categoria_id);
         if ($categoria_id == 2) {
             $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
@@ -325,13 +325,13 @@ class ValidarCampos {
         $solucao = ($dados['solucao']) ? filter_var($dados['solucao'], FILTER_SANITIZE_STRING) : null;
         $atividade_id = ($dados['atividade_id']) ? filter_var($dados['atividade_id'], FILTER_SANITIZE_STRING) : null;
         $numero = $this->retornarNumeroQuestao($atividade_id);
-       
+
         if ($categoria_id == 2) {
-            
+
             $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
                 'categoria_id' => $categoria_id
             ]);
-            if (!is_null($perguntaSubjetiva) ) {
+            if (!is_null($perguntaSubjetiva)) {
                 $objRetorno->dados = array_merge($objRetorno->dados, ['pergunta' => $perguntaSubjetiva]);
             } else {
                 $objRetorno->erro[] = 'O campo pergunta nao foi preenchido corretamente';
@@ -352,8 +352,8 @@ class ValidarCampos {
         } elseif ($categoria_id == 1) {
             if (!is_null($categoria_id) && (($categoria_id > 0) && ($categoria_id < 3))) {
                 $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
-                                                                      'categoria_id' => $categoria_id
-                                                                     ]);
+                    'categoria_id' => $categoria_id
+                ]);
             } else {
                 $objRetorno->erro[] = 'O campo Tipo da questão nao foi preenchido corretamente';
                 $objRetorno->status = FALSE;
@@ -549,15 +549,15 @@ class ValidarCampos {
 
         return $objRetorno;
     }
-    
-    public function validarCabecalhoQuestao($dados){
+
+    public function validarCabecalhoQuestao($dados) {
         $objRetorno = new stdClass();
         $objRetorno->erro = [];
         $objRetorno->dados = [];
         $objRetorno->status = TRUE;
         $dataAtual = date('Y-m-d');
         $dataModificacao = $dataAtual;
-        
+
         $assunto = ($dados['assunto']) ? filter_var($dados['assunto'], FILTER_SANITIZE_STRING) : NULL;
         $turma = ($dados['turma']) ? filter_var($dados['turma'], FILTER_SANITIZE_STRING) : false;
         $dataInicio = $dados['dataInicio'];
@@ -605,7 +605,6 @@ class ValidarCampos {
         return $objRetorno;
     }
 
-
     /**
      *  funcao feita para verificar se já existe um determinado dado numa determinada tabela
      * @param type $variavel 
@@ -627,6 +626,26 @@ class ValidarCampos {
         } else {
             return TRUE;
         }
+    }
+
+    public function validarMatriculaTurma($dados) {
+        $objRetorno = new stdClass();
+        $objRetorno->erro = [];
+        $objRetorno->dados = [];
+        $objRetorno->status = TRUE;
+        $dataAtual = date('Y-m-d');
+        $dataModificacao = $dataAtual;
+
+        $codigo = ($dados['codigo']) ? filter_var($dados['codigo'], FILTER_SANITIZE_STRING) : NULL;
+        
+        if (is_null($codigo)) {
+            $objRetorno->erro[] = 'O campo assunto nao foi preenchido corretamente';
+            $objRetorno->status = FALSE;
+        } else {
+            $objRetorno->dados = array_merge($objRetorno->dados, ['codigo' => $codigo]);
+        }
+        
+        return $objRetorno;
     }
 
 }

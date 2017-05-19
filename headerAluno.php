@@ -3,6 +3,12 @@ if (!isset($_SESSION["matricula"])) {
     header("Location: /login");
     exit();
 }
+
+$conn = new Conexao();
+$conexao = $conn->BDAbreConexao();
+$dados = $conn->BDSeleciona('turmas', '*', "WHERE(status = 1)");
+
+$conn->BDFecharConexao($conexao);
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,7 +20,7 @@ if (!isset($_SESSION["matricula"])) {
 
         <link rel="shortcut icon" href="/assets/images/favicon_1.ico">
 
-        <title><?php echo $title;?></title>
+        <title><?php echo $title; ?></title>
 
         <!--Morris Chart CSS -->
         <link rel="stylesheet" href="/assets/plugins/morris/morris.css">
@@ -39,7 +45,7 @@ if (!isset($_SESSION["matricula"])) {
         <![endif]-->
 
         <script src="/assets/js/modernizr.min.js"></script>
-       
+
 
     </head>
 
@@ -92,7 +98,7 @@ if (!isset($_SESSION["matricula"])) {
                     <div id="sidebar-menu">
                         <ul>
                             <li class="">
-                                <a href="/inicio" class="waves-effect active"><i class="ti-home"></i> <span>inicio</span> </a>
+                                <a href="/inicio" class="waves-effect"><i class="ti-home"></i> <span>inicio</span> </a>
                             </li>
                             <li class="has_sub">
                                 <a href="#" class="waves-effect"><i class="ti-pencil-alt"></i><span>Atividades</span> </a>
@@ -101,12 +107,11 @@ if (!isset($_SESSION["matricula"])) {
                                     <li><a href="/cadastrar/avaliacao">Avaliação</a></li>
                                 </ul>
                             </li>
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect"><i class="ti-list"></i><span>Matricular</span> </a>
-                                <ul class="list-unstyled">
-                                    <li><a href="/editar/turma">Turma</a></li>
-                                </ul>
-                            </li>
+                            <?php if ((count($dados) > 0) && ($dados)): ?>
+                                <li>
+                                    <a href="/cadastrar/matriculaTurma" class="waves-effect"><i class="ti-list"></i><span>Matricular</span><span class="label label-primary pull-right">Novo</span></a>
+                                </li>
+                            <?php endif; ?>
                             <li class="has_sub">
                                 <a href="#" class="waves-effect"><i class="ti-light-bulb"></i><span>Listar</span></a>
                                 <ul class="list-unstyled">

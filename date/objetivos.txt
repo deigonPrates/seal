@@ -15,30 +15,32 @@ RF14 - Editar questoes Atividade - Feito
 RF15 - Armazenar Avaliações - Feito 
 RF16 - Armazenar ATividades - Feito 
 RF17 - Armazenar notas - Feito 
-RF18 - Gerar Relatorio de Desempenho
-RF19 - visualizar Relatorio de Desempenho
+***RF18 - Gerar Relatorio de Desempenho
+***RF19 - visualizar Relatorio de Desempenho
 RF20 - Listar Avaliações - Feito 
 RF21 - Listar Atividades - Feito 
-RF22 - Visualizar historico do aluno
-RF23 - Cancelar(anular) caso mude de tela
+***RF22 - Visualizar historico do aluno
+***RF23 - Cancelar(anular) caso mude de tela
 RF24 - Cadastrar questoes por niveis de dificuldade - Feito 
 RF25 - Logar no sistema - Feito 
-RF26 - Gerar Rancking do campeonato
-RF27 - consultar Rancking do campeonato
+***RF26 - Gerar Rancking do campeonato
+***RF27 - consultar Rancking do campeonato
 RF28 - visualizar questoes pelo aluno
 RF29 - cadastro de monitores - Feito 
-RF30 - atualizar dados dos monitores - Feito 
+***RF30 - atualizar dados dos monitores
 RF31 - cadastrar professor - Feito 
 RF32 - atualizar dados professor - Feito 
-RF33 - Fazer atividade (aluno) 
-RF34 - Fazer avaliacao (aluno) 
+RF33 - Fazer atividade (aluno) - Em Desenvolvimento
+RF34 - Fazer avaliacao (aluno) - Em Desenvolvimento 
+***RF35 - Permitir que o aluno faça matricula na turma
 
 RNF01 - Ataque bustsforce - Feito 
-RNF02 - limite de tempo
-RNF03 - segundo plano
-RNF04 - Desenvolver em web - Feito 
-RNF05 - Cadastro do banco de questoes
-RNF06 - Corrigir questoes objetivas
+***RNF02 - limite de tempo
+***RNF03 - segundo plano
+RNF04 - Desenvolver em web - Feito 		
+***RNF05 - Cadastro do banco de questoes
+***RNF06 - Corrigir questoes objetivas
+***RNF07 - Possibilitar apenas um unico login para cada usuario. - Feito 
 
 
 

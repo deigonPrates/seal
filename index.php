@@ -81,6 +81,11 @@ if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'cadastr
     $cadastrar = new Cadastrar();
     $cadastrar->cadastrarTurma($_POST);
 endif;
+if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'matriculando/turma')):
+    include_once'./classes/cadastrar.class.php';
+    $cadastrar = new Cadastrar();
+    $cadastrar->matricularTurma($_POST);
+endif;
 if ((isset($URL[0])) && ($URL[0] == 'autenticacao')):
     $autenticacao = new Autenticacao();
     $autenticacao->autenticarUsuario($_POST);
