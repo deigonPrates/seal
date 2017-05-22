@@ -1,7 +1,6 @@
 <?php
 $title = "Inicio";
 require_once './classes/autenticacao.class.php';
-
 $autenticacao = new Autenticacao();
 $header = $autenticacao->definirNiveisAcesso();
 require_once "$header";
