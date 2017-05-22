@@ -31,6 +31,21 @@ if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'atualiz
     $atualizar = new Atualizar();
     $atualizar->atualizarSenha($_POST);
 endif;
+if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'definindo/atividade')):
+    include_once './classes/atividade.class.php';
+    $atividade = new Atividade();
+    $atividade->definirAtividade($_POST);
+endif;
+if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'definindo/avaliacao')):
+    include_once './classes/atividade.class.php';
+    $atividade = new Atividade();
+    $atividade->definirAvaliacao($_POST);
+endif;
+if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'cadastrando/respostaAtividade')):
+    include_once './classes/atividade.class.php';
+    $atividade = new Atividade();
+    $atividade->fazerAtividade($_POST);
+endif;
 if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'atualizando/questoesAtividade')):
    include_once'./classes/atualizar.class.php';
     $atualizar = new Atualizar();
