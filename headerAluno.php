@@ -103,13 +103,13 @@ $conn->BDFecharConexao($conexao);
                             <li class="has_sub">
                                 <a href="#" class="waves-effect"><i class="ti-pencil-alt"></i><span>Atividades</span> </a>
                                 <ul class="list-unstyled">
-                                    <li><a href="/cadastrar/atividade">Atividade</a></li>
-                                    <li><a href="/cadastrar/avaliacao">Avaliação</a></li>
+                                    <li><a href="/fazer/definirAtividade">Atividade</a></li>
+                                    <li><a href="/fazer/definirAtivaliacao">Avaliação</a></li>
                                 </ul>
                             </li>
                             <?php if ((count($dados) > 0) && ($dados)): ?>
                                 <li>
-                                    <a href="/cadastrar/matriculaTurma" class="waves-effect"><i class="ti-list"></i><span>Matricular</span><span class="label label-primary pull-right">Novo</span></a>
+                                    <a href="/cadastrar/matriculaTurma" class="waves-effect"><i class="ti-list"></i><span>Matricula</span><span class="label label-primary pull-right">Novo</span></a>
                                 </li>
                             <?php endif; ?>
                             <li class="has_sub">
