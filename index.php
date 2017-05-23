@@ -107,8 +107,7 @@ if ((isset($URL[0])) && ($URL[0] == 'autenticacao')):
 endif;
 if (file_exists(PASTA . $URL[0] . '.php')):
     require(PASTA . $URL[0] . '.php');
-
-elseif ($URL[0] . '/' . $URL[1] == 'cadastrando/aluno'):
+elseif ((isset($URL[0]) && isset($URL[1])) && (($URL[0] . '/' . $URL[1]) == 'cadastrando/aluno')):
     $cadastrar = new Cadastrar();
     $cadastrar->cadastrarAluno($_POST);
 
