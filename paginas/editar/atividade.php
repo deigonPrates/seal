@@ -19,7 +19,7 @@ $bdQuestao = $conexao->BDSQL("SELECT questoes.id as 'questao_id', questoes.pergu
                                 solucoes.alternativa FROM atividades
                                 join questoes on atividades.id = questoes.atividade_id
                                 join solucoes on questoes.id = solucoes.questoes_id
-                                WHERE(atividades.id = 24 and questoes.status = 1)");
+                                WHERE(atividades.id = {$_SESSION['atividade_id']} and questoes.status = 1)");
 
 $conexao->BDFecharConexao($con);
 ?>
