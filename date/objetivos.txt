@@ -30,9 +30,9 @@ RF29 - cadastro de monitores - Feito
 ***RF30 - atualizar dados dos monitores
 RF31 - cadastrar professor - Feito 
 RF32 - atualizar dados professor - Feito 
-RF33 - Fazer atividade (aluno) - Em Desenvolvimento
-RF34 - Fazer avaliacao (aluno) - Em Desenvolvimento 
-***RF35 - Permitir que o aluno faça matricula na turma
+RF33 - Fazer atividade (aluno) - Feito 
+RF34 - Fazer avaliacao (aluno) - Feito 
+RF35 - Permitir que o aluno faça matricula na turma - Feito 
 
 RNF01 - Ataque bustsforce - Feito 
 ***RNF02 - limite de tempo
