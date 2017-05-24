@@ -82,11 +82,30 @@ class Atualizar extends Conexao {
             header("Location: /listar/" . $retorno);
         }
     }
+/**
+ * Muda o ativo da tabela de 1 para 0 ou de 0 para 1
+ */
+    public function atualizaAtivo($tabela, $dados, $retorno) {
+
+        $id = implode(", ", array_keys($dados));
+        $status = $this->BDSeleciona("$tabela", 'status', "WHERE(id = '{$id}')");
+
+        if ($status[0]['status'] == 1) {
+            $this->BDAtualiza("$tabela", "WHERE(id = {$id})", 'status', '0');
+        } else {
+            $this->BDAtualiza("$tabela", "WHERE(id = {$id})", 'status', " '1'");
+        }
+
+        if ($retorno == 'removerQuestoes') {
+            header("Location: /editar/removerQuestao");
+        } else {
+            header("Location: /listar/" . $retorno);
+        }
+    }
 
     public function atualizarAtividade($dados) {
 
         $_SESSION['atividade_id'] = $dados['atividade_id'];
-
         header("Location: /editar/atividade");
     }
 
@@ -185,7 +204,7 @@ class Atualizar extends Conexao {
             print_r($objValidar->erro);
         }
         $this->BDFecharConexao($conn);
-        
+
         /*
           if ($dados['categoria_id'] == 1) {
           $alternativa = $dados['alternativa'];
