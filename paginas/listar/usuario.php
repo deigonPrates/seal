@@ -28,7 +28,7 @@ $conexao = new Conexao();
                 </div>
             </div>
             <div class="row">
-                <center><h4 class="page-title">Listando Alunos</h4></center>
+                <center><h4 class="page-title">Listando Usuários</h4></center>
                 <br>
                 <br>
                 <div class="card-box">
@@ -38,8 +38,9 @@ $conexao = new Conexao();
                                 <tr>
                                     <th data-toggle="true">Nome</th>
                                     <th data-toggle="true">Matricula</th>
-                                    <th data-hide="phone, tablet">Semestre</th>
-                                    <th data-hide="phone, tablet">Ano</th>
+                                    <th data-hide="phone, tablet">Tipo</th>
+                                    <th data-hide="phone, tablet">Visualizar</th>
+                                    <th data-hide="phone, tablet">Ação</th>
                                     <th data-hide="phone, tablet">Status</th>
                                 </tr>
                             </thead>
@@ -73,15 +74,24 @@ $conexao = new Conexao();
                                     echo "<tr>";
                                     echo "<td>{$valor['nome']}</td>";
                                     echo "<td>{$valor['matricula']}</td>";
-                                    echo "<td>{$valor['ano']}</td>";
                                     echo "<td>{$valor['semestre']}</td>";
+                                        $aux = $valor['id'];
+                                    echo "<td><button type='submit' class='btn btn-xs'id='$aux'><span class='glyphicon glyphicon-eye-open'></span></button></td>";
                                     if ($valor['status'] == 0):
                                         $aux = $valor['id'];
                                         echo "<td><span><button type='submit' class='btn btn-success btn-xs' name='$aux' >liberar</button></span></td>";
-                                        echo "<td></td>";
                                     else:
                                         $aux = $valor['id'];
                                         echo "<td><span><button type='submit' class='btn btn-danger btn-xs' name='$aux'>bloquear</button></span></td>";
+                                    endif;
+                                    echo "</form>";
+                                    echo "<form action='/atualizar/ativo/usuario/alunos' class='form-horizontal' role='form' method='post'>";
+                                    if ($valor['ativo'] == 1):
+                                        $aux = $valor['id'];
+                                        echo "<td><span><button type='submit' class='btn btn-success btn-xs' name='ativo' value='$aux'>ON</button></span></td>";
+                                    else:
+                                        $aux = $valor['id'];
+                                        echo "<td><span><button type='submit' class='btn btn-danger btn-xs' name='ativo' value='$aux'>OFF</button></span></td>";
                                     endif;
                                     echo "</tr>";
                                 endforeach;
@@ -97,7 +107,6 @@ $conexao = new Conexao();
                                 </tr>
                             </tfoot>
                         </table>
-                    </form>
                 </div>
             </div>
         </div>
