@@ -119,19 +119,18 @@ class Cadastrar extends Conexao {
             'atividade_id' => $atividade
         ]);
         $solucao = $dados['solucao'];
-
         if ($dados['categoria_id'] == 1) {
             $alternativa = $dados['alternativa'];
 
             $cadastroSolucao = [
-                'alternativa' => $alternativa,
-                'solucao' => $solucao
+                'alternativa' => $alternativa
             ];
-        }
-        $cadastroSolucao = [
-            'alternativa' => $alternativa,
+        } else {
+            $cadastroSolucao = [
             'solucao' => $solucao
         ];
+        }
+        
 
         $objValidar = $validar->validarAdicaoQuestao($dados);
 
