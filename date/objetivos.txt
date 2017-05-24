@@ -1,3 +1,5 @@
+Total do sistema feito até o momento 73,8%
+
 RF01 - cadastrar aluno - Feito 
 RF02 - atualizar dados do aluno - Feito 
 RF03 - Bloquear aluno - Feito 
