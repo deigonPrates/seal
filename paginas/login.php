@@ -4,6 +4,7 @@ session_start();
 if (isset($_SESSION['matricula'])) {
     header("Location: ./inicio");
 }
+
 ?>
 <html>
     <head>
@@ -29,16 +30,16 @@ if (isset($_SESSION['matricula'])) {
         <div class="account-pages"></div>
         <div class="clearfix"></div>
         <div class="wrapper-page">
+            <?php
+            if (!empty($_SESSION['erro'])) {
+                $autenciar = new Autenticacao();
+                $autenciar->alert('danger', $_SESSION['erro'][0]);
+            }
+            ?>
             <div class=" card-box">
                 <div class="panel-heading"> 
                     <center>  <img src="../assets/images/logo.png"></center>
                 </div> 
-                <div class="button-list">
-                    <a class="btn btn-warning waves-effect waves-light" href="javascript:;" onclick="$.Notification.notify('warning', 'top left', 'Sample Notification', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae orci ut dolor scelerisque aliquam.')">Warning</a>
-                    <a class="btn btn-danger waves-effect waves-light" href="javascript:;" onclick="$.Notification.notify('error', 'top left', 'Sample Notification', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae orci ut dolor scelerisque aliquam.')">Error</a>
-                    <a class="btn btn-inverse waves-effect waves-light" href="javascript:;" onclick="$.Notification.notify('black', 'top left', 'Sample Notification', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae orci ut dolor scelerisque aliquam.')">Black</a>
-                </div>
-
                 <div class="panel-body">
                     <form class="form-horizontal m-t-20" action="/autenticacao" method="post">
                         <div class="form-group ">
