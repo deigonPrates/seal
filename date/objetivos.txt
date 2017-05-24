@@ -34,13 +34,13 @@ RF33 - Fazer atividade (aluno) - Feito
 RF34 - Fazer avaliacao (aluno) - Feito 
 RF35 - Permitir que o aluno faça matricula na turma - Feito 
 
-RNF01 - Ataque bustsforce - Feito 
+***RNF01 - Ataque bustsforce 
 ***RNF02 - limite de tempo
 ***RNF03 - segundo plano
 RNF04 - Desenvolver em web - Feito 		
 ***RNF05 - Cadastro do banco de questoes
 ***RNF06 - Corrigir questoes objetivas
-***RNF07 - Possibilitar apenas um unico login para cada usuario. - Feito 
+RNF07 - Possibilitar apenas um unico login para cada usuario. - Feito 
 
 
 
