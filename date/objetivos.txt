@@ -21,7 +21,7 @@ RF17 - Armazenar notas - Feito
 ***RF19 - visualizar Relatorio de Desempenho
 RF20 - Listar Avaliações - Feito 
 RF21 - Listar Atividades - Feito 
-***RF22 - Visualizar historico do aluno
+RF22 - Visualizar historico do aluno
 ***RF23 - Cancelar(anular) caso mude de tela
 RF24 - Cadastrar questoes por niveis de dificuldade - Feito 
 RF25 - Logar no sistema - Feito 
@@ -29,12 +29,17 @@ RF25 - Logar no sistema - Feito
 ***RF27 - consultar Rancking do campeonato
 RF28 - visualizar questoes pelo aluno
 RF29 - cadastro de monitores - Feito 
-***RF30 - atualizar dados dos monitores
+RF30 - atualizar dados dos monitores - Feito
 RF31 - cadastrar professor - Feito 
 RF32 - atualizar dados professor - Feito 
 RF33 - Fazer atividade (aluno) - Feito 
 RF34 - Fazer avaliacao (aluno) - Feito 
-RF35 - Permitir que o aluno faça matricula na turma - Feito 
+RF35- Cadastrar Turma - Feito
+RF36- Editar Turma- Feito
+RF37- Bloquer Turma - Feito
+RF38- Desbloquear Turma- Feito
+RF39 - Permitir que o aluno faça matricula na turma- Feito
+***RF40 - Listar todas as questões salvas no banco
 
 ***RNF01 - Ataque bustsforce 
 ***RNF02 - limite de tempo
@@ -45,9 +50,9 @@ RNF04 - Desenvolver em web - Feito
 RNF07 - Possibilitar apenas um unico login para cada usuario. - Feito 
 
 
+Proxima entrega 
 
-
-
-
-
-
+RF22 - Visualizar historico do aluno => Cimara
+RF40 - Listar todas as questões salvas no banco => Tijolim
+RNF01 - Ataque bustsforce  => Deigon
+RNF05 - Cadastro do banco de questoes  => Zaqueu
