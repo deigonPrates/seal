@@ -1,7 +1,6 @@
 <?php
 $title = "Cadastrar Atividade";
 require_once './classes/conexao.class.php';
-
 require_once './classes/autenticacao.class.php';
 
 $autenticacao = new Autenticacao();
@@ -48,13 +47,12 @@ $conexao->BDFecharConexao($con);
                         </div>
                         <label class="col-md-1 control-label">Turma:</label>
                         <div class="col-md-3">
-                             <select class="form-control" name="turma">
+                            <select class="form-control" name="turma">
                                 <option selected="" disabled="">Selecione</option>
                                 <?php
                                 foreach ($dados as $key => $value) {
-                                    echo "<option value='{$value['id']}'>".$value['nome']."</option>";
+                                    echo "<option value='{$value['id']}'>" . $value['nome'] . "</option>";
                                 }
-                                
                                 ?>
                             </select>
                         </div>

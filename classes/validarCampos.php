@@ -227,7 +227,6 @@ class ValidarCampos {
         $objRetorno->dados = [];
         $objRetorno->status = TRUE;
 
-        var_dump($dados);
         $categoria_id = ($dados['tipoQuestao']) ? filter_var($dados['tipoQuestao'], FILTER_SANITIZE_STRING) : null;
         $atividade_id = ($dados['atividade_id']) ? filter_var($dados['atividade_id'], FILTER_SANITIZE_STRING) : null;
         $pergunta = ($dados['pergunta']) ? filter_var($dados['pergunta'], FILTER_SANITIZE_STRING) : null;
@@ -241,7 +240,6 @@ class ValidarCampos {
         $nivel_id = ($dados['nivel_id']) ? filter_var($dados['nivel_id'], FILTER_SANITIZE_STRING) : null;
         $perguntaSubjetiva = ($dados['perguntaSubjetiva']) ? filter_var($dados['perguntaSubjetiva'], FILTER_SANITIZE_STRING) : null;
 
-        var_dump($categoria_id);
         if ($categoria_id == 2) {
             $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
                 'categoria_id' => $categoria_id
@@ -325,7 +323,7 @@ class ValidarCampos {
         $solucao = ($dados['solucao']) ? filter_var($dados['solucao'], FILTER_SANITIZE_STRING) : null;
         $atividade_id = ($dados['atividade_id']) ? filter_var($dados['atividade_id'], FILTER_SANITIZE_STRING) : null;
         $numero = $this->retornarNumeroQuestao($atividade_id);
-
+        
         if ($categoria_id == 2) {
 
             $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
@@ -395,14 +393,12 @@ class ValidarCampos {
 
     public function retornarNumeroQuestao($atividade_id) {
         $login = new Login();
-        $consulta = $login->BDSeleciona('questoes', 'numero', "WHERE(id = '{$atividade_id}')");
+        $consulta = $login->BDSeleciona('questoes', 'numero', "WHERE(atividade_id = '{$atividade_id}') order by numero desc limit 1");
 
-        if (count($consulta) > 0) {
+        if (!empty($consulta[0]['numero'])) {
             return ($consulta[0]['numero'] + 1);
-        } elseif (count($consulta) == 0) {
-            return 1;
         } else {
-            return false;
+            return 1;
         }
     }
 
@@ -637,14 +633,14 @@ class ValidarCampos {
         $dataModificacao = $dataAtual;
 
         $codigo = ($dados['codigo']) ? filter_var($dados['codigo'], FILTER_SANITIZE_STRING) : NULL;
-        
+
         if (is_null($codigo)) {
             $objRetorno->erro[] = 'O campo assunto nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
         } else {
             $objRetorno->dados = array_merge($objRetorno->dados, ['codigo' => $codigo]);
         }
-        
+
         return $objRetorno;
     }
 
