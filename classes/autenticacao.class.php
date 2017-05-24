@@ -21,22 +21,23 @@ class Autenticacao {
         $validacao = $validar->validarLogin($dados);
 
         if ($validacao->status) {
-
+            
             $matricula = ($validacao->dados[0]["matricula"]);
             $senha = ($validacao->dados[1]["senha"]);
-            
+
             $tabela = $login->BDRetornarTabela($matricula);
-            $consulta = $login->BDSeleciona("$tabela", '*', "where(matricula = '{$matricula}')");
-            
+            if ($tabela) {
+                $consulta = $login->BDSeleciona("$tabela", '*', "where(matricula like '{$matricula}')");
+            }
             if ($consulta != FALSE) {
-                
+
                 $bdMatricula = $matricula;
                 $bdSenha = $consulta[0]['senha'];
                 $bdTabela = $tabela;
                 $ativo = (int) $consulta[0]['ativo'];
 
-                if (is_null($bdMatricula)) {
-                    $erro = array_merge($erro, ["Dados invalidos"]);
+                if ($bdMatricula == false) {
+                   $erro = array_merge($erro, ["Dados invalidos"]);
                 } else {
                     if ($ativo == 0) {
                         if ($login->checarTentativasLogin($matricula)) {
@@ -64,10 +65,13 @@ class Autenticacao {
                 $erro = array_merge($erro, ["Dados incorretos, por favor confira seus dados e tente novamente!"]);
             }
             if (count($erro) > 0) {
-                print_r(($erro));
+                session_start();
+                $_SESSION['erro'] = $erro;
+                header("Location: ./login");
             }
         }
     }
+
     public function definirNiveisAcesso() {
         session_start();
         $login = new Login();
@@ -87,6 +91,12 @@ class Autenticacao {
                 return './headerMonitor.php';
                 break;
         }
+    }
+
+    public function alert($tipo, $conteudo) {
+        echo "<div class = 'alert alert-$tipo fade in'>";
+        echo "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>";
+        echo "<strong>Opss!</strong> " . $conteudo . "</div >";
     }
 
 }
