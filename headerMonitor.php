@@ -1,10 +1,3 @@
-<?php
-
-if (!isset($_SESSION["matricula"])) {
-    header("Location: /login");
-    exit();
-}
-?>
 <!DOCTYPE html>
 <html>
     <head>

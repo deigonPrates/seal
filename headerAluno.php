@@ -1,9 +1,5 @@
 <?php
-if (!isset($_SESSION["matricula"])) {
-    header("Location: /login");
-    exit();
-}
-
+require_once './classes/conexao.class.php';
 $conn = new Conexao();
 $conexao = $conn->BDAbreConexao();
 $dados = $conn->BDSeleciona('turmas', '*', "WHERE(status = 1)");
