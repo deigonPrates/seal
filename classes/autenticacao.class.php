@@ -21,11 +21,14 @@ class Autenticacao {
         $validacao = $validar->validarLogin($dados);
 
         if ($validacao->status) {
-            
+
             $matricula = ($validacao->dados[0]["matricula"]);
             $senha = ($validacao->dados[1]["senha"]);
 
             $tabela = $login->BDRetornarTabela($matricula);
+
+            $consulta = false;
+
             if ($tabela) {
                 $consulta = $login->BDSeleciona("$tabela", '*', "where(matricula like '{$matricula}')");
             }
@@ -37,7 +40,7 @@ class Autenticacao {
                 $ativo = (int) $consulta[0]['ativo'];
 
                 if ($bdMatricula == false) {
-                   $erro = array_merge($erro, ["Dados invalidos"]);
+                    $erro = array_merge($erro, ["Dados invalidos"]);
                 } else {
                     if ($ativo == 0) {
                         if ($login->checarTentativasLogin($matricula)) {
@@ -48,7 +51,6 @@ class Autenticacao {
 
                                 $login->BDAtualiza("$bdTabela", "WHERE(matricula = {$matricula})", 'ativo', 1);
                                 $login->excluirTentativasLogin($matricula);
-
                                 header("Location: ./inicio");
                             } else {
                                 $login->registrarTentativaLogin($matricula);
@@ -97,6 +99,50 @@ class Autenticacao {
         echo "<div class = 'alert alert-$tipo fade in'>";
         echo "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>";
         echo "<strong>Opss!</strong> " . $conteudo . "</div >";
+    }
+
+    public function SweetAlertDown($titulo, $conteudo, $tipo) {
+
+        echo "<html>"
+        . "<head>"
+        . "<title></title>"
+        . "<script src='/assets/alert/sweetalert2.min.js'></script>"
+        . "<link rel='stylesheet' href='/assets/alert/sweetalert2.min.css'>"
+        . "<script src='https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js'></script>"
+        . "</head>"
+        . "<body>";
+        echo "<script>";
+
+        if ($tipo == "down") {
+            echo "swal({
+                title: '$titulo',
+                text: '$conteudo',
+                timer: 4000
+            }).then(
+                    function () {},
+                    // handling the promise rejection
+                            function (dismiss) {
+                                if (dismiss === 'timer') {
+                                    console.log('contando')
+                                }
+                            }
+                    )";
+        } elseif ($tipo == "success") {
+            echo "swal(
+                    '$titulo',
+                    '$conteudo',
+                    'success'
+                  )";
+        } elseif ($tipo == "error") {
+            echo "swal(
+                        '$titulo',
+                        '$conteudo',
+                        'error'
+                      )";
+        }
+        echo "</script>";
+        echo "</body>";
+        echo "</html>";
     }
 
 }
