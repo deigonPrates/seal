@@ -2,17 +2,18 @@
 
 class Conexao {
 
-
     private $localhost = 'localhost';
     private $user = 'root';
     private $pass = '';
     private $bd = 'seal2';
-/*	
-    private $localhost = 'mysql.hostinger.com.br';
-    private $user = 'u953174532_root';
-    private $pass = '|]5TNJ8VOmp!/LDkW&';
-    private $bd = 'u953174532_seal';
-*/
+
+    /* 	
+      private $localhost = 'mysql.hostinger.com.br';
+      private $user = 'u953174532_root';
+      private $pass = '|]5TNJ8VOmp!/LDkW&';
+      private $bd = 'u953174532_seal';
+     */
+
     /**
      * @author Deigon Prates <deigonprates@gmail.com>
      * @return obj Retorna um objeto contendo a conexao;
@@ -105,15 +106,10 @@ class Conexao {
     }
 
     public function BDExclui($tabela, $filtros = null) {
+        $conexao = $this->BDAbreConexao();
 
         $sql = "DELETE FROM {$tabela} {$filtros}";
         $resultado = $this->BDExecutaQuery($sql);
-
-        if (!mysqli_num_rows($resultado)) {
-            return false;
-        } else {
-            return TRUE;
-        }
     }
 
     public function BDAtualiza($tabela, $filtros = null, $campo = 'status', $valor = '0') {
@@ -121,7 +117,7 @@ class Conexao {
         $sql = "UPDATE {$tabela} SET {$campo} = {$valor} {$filtros}";
         return $this->BDExecutaQuery($sql);
     }
-    
+
     /*
      * @author Deigon Prates <deigonprates@gmail.com>
      *

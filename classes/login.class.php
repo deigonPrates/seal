@@ -74,10 +74,10 @@ class Login extends Conexao {
             
            $count= $this->BDSeleciona('tentativas_login', 'count(id) as total', "WHERE(usuario_id = '{$id}' and papel_id = '{$papel_id}')");
            
-           if($count[0]['total'] == 10){
+           if($count[0]['total'] == 5){
                $this->BDAtualiza("$tabela", "WHERE(status = '{$id}')", 'status', 0);
            }
-           if($count[0]['total'] < 10){
+           if($count[0]['total'] < 5){
                return TRUE;
            }else{
                return FALSE;

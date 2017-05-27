@@ -51,7 +51,8 @@ class Autenticacao {
 
                                 $login->BDAtualiza("$bdTabela", "WHERE(matricula = {$matricula})", 'ativo', 1);
                                 $login->excluirTentativasLogin($matricula);
-                                header("Location: ./inicio");
+                                $this->SweetAlertDown('Cadastro realizado', 'Matricula realizada com sucesso', 'success');
+                                header("Refresh: 3,  /inicio");
                             } else {
                                 $login->registrarTentativaLogin($matricula);
                                 $erro = array_merge($erro, ["Dados incorretos, por favor confira seus dados e tente novamente!"]);
@@ -101,7 +102,7 @@ class Autenticacao {
         echo "<strong>Opss!</strong> " . $conteudo . "</div >";
     }
 
-    public function SweetAlertDown($titulo, $conteudo, $tipo) {
+    public function SweetAlertDown($titulo, $conteudo, $tipo, $redirecionamento = false) {
 
         echo "<html>"
         . "<head>"
@@ -113,13 +114,30 @@ class Autenticacao {
         . "<body>";
         echo "<script>";
 
-        if ($tipo == "down") {
+        if (($tipo == "down") && ($redirecionamento == false)) {
             echo "swal({
                 title: '$titulo',
                 text: '$conteudo',
-                timer: 4000
+                timer: 6000
             }).then(
-                    function () {},
+                    function redireciona() {},
+                    // handling the promise rejection
+                            function (dismiss) {
+                                if (dismiss === 'timer') {
+                                    console.log('contando')
+                                }
+                            }
+                    )";
+        }
+        if (($tipo == "down") && ($redirecionamento != false)) {
+            echo "swal({
+                title: '$titulo',
+                text: '$conteudo',
+                timer: 6000
+            }).then(
+                    function redireciona() {
+                    window.location.href = '{$redirecionamento}';
+                    },
                     // handling the promise rejection
                             function (dismiss) {
                                 if (dismiss === 'timer') {

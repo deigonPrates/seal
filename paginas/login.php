@@ -4,7 +4,6 @@ session_start();
 if (isset($_SESSION['matricula'])) {
     header("Location: ./inicio");
 }
-
 ?>
 <html>
     <head>
@@ -24,6 +23,11 @@ if (isset($_SESSION['matricula'])) {
         <link href="../assets/css/pages.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/responsive.css" rel="stylesheet" type="text/css" />
         <script src="../assets/js/modernizr.min.js"></script>
+        <script src="/assets/alert/sweetalert2.min.js"></script>
+        <link rel="stylesheet" href="/assets/alert/sweetalert2.min.css">
+
+        <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 
     </head>
     <body>
@@ -33,7 +37,10 @@ if (isset($_SESSION['matricula'])) {
             <?php
             if (!empty($_SESSION['erro'])) {
                 $autenciar = new Autenticacao();
-                $autenciar->alert('danger', $_SESSION['erro'][0]);
+                #cor da div , conteudo da div
+                #$autenciar->alert('danger', $_SESSION['erro'][0]);
+                
+                $autenciar->SweetAlertDown('Opss! /:', $_SESSION['erro'][0],'down');
             }
             ?>
             <div class=" card-box">

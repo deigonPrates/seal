@@ -30,7 +30,14 @@ require_once "$header";
                 <center><h4 class="page-title">Faça sua matricula</h4></center>
                 <br>
                 <br>
+                <?php
+                if (!empty($_SESSION['erros'])) {
+                    $autenciar = new Autenticacao();
+                    $autenciar->SweetAlertDown('Opss! /:', $_SESSION['erros']['erro'], 'error');
 
+                    unset($_SESSION['erros']);
+                }
+                ?>
                 <form action="/matriculando/turma" class="form-horizontal" role="form" method="post">                                    
                     <div class="form-group">
                         <label class="col-md-4 control-label">Codigo:</label>

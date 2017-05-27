@@ -32,6 +32,11 @@ $conn->BDFecharConexao($conexao);
         <link href="/assets/css/pages.css" rel="stylesheet" type="text/css" />
         <link href="/assets/css/custom.css" rel="stylesheet" type="text/css" />
         <link href="/assets/css/responsive.css" rel="stylesheet" type="text/css" />
+        <script src="/assets/alert/sweetalert2.min.js"></script>
+        <link rel="stylesheet" href="/assets/alert/sweetalert2.min.css">
+
+        <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 
         <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

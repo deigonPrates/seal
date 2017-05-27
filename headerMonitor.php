@@ -25,6 +25,11 @@
         <link href="/assets/css/custom.css" rel="stylesheet" type="text/css" />
         <link href="/assets/css/responsive.css" rel="stylesheet" type="text/css" />
         <script src="/assets/js/modernizr.min.js"></script>
+        <script src="/assets/alert/sweetalert2.min.js"></script>
+        <link rel="stylesheet" href="/assets/alert/sweetalert2.min.css">
+
+        <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 
     </head>
 

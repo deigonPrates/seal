@@ -2,6 +2,7 @@
 
 require_once './classes/validarCampos.php';
 require_once './classes/conexao.class.php';
+require_once './classes/autenticacao.class.php';
 
 class Cadastrar extends Conexao {
 
@@ -18,7 +19,7 @@ class Cadastrar extends Conexao {
 
             header("Location: /inicio");
         } else {
-            print_r($objValidar->erro);
+            $erro = array_merge($erro, ["Ouvi um problema ao tetnar cadastrar o usario por favor confira seus dados"]);
         }
     }
 
@@ -57,9 +58,13 @@ class Cadastrar extends Conexao {
         if ($objValidar->status) {
             $this->DBGravar('turmas', $objValidar->dados);
 
-            header("Location: /inicio");
+            $autenticar = new Autenticacao();
+
+            $autenticar->SweetAlertDown('Cadastro realizado', 'turma foi cadastrada com sucesso', 'success');
+            header("Refresh: 3,  /inicio");
         } else {
-            print_r($objValidar->erro);
+            $autenticar->SweetAlertDown('Opss ):', $objValidar->erro, 'error');
+            header("Refresh: 3,  /inicio");
         }
     }
 
@@ -127,10 +132,10 @@ class Cadastrar extends Conexao {
             ];
         } else {
             $cadastroSolucao = [
-            'solucao' => $solucao
-        ];
+                'solucao' => $solucao
+            ];
         }
-        
+
 
         $objValidar = $validar->validarAdicaoQuestao($dados);
 
@@ -160,8 +165,7 @@ class Cadastrar extends Conexao {
             $bdTurma = $this->BDSeleciona('turmas', '*', "WHERE(codigo like '{$condigo}' and status = 1)");
 
             if (!$bdTurma) {
-                $erro = array_merge($erro, ['erro' => "O codigo informado para fazer a matricula é invalido por favor informe novamente!"]);
-                print_r($erro);
+                $erro = array_merge($erro, ['erro' => "O codigo informado para fazer a matricula é invalido por favor informe outro!"]);
             } else {
                 $matricula = $_SESSION['matricula'];
                 $aluno_id = $this->BDRetornaID($matricula);
@@ -176,23 +180,22 @@ class Cadastrar extends Conexao {
                         'aluno_id' => $aluno_id
                     ];
                     $bdregistro = $this->BDSeleciona('registros', '*', "WHERE(turma_id = $turma_id and aluno_id = $aluno_id)");
-
-                    if (!$bdregistro) {
+                    if ((!$bdregistro) && (count($bdregistro) == 0)) {
                         $grava = $this->DBGravar('registros', $dados);
-                    } else {
+                        $autenticar->SweetAlertDown('Cadastro realizado', 'Matricula realizada com sucesso', 'success');
+                        header("Refresh: 3,  /inicio");
+                    }
+                    if (count($bdregistro) > 0) {
                         $erro = array_merge($erro, ['erro' => "Você já encontrase matriculado nesta turma!"]);
                     }
-                    if ($grava) {
-                        header('Location: /inicio');
-                    } else {
-                        $erro = array_merge($erro, ['erro' => "Houve um problema ao gravar no banco consulte o adiminstrador! <strong> ERROR: 777</strong>"]);
-                    }
+                    
                 }
-                if (count($erro) > 0) {
-                    unset($_SESSION['erros']);
-                    $_SESSION['erros'] = $erro;
-                    header('Location: /inicio');
-                }
+            }
+            if (count($erro) > 0) {
+                session_start();
+                unset($_SESSION['erros']);
+                $_SESSION['erros'] = $erro;
+                header('Location: /cadastrar/matriculaTurma');
             }
         }
     }
