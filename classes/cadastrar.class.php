@@ -61,10 +61,10 @@ class Cadastrar extends Conexao {
             $autenticar = new Autenticacao();
 
             $autenticar->SweetAlertDown('Cadastro realizado', 'turma foi cadastrada com sucesso', 'success');
-            header("Refresh: 3,  /inicio");
+            header("Refresh: 3,  /cadastrar/turma");
         } else {
             $autenticar->SweetAlertDown('Opss ):', $objValidar->erro, 'error');
-            header("Refresh: 3,  /inicio");
+            header("Refresh: 3,  /cadastrar/turma");
         }
     }
 
