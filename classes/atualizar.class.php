@@ -9,11 +9,13 @@ if (!isset($_SESSION["matricula"])) {
 
 include_once './classes/conexao.class.php';
 include_once './classes/validarCampos.php';
+include_once './classes/autenticacao.class.php';
 
 class Atualizar extends Conexao {
 
     public function atualizarPerfil($dados) {
 
+        $autenticacao = new Autenticacao();
         $validar = new ValidarCampos();
         $teste = $validar->validarEdicaoPerfil($dados, $_SESSION["matricula"]);
         $dados = $teste->dados;
@@ -39,14 +41,15 @@ class Atualizar extends Conexao {
             for ($i = 0; $i < count($indices); $i++) {
                 $this->BDAtualiza("$tabela", "WHERE(matricula like '{$_SESSION["matricula"]}')", $indices[$i], $valores[$i]);
             }
-            header("Location: /editar/perfil");
+            $autenticacao->SweetAlertDown('Cadastro atualizado (:', 'Seu cadastro foi atualizado com sucesso!', 'down');
+            header("Refresh: 1,  /editar/perfil");
         } else {
-            print_r($teste->erros);
+            $autenticacao->SweetAlertDown('Opss ):', $teste->erros, 'error');
+            header("Refresh: 3,  /editar/perfil");
         }
     }
 
     public function atualizarSenha($dados) {
-
         $validar = new ValidarCampos();
 
         $teste = $validar->validarEdicaoSenha($dados);
@@ -55,13 +58,14 @@ class Atualizar extends Conexao {
         $tabela = $this->BDRetornarTabela($dados['matricula']);
 
         if (!empty($teste->erro)) {
-            print_r($teste->erros);
+            $autenticacao->SweetAlertDown('Opss ):', $teste->erros, 'error');
+            header("Refresh: 3,  /editar/perfil");
         } else {
             $conn = $this->BDAbreConexao();
             $this->BDAtualiza("$tabela", "WHERE(matricula like '{$dados['matricula']}')", 'senha', "'{$dados['senha']}'");
             $this->BDFecharConexao($conn);
-
-            header("Location: /editar/senha");
+            $autenticacao->SweetAlertDown('Cadastro atualizado (:', 'Seu cadastro foi atualizado com sucesso!', 'down');
+            header("Refresh: 3,  /editar/senha");
         }
     }
 
@@ -82,9 +86,10 @@ class Atualizar extends Conexao {
             header("Location: /listar/" . $retorno);
         }
     }
-/**
- * Muda o ativo da tabela de 1 para 0 ou de 0 para 1
- */
+
+    /**
+     * Muda o ativo da tabela de 1 para 0 ou de 0 para 1
+     */
     public function atualizaAtivo($tabela, $dados, $retorno) {
 
         $id = implode(", ", array_keys($dados));
@@ -134,7 +139,8 @@ class Atualizar extends Conexao {
             $this->BDExecutaQuery("UPDATE atividades SET {$aux} where id = {$atividade_id}");
             header("Location: /editar/atividade");
         } else {
-            print_r($teste->erro);
+            $autenticacao->SweetAlertDown('Opss ):', $teste->erros, 'error');
+            header("Refresh: 3,  /editar/atividade");
         }
     }
 
