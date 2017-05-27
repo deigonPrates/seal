@@ -54,5 +54,5 @@ Proxima entrega
 
 RF22 - Visualizar historico do aluno => Cimara
 RF40 - Listar todas as questões salvas no banco => Tijolim
-RNF01 - Ataque bustsforce  => Deigon
+**** RNF01 - Ataque bustsforce  => Deigon - Feito
 RNF05 - Cadastro do banco de questoes  => Zaqueu
