@@ -51,7 +51,7 @@ class Autenticacao {
 
                                 $login->BDAtualiza("$bdTabela", "WHERE(matricula = {$matricula})", 'ativo', 1);
                                 $login->excluirTentativasLogin($matricula);
-                                $this->SweetAlertDown('Cadastro realizado', 'Matricula realizada com sucesso', 'success');
+                                $this->SweetAlertDown('Matricula realizada com sucesso! (:', 'redirecionando...', 'success');
                                 header("Refresh: 3,  /inicio");
                             } else {
                                 $login->registrarTentativaLogin($matricula);
