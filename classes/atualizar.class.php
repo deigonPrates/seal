@@ -90,22 +90,17 @@ class Atualizar extends Conexao {
     /**
      * Muda o ativo da tabela de 1 para 0 ou de 0 para 1
      */
-    public function atualizaAtivo($tabela, $dados, $retorno) {
+    public function atualizaAtivo($tabela, $dados) {
+        $matricula = $dados['matricula'];
 
-        $id = implode(", ", array_keys($dados));
-        $status = $this->BDSeleciona("$tabela", 'status', "WHERE(id = '{$id}')");
+        $id = $this->BDRetornaID($matricula);
 
-        if ($status[0]['status'] == 1) {
-            $this->BDAtualiza("$tabela", "WHERE(id = {$id})", 'status', '0');
-        } else {
-            $this->BDAtualiza("$tabela", "WHERE(id = {$id})", 'status', " '1'");
-        }
 
-        if ($retorno == 'removerQuestoes') {
-            header("Location: /editar/removerQuestao");
-        } else {
-            header("Location: /listar/" . $retorno);
-        }
+        $tabela = $this->BDRetornarTabela($matricula);
+
+        $this->BDAtualiza("alunos", "WHERE(id = $id)", 'ativo', '0') or die('error');
+        
+        header("Location: /listar/usuario");
     }
 
     public function atualizarAtividade($dados) {

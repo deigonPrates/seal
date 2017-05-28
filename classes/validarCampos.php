@@ -323,7 +323,7 @@ class ValidarCampos {
         $solucao = ($dados['solucao']) ? filter_var($dados['solucao'], FILTER_SANITIZE_STRING) : null;
         $atividade_id = ($dados['atividade_id']) ? filter_var($dados['atividade_id'], FILTER_SANITIZE_STRING) : null;
         $numero = $this->retornarNumeroQuestao($atividade_id);
-        
+
         if ($categoria_id == 2) {
 
             $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
@@ -458,8 +458,6 @@ class ValidarCampos {
         $nome = ($dados['nome']) ? filter_var($dados['nome'], FILTER_SANITIZE_STRING) : null;
         $email = ($dados['email']) ? filter_var($dados['email'], FILTER_SANITIZE_EMAIL) : NULL;
         $username = ($dados['username']) ? filter_var($dados['username'], FILTER_SANITIZE_STRING) : NULL;
-        $ano = ($dados['ano']) ? filter_var($dados['ano'], FILTER_SANITIZE_NUMBER_INT) : NULL;
-        $semestre = ($dados['semestre']) ? filter_var($dados['semestre'], FILTER_SANITIZE_NUMBER_INT) : NULL;
         $senhaAntiga = ($dados['senha-antiga']) ? filter_var($dados['senha-antiga'], FILTER_SANITIZE_STRING) : false;
         $senha = ($dados['senha-nova']) ? filter_var($dados['senha-nova'], FILTER_SANITIZE_STRING) : false;
         $repetaSenha = ($dados['repeta-senha']) ? filter_var($dados['repeta-senha'], FILTER_SANITIZE_STRING) : false;
@@ -481,20 +479,7 @@ class ValidarCampos {
             $objRetorno->status = FALSE;
         } else {
             $objRetorno->dadosdados = array_merge($dados, ['username' => $username]);
-        }
-        if (is_null($ano)) {
-            $objRetorno->erro[] = 'O campo ano nao foi preenchido corretamente';
-            $objRetorno->status = FALSE;
-        } else {
-            $objRetorno->dadosdados = array_merge($dados, ['ano' => $ano]);
-        }
-        if (is_null($semestre)) {
-            $objRetorno->erro[] = 'O campo semestre nao foi preenchido corretamente';
-            $objRetorno->status = FALSE;
-        } else {
-            $objRetorno->dadosdados = array_merge($dados, ['semestre' => $semestre]);
-        }
-        if ($senhaAntiga) {
+        }if ($senhaAntiga) {
             $senha = md5($senha);
             $repetaSenha = md5($repetaSenha);
 
