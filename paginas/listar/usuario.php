@@ -144,7 +144,7 @@ $conexao->BDFecharConexao($con);
                                                     <?php
                                                     $aux = $valor['matricula'];
                                                     if ($valor['ativo'] == 0):
-                                                        echo "<span><button type='button' class='btn btn-danger' id='enviar' name='ativo' value='$aux' >OFF</button></span>";
+                                                        echo "<span><button type='button' class='btn btn-danger' name='ativo' value='$aux' >OFF</button></span>";
                                                     else:
                                                         echo "<span><button type='button' class='btn btn-success' id='enviar' name='ativo' value='$aux' >ON</button></span>";
                                                     endif;
