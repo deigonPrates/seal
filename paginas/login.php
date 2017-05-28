@@ -41,6 +41,8 @@ if (isset($_SESSION['matricula'])) {
                 #$autenciar->alert('danger', $_SESSION['erro'][0]);
                 
                 $autenciar->SweetAlertDown('Opss! /:', $_SESSION['erro'][0],'down');
+                
+                unset($_SESSION['erro']);
             }
             ?>
             <div class=" card-box">
