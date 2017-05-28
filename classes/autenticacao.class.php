@@ -163,4 +163,16 @@ class Autenticacao {
         echo "</html>";
     }
 
+    public function ValidarAcesso($matricula) {
+        $login = new Login();
+
+        $conexao = $login->BDAbreConexao();
+        $papel = $login->BDRetornarPapelID($matricula);
+        $login->BDFecharConexao($conexao);
+        
+        
+        var_dump($papel);
+        exit();
+    }
+
 }

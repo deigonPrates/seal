@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (!isset($_SESSION['matricula'])) {
+    header("Location: /login");
+}
 $title = "Cadastrar Turma";
 require_once './classes/conexao.class.php';
 require_once './classes/autenticacao.class.php';
@@ -12,7 +16,6 @@ $conexao = new Conexao();
 $con = $conexao->BDAbreConexao();
 $professores = $conexao->BDSeleciona('professores', '*', "where(papel_id = '1')");
 $conexao->BDFecharConexao($con);
-
 ?>
 <div class="row">
     <div class="col-sm-12">
@@ -51,9 +54,8 @@ $conexao->BDFecharConexao($con);
                                 <option selected="" disabled="">Selecione</option>
                                 <?php
                                 foreach ($professores as $key => $value) {
-                                    echo "<option value='{$value['nome']}'>".$value['nome']."</option>";
+                                    echo "<option value='{$value['nome']}'>" . $value['nome'] . "</option>";
                                 }
-                                
                                 ?>
                             </select>
                         </div>
@@ -65,7 +67,7 @@ $conexao->BDFecharConexao($con);
                         </div>
                         <label class="col-md-1 control-label">Ano:</label>
                         <div class="col-md-2">
-                            <input type="text" class="form-control" name="ano" value="<?php echo date('Y');?>">
+                            <input type="text" class="form-control" name="ano" value="<?php echo date('Y'); ?>">
                         </div>
                         <label class="col-md-1 control-label">Semestre:</label>
                         <div class="col-md-2">

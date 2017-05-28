@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (!isset($_SESSION['matricula'])) {
+    header("Location: /login");
+}
 $title = "Listar Avaliaçoes";
 require_once './classes/conexao.class.php';
 require_once './classes/autenticacao.class.php';

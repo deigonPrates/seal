@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (!isset($_SESSION['matricula'])) {
+    header("Location: /login");
+}
 $title = "Visualizar Campeonato";
 require_once './header.php';
 ?>

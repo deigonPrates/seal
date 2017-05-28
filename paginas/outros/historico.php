@@ -1,6 +1,8 @@
 <?php
-
 session_start();
+if (!isset($_SESSION['matricula'])) {
+    header("Location: /login");
+}
 include("./assets/mpdf/mpdf.php");
 include_once("./classes/conexao.class.php");
 

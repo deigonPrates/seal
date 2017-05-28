@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (!isset($_SESSION['matricula'])) {
+    header("Location: /login");
+}
 $title = "Inicio";
 require_once './classes/autenticacao.class.php';
 $autenticacao = new Autenticacao();

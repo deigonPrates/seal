@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (!isset($_SESSION['matricula'])) {
+    header("Location: /login");
+}
 $title = "Cadastrar Atividade";
 require_once './classes/conexao.class.php';
 
