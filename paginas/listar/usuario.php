@@ -20,7 +20,7 @@ if ($tabela != 'professores') {
 }
 $conexao->BDFecharConexao($con);
 ?>
-<div class="row">
+<div class="row" id="resultado">
     <div class="col-sm-12">
         <div class="card-box">
             <!-- Page-Title -->
@@ -51,7 +51,7 @@ $conexao->BDFecharConexao($con);
                                     <th data-toggle="true">Nome</th>
                                     <th data-toggle="true">Matricula</th>
                                     <th data-hide="phone, tablet">Semestre</th>
-                                    <th data-hide="phone, tablet">Detalhes</th>
+                                    <th data-toggle="true">Detalhes</th>
                                     <th data-hide="phone, tablet">Ação</th>
                                 </tr>
                             </thead>
@@ -107,7 +107,7 @@ $conexao->BDFecharConexao($con);
                                                 ?>
                                                 <h4 class="modal-title"><strong>Detalhes do <?php echo $papel[0]['descricao'] ?></strong></h4>
                                             </div>   
-                                            <div class="col-sm-12"style="width:50%">
+                                            <div class="col-sm-12"style="width:70%">
                                                 <img src="../../assets/images/user.jpg" alt="5%" class="img-circle img-responsive">
                                             </div>
                                             <div class="form-group  col-sm-12">
@@ -142,12 +142,11 @@ $conexao->BDFecharConexao($con);
                                                 <label class="col-md-2 control-label">Situação:</label>
                                                 <div class="col-md-2">
                                                     <?php
+                                                    $aux = $valor['matricula'];
                                                     if ($valor['ativo'] == 0):
-                                                        $aux = $valor['id'];
-                                                        echo "<span><button type='button' class='btn btn-danger' name='$aux' >OFF</button></span>";
+                                                        echo "<span><button type='button' class='btn btn-danger' id='enviar' name='ativo' value='$aux' >OFF</button></span>";
                                                     else:
-                                                        $aux = $valor['id'];
-                                                        echo "<span><button type='button' class='btn btn-success' name='$aux'>ON</button></span>";
+                                                        echo "<span><button type='button' class='btn btn-success' id='enviar' name='ativo' value='$aux' >ON</button></span>";
                                                     endif;
                                                     ?>
                                                 </div>
@@ -178,7 +177,27 @@ $conexao->BDFecharConexao($con);
         </div>
     </div>
 </div>
-</div>
+<script>
+    document.getElementById("enviar").onclick = function () {
+        myFunction()
+    };
+
+    function myFunction() {
+        $.ajax({
+            url: '/atualizar/ativo/alunos',
+            type: 'POST',
+            data: 'matricula=' + $('#enviar').val(),
+            success: function (data) {
+                swal(
+                    'Usuário deslogado do SEAL',
+                    '',
+                    'success'
+                  );
+                window.setTimeout("location.href='/listar/usuario'",3000);
+            }
+        });
+    }
+</script>
 <?php
 require_once './footer.php';
 ?>
