@@ -76,7 +76,10 @@ class Autenticacao {
     }
 
     public function definirNiveisAcesso() {
-        session_start();
+        if(!isset($_SESSION)){ 
+            session_start(); 
+            
+        } 
         $login = new Login();
         $conexao = $login->BDAbreConexao();
 
