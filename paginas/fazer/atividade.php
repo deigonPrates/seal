@@ -62,7 +62,7 @@ $conexao->BDFecharConexao($con);
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Resposta:</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="resposta" value="">
+                                        <textarea class="form-control" rows="50" name="resposta" id="comment"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group m-b-0">

@@ -87,7 +87,9 @@ class Login extends Conexao {
     }
 
     public function sair() {
-        session_start();
+        if(!isset($_SESSION)){ 
+            session_start();     
+        } 
         $consulta = $this->BDRetornarPapelID($_SESSION['matricula']);
         $table = $this->BDRetornarTabela($_SESSION['matricula']);
         $this->BDAtualiza("$table", "WHERE(matricula = '{$_SESSION['matricula']}')", 'ativo', 0);

@@ -2,6 +2,7 @@
 session_start();
 if (!isset($_SESSION['matricula'])) {
     header("Location: /login");
+    exit();
 }
 $title = "Listar Usuarios";
 require_once './classes/conexao.class.php';
@@ -10,6 +11,13 @@ require_once './classes/autenticacao.class.php';
 $autenticacao = new Autenticacao();
 $header = $autenticacao->definirNiveisAcesso();
 require_once "$header";
+
+if(!$autenticacao->ValidarAcesso($_SESSION['matricula'], 1)){;
+    echo "<script>location.href='/inicio';</script>";
+    exit();
+}
+
+
 $conexao = new Conexao();
 $con = $conexao->BDAbreConexao();
 
@@ -18,6 +26,7 @@ $consulta = $conexao->BDSeleciona("$tabela", '*', "WHERE(matricula like '{$_SESS
 $nome = $consulta[0]['nome'];
 $email = $consulta[0]['email'];
 $username = $consulta[0]['username'];
+
 if ($tabela != 'professores') {
     $semestre = $consulta[0]['semestre'];
     $ano = $consulta[0]['ano'];

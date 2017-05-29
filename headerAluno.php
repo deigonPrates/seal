@@ -2,7 +2,8 @@
 require_once './classes/conexao.class.php';
 $conn = new Conexao();
 $conexao = $conn->BDAbreConexao();
-$dados = $conn->BDSeleciona('turmas', '*', "WHERE(status = 1)");
+
+$bdAturma = $conn->BDSeleciona('turmas', '*', "WHERE(status = 1)");
 
 $conn->BDFecharConexao($conexao);
 ?>
@@ -108,11 +109,12 @@ $conn->BDFecharConexao($conexao);
                                     <li><a href="/fazer/definirAtivaliacao">Avaliação</a></li>
                                 </ul>
                             </li>
-                            <?php if ((count($dados) > 0) && ($dados)): ?>
+                            <?php if ((count($bdAturma) > 0) && ($bdAturma)): ?>
                                 <li>
                                     <a href="/cadastrar/matriculaTurma" class="waves-effect"><i class="ti-list"></i><span>Matricula</span><span class="label label-primary pull-right">Novo</span></a>
                                 </li>
-                            <?php endif; ?>
+                            <?php endif; 
+                            ?>
                             <li class="has_sub">
                                 <a href="#" class="waves-effect"><i class="ti-light-bulb"></i><span>Listar</span></a>
                                 <ul class="list-unstyled">

@@ -51,7 +51,7 @@ class Autenticacao {
 
                                 $login->BDAtualiza("$bdTabela", "WHERE(matricula = {$matricula})", 'ativo', 1);
                                 $login->excluirTentativasLogin($matricula);
-                                $this->SweetAlertDown('Matricula realizada com sucesso! (:', 'redirecionando...', 'success');
+                                $this->SweetAlertDown('Login realizado com sucesso! (:', 'redirecionando...', 'success');
                                 header("Refresh: 3,  /inicio");
                             } else {
                                 $login->registrarTentativaLogin($matricula);
@@ -76,10 +76,9 @@ class Autenticacao {
     }
 
     public function definirNiveisAcesso() {
-        if(!isset($_SESSION)){ 
-            session_start(); 
-            
-        } 
+        if (!isset($_SESSION)) {
+            session_start();
+        }
         $login = new Login();
         $conexao = $login->BDAbreConexao();
 
@@ -144,7 +143,7 @@ class Autenticacao {
                     // handling the promise rejection
                             function (dismiss) {
                                 if (dismiss === 'timer') {
-                                    console.log('contando')
+                                   window.setTimeout('location.href='/$redirecionamento',4000);
                                 }
                             }
                     )";
@@ -166,16 +165,18 @@ class Autenticacao {
         echo "</html>";
     }
 
-    public function ValidarAcesso($matricula) {
+    public function ValidarAcesso($matricula, $acesso) {
         $login = new Login();
 
         $conexao = $login->BDAbreConexao();
         $papel = $login->BDRetornarPapelID($matricula);
         $login->BDFecharConexao($conexao);
         
-        
-        var_dump($papel);
-        exit();
+        if ($papel != $acesso) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }
