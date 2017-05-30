@@ -56,3 +56,7 @@ Proxima entrega
 RF40 - Listar todas as questões salvas no banco => Tijolim
 **** RNF01 - Ataque bustsforce  => Deigon - Feito
 ****RNF05 - Cadastro do banco de questoes  => Zaqueu
+
+
+
+bug a tabela professores_turmas deve ser preenchida no momento de registrar a turma
