@@ -8,6 +8,12 @@ require_once './classes/autenticacao.class.php';
 $autenticacao = new Autenticacao();
 $header = $autenticacao->definirNiveisAcesso();
 require_once "$header";
+
+if (isset($_SESSION['bemVindo'])) {
+
+    $autenticacao->SweetAlertDown("Bem Vindo {$_SESSION['bemVindo']}",'', 'down');
+    unset($_SESSION['bemVindo']);
+}
 ?>
 <div class="row">
     <div class="col-sm-12">

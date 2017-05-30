@@ -47,7 +47,9 @@ class Autenticacao {
 
                             if ($senha == $bdSenha) {
                                 session_start();
-                                $_SESSION['matricula'] = $_POST['matricula'];
+                                $_SESSION['matricula'] = $dados['matricula'];
+                                $nome = $login->BDSeleciona("$bdTabela", '*', "WHERE(matricula like '{$dados['matricula']}')");
+                                $_SESSION['bemVindo'] = $nome[0]['username'];
 
                                 $login->BDAtualiza("$bdTabela", "WHERE(matricula = {$matricula})", 'ativo', 1);
                                 $login->excluirTentativasLogin($matricula);
