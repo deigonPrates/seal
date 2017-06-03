@@ -9,14 +9,11 @@
         <link rel="shortcut icon" href="/assets/images/favicon_1.ico">
 
         <title><?php echo $title; ?></title>
-
         <!--Morris Chart CSS -->
         <link rel="stylesheet" href="/assets/plugins/morris/morris.css">
-
         <!--Tables -->
         <link href="/assets/plugins/footable/css/footable.core.css" rel="stylesheet">
         <link href="/assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-
         <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="/assets/css/core.css" rel="stylesheet" type="text/css" />
         <link href="/assets/css/components.css" rel="stylesheet" type="text/css" />
@@ -29,13 +26,6 @@
 
         <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-
-        <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
 
         <script src="/assets/js/modernizr.min.js"></script>
 

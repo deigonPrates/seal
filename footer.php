@@ -4,7 +4,7 @@
     <div class="form-group" style="color: black">
 
             <div class="col-xs-11">
-                SEAL © <?php# echo date("Y"); ?> 
+                SEAL © <?php # echo date("Y");  ?> 
             </div>
             <a href="https://github.com/deigonPrates/seal"><i class="col-xs-1 ti-github"></i></a>
         </div>

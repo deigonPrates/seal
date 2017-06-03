@@ -52,7 +52,7 @@ $conexao->BDFecharConexao($con);
                 <br>
                 <br>
 
-                <form action="/atualizando/perfil" class="form-horizontal" role="form" method="post">                                    
+                <form action="/atualizando/perfil" class="form-horizontal" role="form" method="post">
                     <div class="form-group">
                         <label class="col-md-2 control-label">Nome completo:</label>
                         <div class="col-md-5">
@@ -74,16 +74,16 @@ $conexao->BDFecharConexao($con);
                         </div>
                     </div>
                     <div class="form-group">
-                        <?php if ($tabela != 'professores'):?>
-                        <label class="col-md-2 control-label">Ano</label>
-                        <div class="col-md-2">
-                            <input  type="text" class="form-control" name="ano" value="<?php echo $ano; ?>">
-                        </div>
-                        <label class="col-md-1 control-label">Semestre</label>
-                        <div class="col-md-1">
-                            <input  type="text" class="form-control" name="semestre" value="<?php echo $semestre; ?>">
-                        </div>
-                        <?php endif;?>
+                        <?php if ($tabela != 'professores'): ?>
+                            <label class="col-md-2 control-label">Ano</label>
+                            <div class="col-md-2">
+                                <input  type="text" class="form-control" name="ano" value="<?php echo $ano; ?>">
+                            </div>
+                            <label class="col-md-1 control-label">Semestre</label>
+                            <div class="col-md-1">
+                                <input  type="text" class="form-control" name="semestre" value="<?php echo $semestre; ?>">
+                            </div>
+                        <?php endif; ?>
 
                         <label class="col-md-2 control-label">Senha antiga</label>
                         <div class="col-md-3">
