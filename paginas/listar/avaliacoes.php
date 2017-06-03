@@ -51,7 +51,9 @@ $conexao->BDFecharConexao($con);
                             <thead>
                                 <tr>
                                     <th data-toggle="true">Conteudo</th>
-                                    <th data-hide="phone, tablet">Data</th>
+                                    <th data-hide="phone">Valor</th>
+                                    <th data-toggle="true">Data</th>
+                                    <th data-hide="phone, tablet">Nota</th>
                                     <th data-hide="phone, tablet">Ação</th>
                                 </tr>
                             </thead>
@@ -81,9 +83,11 @@ $conexao->BDFecharConexao($con);
                                     foreach ($dados as $key => $valor):
                                         echo "<tr>";
                                         echo "<td>{$valor['conteudo']}</td>";
+                                        echo "<td>5</td>";
                                         echo "<td>{$valor['dataInicio']}</td>";
+                                        echo "<td>4</td>";
                                         $aux = $valor['id'];
-                                        echo "<td><button class='btn btn-primary btn-xs'id='$aux' data-toggle='modal' data-target='#modal$aux' type='button'><span></span>Exibir</button></td>";
+                                        echo "<td><button class='btn btn-primary btn-xs'id='$aux' data-toggle='modal' data-target='#modal' type='button'><span></span>Exibir</button></td>";
                                         echo "</tr>";
                                     endforeach;
                                 else:
@@ -110,7 +114,19 @@ $conexao->BDFecharConexao($con);
     </div>
 </div>
 </div>
-
+<div id="<?php echo 'modal'; ?>" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content  col-sm-12">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title"><strong>Detalhes da Avaliação</strong></h4>
+            </div>   
+            <div class="modal-footer  col-sm-12">
+                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div><!-- /.modal -->
 
 <?php
 require_once './footer.php';
