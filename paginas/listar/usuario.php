@@ -206,7 +206,6 @@ $conexao->BDFecharConexao($con);
                     '',
                     'success'
                   );
-                window.setTimeout("location.href='/listar/usuario'",3000);
             }
         });
     }
