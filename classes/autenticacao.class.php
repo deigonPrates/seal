@@ -5,6 +5,19 @@ require_once 'validarCampos.php';
 
 class Autenticacao {
 
+    public static function hashHX($password, $salt = null) {
+
+        if (!$salt)
+            $salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
+
+        $password = hash('sha512', $password . $salt);
+
+        return [
+            'salt' => $salt,
+            'password' => $password
+        ];
+    }
+
     public function autenticarUsuario($dados) {
         $login = new Login();
         $validar = new ValidarCampos();
@@ -36,9 +49,13 @@ class Autenticacao {
 
                 $bdMatricula = $matricula;
                 $bdSenha = $consulta[0]['senha'];
+                $bdSalt = $consulta[0]['salt'];
                 $bdTabela = $tabela;
                 $ativo = (int) $consulta[0]['ativo'];
-
+                /*recebe o salt do banco e gera uma senha*/
+                $password = $this->hashHX($senha, $bdSalt);
+                $senha = $password['password'];
+                 
                 if ($bdMatricula == false) {
                     $erro = array_merge($erro, ["Dados invalidos"]);
                 } else {
@@ -173,7 +190,7 @@ class Autenticacao {
         $conexao = $login->BDAbreConexao();
         $papel = $login->BDRetornarPapelID($matricula);
         $login->BDFecharConexao($conexao);
-        
+
         if ($papel != $acesso) {
             return false;
         } else {

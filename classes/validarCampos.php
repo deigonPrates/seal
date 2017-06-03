@@ -1,6 +1,7 @@
 <?php
 
 include_once './classes/conexao.class.php';
+include_once './classes/autenticacao.class.php';
 
 date_default_timezone_set("America/Sao_Paulo");
 setlocale(LC_ALL, 'pt_BR');
@@ -35,6 +36,7 @@ class ValidarCampos {
     }
 
     public function ValidarCadastroUsuario($dados) {
+        $auth = new Autenticacao();
 
         $conexao = new Conexao();
         $objRetorno = new stdClass();
@@ -91,14 +93,19 @@ class ValidarCampos {
             $objRetorno->erro[] = 'O campo senha nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
         } else {
-            $senha = md5($senha);
-            $objRetorno->dados = array_merge($objRetorno->dados, ['senha' => $senha]);
+            $pass = $auth->hashHX($senha);
+            $senha = $pass['password'];
+            $salt = $pass['salt'];
+            $objRetorno->dados = array_merge($objRetorno->dados, [
+                                                                    'senha' => $senha,
+                                                                    'salt' => $salt
+                                                                ]);
         }
         if (is_null($repetaSenha)) {
             $objRetorno->erro[] = 'O campo senha nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
         }
-        if ($senha != md5($repetaSenha)) {
+        if ($senha != $auth->hashHX($repetaSenha, $salt)) {
             $objRetorno->erro[] = 'As senhas informadas nao coincedem';
             $objRetorno->status = FALSE;
         }
