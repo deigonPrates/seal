@@ -94,11 +94,9 @@ $conexao->BDFecharConexao($con);
                             <input class="form-control" type="password" required="" name="repeta-senha" placeholder="Repita a senha">
                         </div>
                     </div>
-                    <div class="form-group text-center m-t-40">
-                        <div class="col-xs-6">
-                            <button class="btn btn-success btn-block text-uppercase waves-effect waves-light" type="submit">
-                                Registrar
-                            </button>
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-offset-5 col-sm-9">
+                            <button type="submit" class="btn btn-success waves-effect waves-light">Cadastrar</button>
                         </div>
                     </div>
                 </form>
