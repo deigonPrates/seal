@@ -29,7 +29,7 @@ include_once '/classes/autenticacao.class.php';
     </head>
     <body>
         <?php
-        if(isset($_SESSION['erro'])){
+        if (isset($_SESSION['erro'])) {
             $auth = new Autenticacao();
 
             $auth->SweetAlertDown('ERRO!!', 'Por favor tente novamente', 'down');
@@ -89,9 +89,9 @@ include_once '/classes/autenticacao.class.php';
             </div>
             <div class="row">
                 <div class="col-sm-12 text-center">
-                        <p>
-                            Possui conta? <a href="./login" class="text-primary m-l-5"><b>Clique aqui</b></a>
-                        </p>
+                    <p>
+                        Possui conta? <a href="./login" class="text-primary m-l-5"><b>Clique aqui</b></a>
+                    </p>
                 </div>
             </div>
         </div>

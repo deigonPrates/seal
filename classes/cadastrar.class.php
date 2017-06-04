@@ -19,12 +19,30 @@ class Cadastrar extends Conexao {
 
             header("Location: /inicio");
         } else {
-            
+
             var_dump($objValidar->erro);
             $erro = array_merge($erro, ["Ouvi um problema ao tentar cadastrar o usario por favor confira seus dados"]);
             session_start();
             $_SESSION['erro'] = $erro;
             #header("Location: /cadastro");
+        }
+    }
+
+    public function cadastrarMonitor($dados) {
+
+        $validar = new ValidarCampos();
+        $objValidar = $validar->ValidarCadastroMonitor($dados);
+        $erro = [];
+        if ($objValidar->status === TRUE) {
+            $this->DBGravar('monitores', $objValidar->dados);
+
+            session_start();
+            $_SESSION['sucesso'] = 'Monitor cadastrado com sucesso!';
+            header("Location: /cadastrar/cadastroMonitor");
+        } else {
+            session_start();
+            $_SESSION['erro'] = $objValidar->erro;
+            header("Location: /cadastrar/cadastroMonitor");
         }
     }
 

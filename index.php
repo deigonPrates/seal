@@ -115,7 +115,9 @@ if (file_exists(PASTA . $URL[0] . '.php')):
 elseif ((isset($URL[0]) && isset($URL[1])) && (($URL[0] . '/' . $URL[1]) == 'cadastrando/aluno')):
     $cadastrar = new Cadastrar();
     $cadastrar->cadastrarAluno($_POST);
-
+elseif ((isset($URL[0]) && isset($URL[1])) && (($URL[0] . '/' . $URL[1]) == 'cadastrando/monitor')):
+    $cadastrar = new Cadastrar();
+    $cadastrar->cadastrarMonitor($_POST);
 elseif (is_dir(PASTA . $URL[0])):
     if (isset($URL[1]) && file_exists(PASTA . $URL[0] . '/' . $URL[1] . '.php')):
         require(PASTA . $URL[0] . '/' . $URL[1] . '.php');
