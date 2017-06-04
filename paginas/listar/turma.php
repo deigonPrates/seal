@@ -84,7 +84,7 @@ $conexao->BDFecharConexao($con);
                                     echo "<td>{$valor['ano']}</td>";
                                     echo "<td>{$valor['semestre']}</td>";
                                     $aux = $valor['id'];
-                                    echo "<td><button class='btn btn-success btn-xs'id='$aux' data-toggle='modal' data-target='#modal$aux' type='button'><span class='glyphicon glyphicon-eye-open'></span></button></td>";
+                                    echo "<td><button class='btn btn-primary btn-xs'id='$aux' data-toggle='modal' data-target='#modal$aux' type='button'><span class='glyphicon  glyphicon-folder-open'></span></button></td>";
                                     if ($valor['status'] == 0):
                                         $aux = $valor['id'];
                                         echo "<td><span><button type='submit' class='btn btn-success btn-xs' name='$aux' >liberar</button></span></td>";
@@ -146,7 +146,7 @@ $conexao->BDFecharConexao($con);
                                 echo "<td><span><button type='submit' class='btn btn-success btn-xs' name='$aux' >liberar</button></span></td>";
                             else:
                                 $aux = $valor['id'];
-                                echo "<td><span><button type='submit' class='btn btn-danger btn-xs' name='$aux'>bloquear</button></span></td>";
+                                echo "<td><span><button type='submit' class='btn btn-danger btn-xs' name='$aux'>Excluir</button></span></td>";
                             endif;
                             ?>
                         <?php

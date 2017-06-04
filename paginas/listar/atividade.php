@@ -84,7 +84,7 @@ $conexao->BDFecharConexao($con);
                                         echo "<td>{$valor['dataInicio']}</td>";
                                         echo "<td>{$valor['dataTermino']}</td>";
                                         $aux = $valor['id'];
-                                        echo "<td><button class='btn btn-success btn-xs'id='$aux' data-toggle='modal' data-target='#modal' type='button'><span class='glyphicon glyphicon-eye-open'></span></button></td>";
+                                        echo "<td><button class='btn btn-primary btn-xs'id='$aux' data-toggle='modal' data-target='#modal' type='button'><span class='glyphicon glyphicon-folder-open'></span></button></td>";
                                         if ($valor['status'] == 0):
                                             $aux = $valor['id'];
                                             echo "<td><span><button type='submit' class='btn btn-success btn-xs' name='$aux' >liberar</button></span></td>";
