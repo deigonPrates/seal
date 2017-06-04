@@ -52,7 +52,13 @@ class ValidarCampos {
         $semestre = ($dados['semestre']) ? filter_var($dados['semestre'], FILTER_SANITIZE_NUMBER_INT) : NULL;
         $senha = ($dados['senha']) ? filter_var($dados['senha'], FILTER_SANITIZE_STRING) : NULL;
         $repetaSenha = ($dados['repeta-senha']) ? filter_var($dados['repeta-senha'], FILTER_SANITIZE_STRING) : NULL;
-
+        
+        $pass = $auth->hashHX($senha);#criptografando a senha
+        $senhaAux = $pass['password']; #passando a senha criptografada
+        $salt = $pass['salt']; #definindo o salt
+        $repetaSenhaCripto =$auth->hashHX($repetaSenha, $salt); #gerendo senha apartir do salt
+        $repetaSenhaAux = $repetaSenhaCripto['password'];#passando a senha criptografada
+        
         if (is_null($nome)) {
             $objRetorno->erro[] = 'O campo nome nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
@@ -93,11 +99,8 @@ class ValidarCampos {
             $objRetorno->erro[] = 'O campo senha nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
         } else {
-            $pass = $auth->hashHX($senha);
-            $senha = $pass['password'];
-            $salt = $pass['salt'];
             $objRetorno->dados = array_merge($objRetorno->dados, [
-                                                                    'senha' => $senha,
+                                                                    'senha' => $senhaAux,
                                                                     'salt' => $salt
                                                                 ]);
         }
@@ -105,7 +108,7 @@ class ValidarCampos {
             $objRetorno->erro[] = 'O campo senha nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
         }
-        if ($senha != $auth->hashHX($repetaSenha, $salt)) {
+        if ($senhaAux != $repetaSenhaAux) {
             $objRetorno->erro[] = 'As senhas informadas nao coincedem';
             $objRetorno->status = FALSE;
         }

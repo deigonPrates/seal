@@ -4,6 +4,7 @@ session_start();
 if (isset($_SESSION['matricula'])) {
     header("Location: ./inicio");
 }
+include_once '/classes/autenticacao.class.php';
 ?>
 <html>
     <head>
@@ -27,6 +28,14 @@ if (isset($_SESSION['matricula'])) {
 
     </head>
     <body>
+        <?php
+        if(isset($_SESSION['erro'])){
+            $auth = new Autenticacao();
+
+            $auth->SweetAlertDown('ERRO!!', 'Por favor tente novamente', 'down');
+            unset($_SESSION['erro']);
+        }
+        ?>
         <div class="account-pages"></div>
         <div class="clearfix"></div>
         <div class="wrapper-page">

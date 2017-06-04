@@ -10,7 +10,7 @@ class Cadastrar extends Conexao {
 
         $validar = new ValidarCampos();
         $objValidar = $validar->ValidarCadastroUsuario($dados);
-
+        $erro = [];
         if ($objValidar->status === TRUE) {
             $this->DBGravar('alunos', $objValidar->dados);
 
@@ -19,7 +19,12 @@ class Cadastrar extends Conexao {
 
             header("Location: /inicio");
         } else {
-            $erro = array_merge($erro, ["Ouvi um problema ao tetnar cadastrar o usario por favor confira seus dados"]);
+            
+            var_dump($objValidar->erro);
+            $erro = array_merge($erro, ["Ouvi um problema ao tentar cadastrar o usario por favor confira seus dados"]);
+            session_start();
+            $_SESSION['erro'] = $erro;
+            #header("Location: /cadastro");
         }
     }
 
@@ -188,7 +193,6 @@ class Cadastrar extends Conexao {
                     if (count($bdregistro) > 0) {
                         $erro = array_merge($erro, ['erro' => "Você já encontrase matriculado nesta turma!"]);
                     }
-                    
                 }
             }
             if (count($erro) > 0) {
