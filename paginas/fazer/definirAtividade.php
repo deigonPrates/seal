@@ -15,8 +15,9 @@ require_once "$header";
 $conexao = new Conexao();
 $con = $conexao->BDAbreConexao();
 
-$dados = $conexao->BDSeleciona('atividades', '*', "where(tipo_id= 2 and status = '1')");
-
+$dataAtual = date('Y-m-d');
+$dados = $conexao->BDSeleciona('atividades', '*', "where(tipo_id= 2 and status = '1' and '{$dataAtual}' BETWEEN dataInicio and dataTermino);
+");
 $conexao->BDFecharConexao($con);
 
 ?>

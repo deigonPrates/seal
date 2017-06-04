@@ -15,10 +15,10 @@ require_once "$header";
 $conexao = new Conexao();
 $con = $conexao->BDAbreConexao();
 
-$dados = $conexao->BDSeleciona('atividades', '*', "where(tipo_id= 1 and status = '1')");
+$dataAtual = date('Y-m-d');
+$dados = $conexao->BDSeleciona('atividades', '*', "where(tipo_id= 1 and status = '1' and '{$dataAtual}' BETWEEN dataInicio and dataTermino)");
 
 $conexao->BDFecharConexao($con);
-
 ?>
 <div class="row">
     <div class="col-sm-12">
@@ -53,7 +53,7 @@ $conexao->BDFecharConexao($con);
                                 <option selected="" disabled="">Selecione</option>
                                 <?php
                                 foreach ($dados as $key => $value) {
-                                    echo "<option value='{$value['id']}'>" . 'Assunto: '.$value['conteudo'].' Data inicial: '.$value['dataInicio'].' Data Final: '.$value['dataInicio']. "</option>";
+                                    echo "<option value='{$value['id']}'>" . 'Assunto: ' . $value['conteudo'] . ' Data inicial: ' . $value['dataInicio'] . ' Data Final: ' . $value['dataInicio'] . "</option>";
                                 }
                                 ?>
                             </select>
