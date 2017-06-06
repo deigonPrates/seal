@@ -222,4 +222,10 @@ class Cadastrar extends Conexao {
         }
     }
 
+    public function definirResolucaoAtividade($dados) {
+        session_start();
+        $_SESSION['atividade_id'] = $dados['id'];
+        header('Location: /fazer/correcaoAtividade');
+    }
+
 }
