@@ -110,6 +110,8 @@ $conexao->BDFecharConexao($con);
                                     ?>   
                                 <div id="<?php echo 'modal' . $aux; ?>" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                                     <div class="modal-dialog">
+                                        <iframe src="http://devsa.info/teste.pdf" width="600" height="780" style="border: none;"></iframe>
+
                                         <div class="modal-content  col-sm-12">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
