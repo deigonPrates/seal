@@ -29,6 +29,9 @@
 
         <script src="/assets/js/modernizr.min.js"></script>
 
+        <?php
+        include_once 'codMirror.php';
+        ?>
     </head>
 
     <body class="fixed-left">
@@ -137,6 +140,5 @@
             <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
-                    <div class="container">
-                    </div> <!-- container -->
+                    
 

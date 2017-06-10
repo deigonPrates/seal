@@ -67,6 +67,8 @@
 
     });
 </script>
-
+<?php
+     include_once 'codMirrrorScripts.php';
+?>
 </body>
 </html>

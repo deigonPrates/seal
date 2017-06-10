@@ -48,7 +48,9 @@ $conn->BDFecharConexao($conexao);
 
         <script src="/assets/js/modernizr.min.js"></script>
 
-
+        <?php
+        include_once 'codMirror.php';
+        ?>
     </head>
 
     <body class="fixed-left">

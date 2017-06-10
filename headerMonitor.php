@@ -8,11 +8,11 @@
 
         <link rel="shortcut icon" href="/assets/images/favicon_1.ico">
 
-        <title><?php echo $title;?></title>
+        <title><?php echo $title; ?></title>
 
         <!--Morris Chart CSS -->
         <link rel="stylesheet" href="/assets/plugins/morris/morris.css">
-        
+
         <!--Tables -->
         <link href="/assets/plugins/footable/css/footable.core.css" rel="stylesheet">
         <link href="/assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
@@ -30,7 +30,10 @@
 
         <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-
+        
+        <?php
+        include_once 'codMirror.php';
+        ?>
     </head>
 
     <body class="fixed-left">
