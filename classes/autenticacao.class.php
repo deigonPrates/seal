@@ -77,7 +77,7 @@ class Autenticacao {
                                 $erro = array_merge($erro, ["Dados incorretos, por favor confira seus dados e tente novamente!"]);
                             }
                         } else {
-                            $erro = array_merge($erro, ["Usuario bloqueado"]);
+                            $erro = array_merge($erro, ["Usuario bloqueado por favor consulte seu professor para efetuar o desbloqueio!"]);
                         }
                     } else {
                         $erro = array_merge($erro, ["Está usuario já encontra-se logado no sistema"]);
