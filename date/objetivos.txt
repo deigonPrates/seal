@@ -1,5 +1,7 @@
 Total do sistema feito até o momento 73,8%
 
+RF01 - bloquear questoes por data
+
 RF01 - cadastrar aluno - Feito 
 RF02 - atualizar dados do aluno - Feito 
 RF03 - Bloquear aluno - Feito 
@@ -27,7 +29,7 @@ RF24 - Cadastrar questoes por niveis de dificuldade - Feito
 RF25 - Logar no sistema - Feito 
 ***RF26 - Gerar Rancking do campeonato
 ***RF27 - consultar Rancking do campeonato
-RF28 - visualizar questoes pelo aluno
+RF28 - visualizar questoes pelo aluno - Feito
 RF29 - cadastro de monitores - Feito 
 RF30 - atualizar dados dos monitores - Feito
 RF31 - cadastrar professor - Feito 
@@ -39,24 +41,20 @@ RF36- Editar Turma- Feito
 RF37- Bloquer Turma - Feito
 RF38- Desbloquear Turma- Feito
 RF39 - Permitir que o aluno faça matricula na turma- Feito
-***RF40 - Listar todas as questões salvas no banco
+RF40 - Listar todas as questões salvas no banco
 
-***RNF01 - Ataque bustsforce 
+RNF01 - Ataque bustsforce 
 ***RNF02 - limite de tempo
 ***RNF03 - segundo plano
 RNF04 - Desenvolver em web - Feito 		
-***RNF05 - Cadastro do banco de questoes
+RNF05 - Cadastro do banco de questoes
 ***RNF06 - Corrigir questoes objetivas
 RNF07 - Possibilitar apenas um unico login para cada usuario. - Feito 
 
 
 Proxima entrega 
-
-****RF22 - Visualizar historico do aluno => Cimara
-RF40 - Listar todas as questões salvas no banco => Tijolim
-**** RNF01 - Ataque bustsforce  => Deigon - Feito
-****RNF05 - Cadastro do banco de questoes  => Zaqueu
-
-
-
-bug a tabela professores_turmas deve ser preenchida no momento de registrar a turma
+Implementar o progress bar na geração do pdf
+Implementar um alerta customizado informado sobre o bloqueio
+Tijolim fazer o sql para o historico, finalizar o historico,***RNF06 - Corrigir questoes objetivas
+Deigon Fazer funcionar o codemirror no sistema,  ***RNF02 - limite de tempo
+Zaquel, Cimara achar um jeito de avisar caso mude de tela. ***RNF03 - segundo plano
