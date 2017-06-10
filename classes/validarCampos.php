@@ -343,10 +343,12 @@ class ValidarCampos {
         $numero = $this->retornarNumeroQuestao($atividade_id);
         $nivel_id = ($dados['nivel_id']) ? filter_var($dados['nivel_id'], FILTER_SANITIZE_STRING) : null;
         $perguntaSubjetiva = ($dados['perguntaSubjetiva']) ? filter_var($dados['perguntaSubjetiva'], FILTER_SANITIZE_STRING) : null;
-
+        $valor = $dados['valor'];
+        
         if ($categoria_id == 2) {
             $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
-                'categoria_id' => $categoria_id
+                'categoria_id' => $categoria_id,
+                'valor' => $valor
             ]);
             if (!is_null($solucao)) {
                 $objRetorno->dados = array_merge($objRetorno->dados, ['solucao' => $solucao]);
