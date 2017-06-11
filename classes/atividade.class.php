@@ -118,5 +118,19 @@ class Atividade extends Conexao {
         }
         header('Location: /fazer/atividade');
     }
+    
+    public function definirAtividadeCorrecao($dados) {
+        
+    }
+    
+    public function definirAvaliacaoCorrecao($dados) {
+        
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $_SESSION['atividade_id'] = $dados['id'];
+        header('Location: /listar/definirCorrecao');
+        
+    }
 
 }
