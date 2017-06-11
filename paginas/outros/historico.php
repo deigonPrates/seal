@@ -102,4 +102,6 @@ $mpdf = new mPDF();
 $mpdf->WriteHTML($pagina);
 
 $mpdf->Output($arquivo, 'I');
+
+include_once 'footer.php';
 ?>
