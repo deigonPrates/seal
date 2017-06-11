@@ -23,7 +23,7 @@ $dados = $conexao->BDSQL("SELECT questoes.id, questoes.nivel_id, questoes.catego
                             JOIN respostas on respostas.questao_id = questoes.id
                             join solucoes on solucoes.questoes_id = questoes.id
                             WHERE(alunos_atividades.id = {$_SESSION['alunos_atividades_id']})"
-                            . "ORDER by questoes.numero asc");
+        . "ORDER by questoes.numero asc");
 $conexao->BDFecharConexao($con);
 ?>
 <div class="row">
@@ -50,7 +50,7 @@ $conexao->BDFecharConexao($con);
                 <br>
                 <br>
                 <div class="card-box">
-                    <form action="#" class="form-horizontal" role="form" method="post">
+                    <form action="/salvar/correcao" class="form-horizontal" role="form" method="post">
                         <table id="demo-foo-filtering" class="table table-striped toggle-circle m-b-0" data-page-size="7">
                             <thead>
                                 <tr>
@@ -89,13 +89,170 @@ $conexao->BDFecharConexao($con);
                                         $aux = $valor['resposta_id'];
                                         echo "<td><button class='btn btn-primary btn-xs'id='$aux' data-toggle='modal' data-target='#modal$aux' type='button'>Exibir</button></td>";
                                         echo "</tr>";
-                                    endforeach;
-                                }else {
-                                    echo "<tr>";
-                                    echo "<td>Nenuma questão cadastrada!</td>";
-                                    echo "</tr>";
-                                }
-                                ?>
+                                        ?>
+                                    <div id="<?php echo 'modal' . $aux; ?>" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="full-width-modalLabel" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog modal-full">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    <h4 class="modal-title" id="full-width-modalLabel"><strong>Correção de Avaliação</strong></h4>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-5">
+                                                            <label class="">Codigo da solução</label>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <label class="">Codigo do aluno</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label class="">Comentario</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-5">
+                                                            <textarea id="code1" name="solucao">
+                                                                <?php echo $valor['solucao']; ?>
+                                                            </textarea>
+                                                            <select style="display:none" onchange="selectTheme()" id=selecte>
+                                                                <option>default</option>
+                                                                <option>3024-day</option>
+                                                                <option>3024-night</option>
+                                                                <option>abcdef</option>
+                                                                <option>ambiance</option>
+                                                                <option>base16-dark</option>
+                                                                <option>base16-light</option>
+                                                                <option>bespin</option>
+                                                                <option>blackboard</option>
+                                                                <option>cobalt</option>
+                                                                <option>colorforth</option>
+                                                                <option>dracula</option>
+                                                                <option>duotone-dark</option>
+                                                                <option>duotone-light</option>
+                                                                <option selected>eclipse</option>
+                                                                <option>elegant</option>
+                                                                <option>erlang-dark</option>
+                                                                <option>hopscotch</option>
+                                                                <option>icecoder</option>
+                                                                <option>isotope</option>
+                                                                <option>lesser-dark</option>
+                                                                <option>liquibyte</option>
+                                                                <option>material</option>
+                                                                <option>mbo</option>
+                                                                <option>mdn-like</option>
+                                                                <option>midnight</option>
+                                                                <option>monokai</option>
+                                                                <option>neat</option>
+                                                                <option>neo</option>
+                                                                <option>night</option>
+                                                                <option>panda-syntax</option>
+                                                                <option>paraiso-dark</option>
+                                                                <option>paraiso-light</option>
+                                                                <option>pastel-on-dark</option>
+                                                                <option>railscasts</option>
+                                                                <option>rubyblue</option>
+                                                                <option>seti</option>
+                                                                <option>solarized dark</option>
+                                                                <option>solarized light</option>
+                                                                <option>the-matrix</option>
+                                                                <option>tomorrow-night-bright</option>
+                                                                <option>tomorrow-night-eighties</option>
+                                                                <option>ttcn</option>
+                                                                <option>twilight</option>
+                                                                <option>vibrant-ink</option>
+                                                                <option>xq-dark</option>
+                                                                <option>xq-light</option>
+                                                                <option>yeti</option>
+                                                                <option>zenburn</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <textarea id="code2" name="resposta">
+                                                                <?php print_r($valor['resposta']); ?>
+                                                            </textarea>
+                                                            <select  style="display:none" onchange="selectTheme()" id=selects>
+                                                                <option>default</option>
+                                                                <option>3024-day</option>
+                                                                <option>3024-night</option>
+                                                                <option>abcdef</option>
+                                                                <option>ambiance</option>
+                                                                <option>base16-dark</option>
+                                                                <option>base16-light</option>
+                                                                <option>bespin</option>
+                                                                <option>blackboard</option>
+                                                                <option>cobalt</option>
+                                                                <option>colorforth</option>
+                                                                <option>dracula</option>
+                                                                <option>duotone-dark</option>
+                                                                <option>duotone-light</option>
+                                                                <option>eclipse</option>
+                                                                <option selected="">elegant</option>
+                                                                <option>erlang-dark</option>
+                                                                <option>hopscotch</option>
+                                                                <option>icecoder</option>
+                                                                <option>isotope</option>
+                                                                <option>lesser-dark</option>
+                                                                <option>liquibyte</option>
+                                                                <option>material</option>
+                                                                <option>mbo</option>
+                                                                <option>mdn-like</option>
+                                                                <option>midnight</option>
+                                                                <option>monokai</option>
+                                                                <option>neat</option>
+                                                                <option>neo</option>
+                                                                <option>night</option>
+                                                                <option>panda-syntax</option>
+                                                                <option>paraiso-dark</option>
+                                                                <option>paraiso-light</option>
+                                                                <option>pastel-on-dark</option>
+                                                                <option>railscasts</option>
+                                                                <option>rubyblue</option>
+                                                                <option>seti</option>
+                                                                <option>solarized dark</option>
+                                                                <option>solarized light</option>
+                                                                <option>the-matrix</option>
+                                                                <option>tomorrow-night-bright</option>
+                                                                <option>tomorrow-night-eighties</option>
+                                                                <option>ttcn</option>
+                                                                <option>twilight</option>
+                                                                <option>vibrant-ink</option>
+                                                                <option>xq-dark</option>
+                                                                <option>xq-light</option>
+                                                                <option>yeti</option>
+                                                                <option>zenburn</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <textarea id="code3" class="form-control" name="comentario" rows="5" style="margin: 0px; width: 227px; height: 224px;">
+                                                            </textarea>
+                                                            <label>Resultado:</label>
+                                                            <select class="form-control" name="resultado">
+                                                                <option value="1">Certo</option>
+                                                                <option selected value="0">Incorreto</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div class="form-group text-center m-t-40">
+                                                        <div class="col-xs-12" style="padding-top: 2%;">
+                                                            <button type="submit" name= "questao_id" value="<?php echo$valor['questao_id']; ?>" class="btn btn-success waves-effect">Salvar</button>
+                                                            <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Fechar</button>
+                                                        </div> 
+                                                    </div> 
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                    <?php
+                                endforeach;
+                            }else {
+                                echo "<tr>";
+                                echo "<td>Nenuma questão cadastrada!</td>";
+                                echo "</tr>";
+                            }
+                            ?>
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -107,151 +264,6 @@ $conexao->BDFecharConexao($con);
                                 </tr>
                             </tfoot>
                         </table>
-
-                        <div id="<?php echo 'modal' . $aux; ?>" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="full-width-modalLabel" aria-hidden="true" style="display: none;">
-                            <div class="modal-dialog modal-full">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        <h4 class="modal-title" id="full-width-modalLabel"><strong>Alunos matriculados</strong></h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        
-                                        <div class="col-md-12">
-                                            <div class="col-md-5">
-                                                <label class="">Codigo da solução</label>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <label class="">Codigo do aluno</label>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label class="">Comentario</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-5">
-                                                <textarea id="code" name="solucao">
-                                                </textarea>
-                                                <select onchange="selectTheme()" style='display:none' id=select>
-                                                        <option>default</option>
-                                                        <option>3024-day</option>
-                                                        <option>3024-night</option>
-                                                        <option>abcdef</option>
-                                                        <option>ambiance</option>
-                                                        <option>base16-dark</option>
-                                                        <option>base16-light</option>
-                                                        <option>bespin</option>
-                                                        <option>blackboard</option>
-                                                        <option>cobalt</option>
-                                                        <option>colorforth</option>
-                                                        <option>dracula</option>
-                                                        <option>duotone-dark</option>
-                                                        <option>duotone-light</option>
-                                                        <option>eclipse</option>
-                                                        <option>elegant</option>
-                                                        <option>erlang-dark</option>
-                                                        <option>hopscotch</option>
-                                                        <option>icecoder</option>
-                                                        <option>isotope</option>
-                                                        <option>lesser-dark</option>
-                                                        <option>liquibyte</option>
-                                                        <option>material</option>
-                                                        <option>mbo</option>
-                                                        <option>mdn-like</option>
-                                                        <option>midnight</option>
-                                                        <option>monokai</option>
-                                                        <option selected>neat</option>
-                                                        <option>neo</option>
-                                                        <option>night</option>
-                                                        <option>panda-syntax</option>
-                                                        <option>paraiso-dark</option>
-                                                        <option>paraiso-light</option>
-                                                        <option>pastel-on-dark</option>
-                                                        <option>railscasts</option>
-                                                        <option>rubyblue</option>
-                                                        <option>seti</option>
-                                                        <option>solarized dark</option>
-                                                        <option>solarized light</option>
-                                                        <option>the-matrix</option>
-                                                        <option>tomorrow-night-bright</option>
-                                                        <option>tomorrow-night-eighties</option>
-                                                        <option>ttcn</option>
-                                                        <option>twilight</option>
-                                                        <option>vibrant-ink</option>
-                                                        <option>xq-dark</option>
-                                                        <option>xq-light</option>
-                                                        <option>yeti</option>
-                                                        <option>zenburn</option>
-                                                    </select>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <textarea id="code1" name="resposta">
-                                                </textarea>
-                                                <select onchange="selectTheme()" style='display:none' id=select1>
-                                                        <option>default</option>
-                                                        <option>3024-day</option>
-                                                        <option>3024-night</option>
-                                                        <option>abcdef</option>
-                                                        <option>ambiance</option>
-                                                        <option>base16-dark</option>
-                                                        <option>base16-light</option>
-                                                        <option>bespin</option>
-                                                        <option>blackboard</option>
-                                                        <option>cobalt</option>
-                                                        <option>colorforth</option>
-                                                        <option>dracula</option>
-                                                        <option>duotone-dark</option>
-                                                        <option>duotone-light</option>
-                                                        <option>eclipse</option>
-                                                        <option>elegant</option>
-                                                        <option>erlang-dark</option>
-                                                        <option>hopscotch</option>
-                                                        <option>icecoder</option>
-                                                        <option>isotope</option>
-                                                        <option>lesser-dark</option>
-                                                        <option>liquibyte</option>
-                                                        <option>material</option>
-                                                        <option>mbo</option>
-                                                        <option>mdn-like</option>
-                                                        <option>midnight</option>
-                                                        <option>monokai</option>
-                                                        <option selected>neat</option>
-                                                        <option>neo</option>
-                                                        <option>night</option>
-                                                        <option>panda-syntax</option>
-                                                        <option>paraiso-dark</option>
-                                                        <option>paraiso-light</option>
-                                                        <option>pastel-on-dark</option>
-                                                        <option>railscasts</option>
-                                                        <option>rubyblue</option>
-                                                        <option>seti</option>
-                                                        <option>solarized dark</option>
-                                                        <option>solarized light</option>
-                                                        <option>the-matrix</option>
-                                                        <option>tomorrow-night-bright</option>
-                                                        <option>tomorrow-night-eighties</option>
-                                                        <option>ttcn</option>
-                                                        <option>twilight</option>
-                                                        <option>vibrant-ink</option>
-                                                        <option>xq-dark</option>
-                                                        <option>xq-light</option>
-                                                        <option>yeti</option>
-                                                        <option>zenburn</option>
-                                                    </select>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <textarea id="code2" name="comentario" rows="5" style="width: 209px; margin: 0px;height: 297px;">
-
-                                                </textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Fechar</button>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
                     </form>
                 </div>
             </div>
