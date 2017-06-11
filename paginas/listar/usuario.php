@@ -12,7 +12,7 @@ $autenticacao = new Autenticacao();
 $header = $autenticacao->definirNiveisAcesso();
 require_once "$header";
 
-if(!$autenticacao->ValidarAcesso($_SESSION['matricula'], 1)){;
+if (!$autenticacao->ValidarAcesso($_SESSION['matricula'], 1)) {
     echo "<script>location.href='/inicio';</script>";
     exit();
 }
@@ -99,7 +99,7 @@ $conexao->BDFecharConexao($con);
                                     echo "<td>{$valor['matricula']}</td>";
                                     echo "<td>{$valor['semestre']}</td>";
                                     $aux = $valor['id'];
-                                    echo "<td><button class='btn btn-xs'id='$aux' data-toggle='modal' data-target='#modal$aux' type='button'><span class='glyphicon glyphicon-eye-open'></span></button></td>";
+                                    echo "<td><button class='btn btn-xs'id='$aux' data-toggle='modal' data-target='#abrir' type='button'><span class='glyphicon glyphicon-eye-open'></span></button></td>";
                                     if ($valor['status'] == 0):
                                         $aux = $valor['id'];
                                         echo "<td><span><button type='submit' class='btn btn-success btn-xs' name='$aux' >liberar</button></span></td>";
@@ -108,10 +108,8 @@ $conexao->BDFecharConexao($con);
                                         echo "<td><span><button type='submit' class='btn btn-danger btn-xs' name='$aux'>bloquear</button></span></td>";
                                     endif;
                                     ?>   
-                                <div id="<?php echo 'modal' . $aux; ?>" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                <div id="<?php echo 'abrir'; ?>" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                                     <div class="modal-dialog">
-                                        <iframe src="http://devsa.info/teste.pdf" width="600" height="780" style="border: none;"></iframe>
-
                                         <div class="modal-content  col-sm-12">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -204,10 +202,10 @@ $conexao->BDFecharConexao($con);
             data: 'matricula=' + $('#enviar').val(),
             success: function (data) {
                 swal(
-                    'Usuário deslogado do SEAL',
-                    '',
-                    'success'
-                  );
+                        'Usuário deslogado do SEAL',
+                        '',
+                        'success'
+                        );
             }
         });
     }
