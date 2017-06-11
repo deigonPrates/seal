@@ -1,6 +1,7 @@
 <?php
 
 include_once './classes/conexao.class.php';
+include_once '/classes/autenticacao.class.php';
 
 class Atividade extends Conexao {
 
@@ -138,7 +139,23 @@ class Atividade extends Conexao {
         }
         unset($_SESSION['atividade_id']);
         $_SESSION['alunos_atividades_id'] = $dados['alunos_atividades_id'];
-        header('Location: /listar/corrigir');
+        header('Location: /listar/corrigir#elegant');
+    }
+
+    public function salvarCorrecao($dados) {
+      $autenticacao = new Autenticacao();
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
+        $solucao = trim($dados['solucao']);
+        $resultado = trim($dados['resposta']);
+        $comentario = trim($dados['comentario']);
+       
+        $this->BDAtualiza("respostas", "WHERE(questao_id = {$dados['questao_id']})", 'comentario', "'{$dados['comentario']}'");
+        $this->BDAtualiza("respostas", "WHERE(questao_id = {$dados['questao_id']})", 'resultado', $dados['resultado']);
+        $autenticacao->SweetAlertDown('Correção salva (:', 'Redirecionando!', 'down');
+        header("Refresh: 2, /listar/corrigir#elegant");
     }
 
 }
