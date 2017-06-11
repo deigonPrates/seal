@@ -109,7 +109,7 @@ class Atividade extends Conexao {
         }
 
         $this->DBGravar('respostas', $grava);
-        
+
         $limite = $this->BDSQL("SELECT numero FROM questoes ORDER by numero DESC LIMIT 1");
         $_SESSION['numero'] += 1;
 
@@ -118,19 +118,27 @@ class Atividade extends Conexao {
         }
         header('Location: /fazer/atividade');
     }
-    
+
     public function definirAtividadeCorrecao($dados) {
         
     }
-    
+
     public function definirAvaliacaoCorrecao($dados) {
-        
-        if(!isset($_SESSION)){
+
+        if (!isset($_SESSION)) {
             session_start();
         }
         $_SESSION['atividade_id'] = $dados['id'];
         header('Location: /listar/definirCorrecao');
-        
+    }
+
+    public function corrigirAvaliacao($dados) {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        unset($_SESSION['atividade_id']);
+        $_SESSION['alunos_atividades_id'] = $dados['alunos_atividades_id'];
+        header('Location: /listar/corrigir');
     }
 
 }
