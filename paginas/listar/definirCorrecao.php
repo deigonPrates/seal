@@ -45,7 +45,7 @@ $conexao->BDFecharConexao($con);
                 <br>
                 <br>
                 <div class="card-box">
-                    <form action="#" class="form-horizontal" role="form" method="post">
+                    <form action="/corrigir/atividade/avaliativa" class="form-horizontal" role="form" method="post">
                         <table id="demo-foo-filtering" class="table table-striped toggle-circle m-b-0" data-page-size="7">
                             <thead>
                                 <tr>
@@ -85,7 +85,7 @@ $conexao->BDFecharConexao($con);
                                         echo "<td>{$valor['conteudo']}</td>";
                                         echo "<td>{$valor['dataInicio']}</td>";
                                         $aux = $valor['alunos_atividades_id'];
-                                        echo "<td><a href='corigir?id={$aux}'><button class='btn btn-primary btn-xs'type='button'>Exibir</button></a></td>";
+                                        echo "<td><button type='submit' name='alunos_atividades_id' value='{$aux}'class='btn btn-primary btn-xs'>Exibir</button></td>";
                                         echo "</tr>";
                                     endforeach;
                                 ?>
