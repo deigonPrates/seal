@@ -13,7 +13,7 @@ require_once "$header";
 $conexao = new Conexao();
 
 $con = $conexao->BDAbreConexao();
-$dados = $conexao->BDSeleciona('atividades', '*', "WHERE(tipo_id = 1)");
+$dados = $conexao->BDSeleciona('atividades', '*', "WHERE(tipo_id = 1) order by atividades.dataModificacao desc");
 $conexao->BDFecharConexao($con);
 ?>
 <div class="row">
@@ -47,6 +47,7 @@ $conexao->BDFecharConexao($con);
                                     <th data-toggle="true">Turma</th>
                                     <th data-toggle="true">Conteudo</th>
                                     <th data-hide="phone, tablet">Data</th>
+                                    <th data-toggle="true">Ação</th>
                                     <th data-hide="phone, tablet">Status</th>
                                 </tr>
                             </thead>
@@ -81,6 +82,8 @@ $conexao->BDFecharConexao($con);
                                         echo "<td>{$nomeTurma[0]['nome']}</td>";
                                         echo "<td>{$valor['conteudo']}</td>";
                                         echo "<td>{$valor['dataInicio']}</td>";
+                                        $aux = $valor['id'];
+                                        echo "<td><a href='/corigir/avaliacao?id={$aux}'><button class='btn btn-primary btn-xs'type='button'>Exibir</button></a></td>";
                                         if ($valor['status'] == 0):
                                             $aux = $valor['id'];
                                             echo "<td><span><button type='submit' class='btn btn-success btn-xs' name='$aux' >liberar</button></span></td>";
