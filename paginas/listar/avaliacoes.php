@@ -54,7 +54,7 @@ $conexao->BDFecharConexao($con);
                                     <th data-hide="phone">Valor</th>
                                     <th data-toggle="true">Data</th>
                                     <th data-hide="phone, tablet">Nota</th>
-                                    <th data-hide="phone, tablet">Ação</th>
+                                    <th data-toggle="true">Ação</th>
                                 </tr>
                             </thead>
                             <div class="form-inline m-b-20">
