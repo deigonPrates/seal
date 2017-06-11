@@ -41,6 +41,11 @@ if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'corigir
     $atividade = new Atividade();
     $atividade->definirAvaliacaoCorrecao($_GET);
 endif;
+if (((isset($URL[0])) && isset($URL[1])&& isset($URL[2])) && ($URL[0] . '/' . $URL[1] .'/'.$URL[2]== 'corrigir/atividade/avaliativa')):
+    include_once'./classes/atividade.class.php';
+    $atividade = new Atividade();
+    $atividade->corrigirAvaliacao($_POST);
+endif;
 if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'definindo/atividade')):
     include_once './classes/atividade.class.php';
     $atividade = new Atividade();
