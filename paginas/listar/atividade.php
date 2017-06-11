@@ -3,19 +3,17 @@ session_start();
 if (!isset($_SESSION['matricula'])) {
     header("Location: /login");
 }
-$title = "Listar Atividades";
+$title = "Listar Avaliaçoes";
 require_once './classes/conexao.class.php';
 require_once './classes/autenticacao.class.php';
 
 $autenticacao = new Autenticacao();
 $header = $autenticacao->definirNiveisAcesso();
 require_once "$header";
-
 $conexao = new Conexao();
 
 $con = $conexao->BDAbreConexao();
-$dados = $conexao->BDSeleciona('atividades', '*', "WHERE(tipo_id = 2 )order by dataModificacao");
-
+$dados = $conexao->BDSeleciona('atividades', '*', "WHERE(tipo_id = 2) order by atividades.dataModificacao desc");
 $conexao->BDFecharConexao($con);
 ?>
 <div class="row">
@@ -32,25 +30,24 @@ $conexao->BDFecharConexao($con);
                             listar
                         </li>
                         <li>
-                            <a href="/listar/atividades">Atividades</a>
+                            <a href="/listar/avaliacao">Avaliações</a>
                         </li>
                     </ol>
                 </div>
             </div>
             <div class="row">
-                <center><h4 class="page-title">Listando Atividades</h4></center>
+                <center><h4 class="page-title">Listando Avaliações</h4></center>
                 <br>
                 <br>
                 <div class="card-box">
-                    <form action="/atualizar/status/atividade/atividades" class="form-horizontal" role="form" method="post">
+                    <form action="/atualizar/status/avaliacao/atividades" class="form-horizontal" role="form" method="post">
                         <table id="demo-foo-filtering" class="table table-striped toggle-circle m-b-0" data-page-size="7">
                             <thead>
                                 <tr>
                                     <th data-toggle="true">Turma</th>
                                     <th data-toggle="true">Conteudo</th>
-                                    <th data-hide="phone">Inicio</th>
-                                    <th data-hide="phone, tablet">Termino</th>
-                                    <th data-hide="phone">Corrigir</th>
+                                    <th data-hide="phone, tablet">Data</th>
+                                    <th data-toggle="true">Ação</th>
                                     <th data-hide="phone, tablet">Status</th>
                                 </tr>
                             </thead>
@@ -76,15 +73,17 @@ $conexao->BDFecharConexao($con);
                             </div>
                             <tbody>
                                 <?php
-                                if ($dados):
                                     foreach ($dados as $key => $valor):
+                                        #pegar o nome da turma
+                                        $aux = $valor['turma_id'];
+                                        $nomeTurma = $conexao->BDSeleciona('turmas', 'nome', "WHERE(id = '{$aux}')"); 
+                                        
                                         echo "<tr>";
-                                        echo "<td>{$valor['turma_id']}</td>";
+                                        echo "<td>{$nomeTurma[0]['nome']}</td>";
                                         echo "<td>{$valor['conteudo']}</td>";
                                         echo "<td>{$valor['dataInicio']}</td>";
-                                        echo "<td>{$valor['dataTermino']}</td>";
                                         $aux = $valor['id'];
-                                        echo "<td><a href='/resolucao/atividade?id=$aux'> <button type='button' class='btn btn-primary btn-xs' value='$aux' id='enviar'><span class='glyphicon glyphicon-folder-open'></span></button></td></a>";
+                                        echo "<td><a href='/corigir/avaliacao?id={$aux}'><button class='btn btn-primary btn-xs'type='button'>Exibir</button></a></td>";
                                         if ($valor['status'] == 0):
                                             $aux = $valor['id'];
                                             echo "<td><span><button type='submit' class='btn btn-success btn-xs' name='$aux' >liberar</button></span></td>";
@@ -95,11 +94,6 @@ $conexao->BDFecharConexao($con);
                                         endif;
                                         echo "</tr>";
                                     endforeach;
-                                else:
-                                    echo "<tr>";
-                                    echo '<td> Nenhuma atividade encontrada</td>';
-                                    echo "</tr>";
-                                endif;
                                 ?>
                             </tbody>
                             <tfoot>
@@ -119,6 +113,8 @@ $conexao->BDFecharConexao($con);
     </div>
 </div>
 </div>
+
+
 <?php
 require_once './footer.php';
 ?>
