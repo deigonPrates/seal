@@ -77,7 +77,7 @@ class Atividade extends Conexao {
             ];
         }
         $this->DBGravar('respostas', $grava);
-
+        $this->corrigirQuestaoObjetiva($dados);
         $limite = $this->BDSQL("SELECT numero FROM questoes ORDER by numero DESC LIMIT 1");
         $_SESSION['numero'] += 1;
 
@@ -120,6 +120,18 @@ class Atividade extends Conexao {
         header('Location: /fazer/atividade');
     }
 
+    public function corrigirQuestaoObjetiva($dados) {
+        $id = intval($dados);
+        $bdBusca = $this->BDSeleciona('solucoes', 'alternativa', "where(questoes_id = $id)");
+        $lastID = $this->BDSeleciona('respostas', 'id', "order by id desc LIMIT 1");
+        $lastID = $lastID['0']['id'];
+        if ($dados['alternativa'] == $bdBusca[0]['alternativa']) {
+            $this->BDAtualiza('respostas', "WHERE(id = $lastID and questao_id = $id)", 'resultado', 1);
+        }else{
+            $this->BDAtualiza('respostas', "WHERE(id = $lastID and questao_id = $id)", 'resultado', 0);
+        }
+    }
+
     public function definirAtividadeCorrecao($dados) {
         
     }
@@ -143,7 +155,7 @@ class Atividade extends Conexao {
     }
 
     public function salvarCorrecao($dados) {
-      $autenticacao = new Autenticacao();
+        $autenticacao = new Autenticacao();
         if (!isset($_SESSION)) {
             session_start();
         }
@@ -151,7 +163,7 @@ class Atividade extends Conexao {
         $solucao = trim($dados['solucao']);
         $resultado = trim($dados['resposta']);
         $comentario = trim($dados['comentario']);
-       
+
         $this->BDAtualiza("respostas", "WHERE(questao_id = {$dados['questao_id']})", 'comentario', "'{$dados['comentario']}'");
         $this->BDAtualiza("respostas", "WHERE(questao_id = {$dados['questao_id']})", 'resultado', $dados['resultado']);
         $autenticacao->SweetAlertDown('Correção salva (:', 'Redirecionando!', 'down');
