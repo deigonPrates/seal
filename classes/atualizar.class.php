@@ -51,15 +51,20 @@ class Atualizar extends Conexao {
 
     public function atualizarSenha($dados) {
         $validar = new ValidarCampos();
+        $autenticacao = new Autenticacao();
 
         $teste = $validar->validarEdicaoSenha($dados);
         $dados = $teste->dados;
 
         $tabela = $this->BDRetornarTabela($dados['matricula']);
-
+        
+        if(!$tabela){
+            $autenticacao->SweetAlertDown('Opss ):', 'Matricula invalida', 'error');
+            header("Refresh: 3, /editar/senha");
+        }
         if (!empty($teste->erro)) {
             $autenticacao->SweetAlertDown('Opss ):', $teste->erros, 'error');
-            header("Refresh: 3,  /editar/perfil");
+            header("Refresh: 3, /editar/senha");
         } else {
             $conn = $this->BDAbreConexao();
             $this->BDAtualiza("$tabela", "WHERE(matricula like '{$dados['matricula']}')", 'senha', "'{$dados['senha']}'");
