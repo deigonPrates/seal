@@ -73,11 +73,12 @@ $conexao->BDFecharConexao($con);
                             </div>
                             <tbody>
                                 <?php
+                                if ($dados) {
                                     foreach ($dados as $key => $valor):
                                         #pegar o nome da turma
                                         $aux = $valor['turma_id'];
-                                        $nomeTurma = $conexao->BDSeleciona('turmas', 'nome', "WHERE(id = '{$aux}')"); 
-                                        
+                                        $nomeTurma = $conexao->BDSeleciona('turmas', 'nome', "WHERE(id = '{$aux}')");
+
                                         echo "<tr>";
                                         echo "<td>{$nomeTurma[0]['nome']}</td>";
                                         echo "<td>{$valor['conteudo']}</td>";
@@ -94,6 +95,11 @@ $conexao->BDFecharConexao($con);
                                         endif;
                                         echo "</tr>";
                                     endforeach;
+                                } else {
+                                    echo "<tr>";
+                                    echo "<td>Nenuma atividade cadastrada</td>";
+                                    echo "</tr>";
+                                }
                                 ?>
                             </tbody>
                             <tfoot>

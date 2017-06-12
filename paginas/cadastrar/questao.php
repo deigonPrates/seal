@@ -31,7 +31,7 @@ $conexao->BDFecharConexao($con);
                         <div class="form-group">
                             <label class="col-md-2 control-label">Tipo de Questão:</label>
                             <div class="col-md-2">
-                                <select class="form-control" id="tipoQuestao" name="tipoQuestao" onchange="optionCheck()">
+                                <select class="form-control" id="tipoQuestao" name="categoria_id" onchange="optionCheck()">
                                     <option selected="" disabled="">Selecione</option>
                                     <option value='1'>Objetiva</option>
                                     <option value='2'>Subjetiva</option>
