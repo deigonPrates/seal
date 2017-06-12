@@ -44,7 +44,7 @@ $conexao->BDFecharConexao($con);
                 <br>
                 <form action="/adicionando/questao" class="form-horizontal" role="form" method="post"> 
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Tipo de Questão:</label>
+                        <label class="col-md-2 control-label">Tipo de Questão:</label>
                         <div class="col-md-3">
                             <select class="form-control" id="tipoQuestao" name="categoria_id" onchange="optionCheck()">
                                 <option selected="" disabled="">Selecione</option>
@@ -62,6 +62,10 @@ $conexao->BDFecharConexao($con);
                                 }
                                 ?>
                             </select>
+                        </div>
+                         <label class="col-md-1 control-label">Valor:</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="valor" value="">
                         </div>
                     </div>
                     <div class="form-group" id="objetiva" style="display:none;">
