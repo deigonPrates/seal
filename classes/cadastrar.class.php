@@ -105,6 +105,7 @@ class Cadastrar extends Conexao {
 
         if ($objValidar->status) {
             $dados = $objValidar->dados;
+
             unset($dados['alternativa']);
             unset($dados['solucao']);
             unset($dados['perguntaSubjetiva']);
@@ -122,15 +123,21 @@ class Cadastrar extends Conexao {
     private function cadastrarSolucao($dados) {
 
         $lastID = $this->BDSeleciona('questoes', 'id', "order by id desc LIMIT 1");
-        $solucao = $dados['solucao'];
-        $alternativa = $dados['alternativa'];
         $id = $lastID[0]['id'];
+        if (isset($dados['solucao']) && ($dados['solucao'] == 1)) {
 
-        $grava = [
-            'questoes_id' => $id,
-            'solucao' => $solucao,
-            'alternativa' => $alternativa
-        ];
+            $solucao = $dados['solucao'];
+            $grava = [
+                'questoes_id' => $id,
+                'solucao' => $solucao
+            ];
+        } else {
+            $alternativa = $dados['alternativa'];
+            $grava = [
+                'questoes_id' => $id,
+                'alternativa' => $alternativa
+            ];
+        }
 
         $this->DBGravar('solucoes', $grava);
     }
@@ -169,7 +176,7 @@ class Cadastrar extends Conexao {
 
             $this->DBGravar('questoes', $dados);
 
-            $this->cadastrarSolucao($cadastroSolucao);
+            $this->cadastrarSolucao($dados);
             header("Location: /cadastrar/adicionarQuestao");
         } else {
             print_r($objValidar->erro);
@@ -180,13 +187,14 @@ class Cadastrar extends Conexao {
     public function matricularTurma($dados) {
         session_start();
         $ObjValidar = new ValidarCampos();
+        $autenticar = new Autenticacao();
         $erro[] = NULL;
 
         $validar = $ObjValidar->validarMatriculaTurma($dados);
         if ($validar->status) {
-            $condigo = $validar->dados['codigo'];
-            $bdTurma = $this->BDSeleciona('turmas', '*', "WHERE(codigo like '{$condigo}' and status = 1)");
+            $codigo = $validar->dados['codigo'];
 
+            $bdTurma = $this->BDSeleciona('turmas', '*', "WHERE(codigo like '{$codigo}' and status = 1)");
             if (!$bdTurma) {
                 $erro = array_merge($erro, ['erro' => "O codigo informado para fazer a matricula é invalido por favor informe outro!"]);
             } else {
@@ -203,13 +211,16 @@ class Cadastrar extends Conexao {
                         'aluno_id' => $aluno_id
                     ];
                     $bdregistro = $this->BDSeleciona('registros', '*', "WHERE(turma_id = $turma_id and aluno_id = $aluno_id)");
-                    if ((!$bdregistro) && (count($bdregistro) == 0)) {
-                        $grava = $this->DBGravar('registros', $dados);
-                        $autenticar->SweetAlertDown('Cadastro realizado', 'Matricula realizada com sucesso', 'success');
-                        header("Refresh: 3,  /inicio");
-                    }
-                    if (count($bdregistro) > 0) {
+
+                    if (isset($bdregistro[0])) {
+
                         $erro = array_merge($erro, ['erro' => "Você já encontrase matriculado nesta turma!"]);
+                    } else {
+                        $grava = $this->DBGravar('registros', $dados);
+                        session_start();
+                        unset($_SESSION['erros']);
+                        $_SESSION['sucesso'] = 'Matricula realizada!';
+                        header('Location: /cadastrar/matriculaTurma');
                     }
                 }
             }
