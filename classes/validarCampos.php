@@ -127,7 +127,7 @@ class ValidarCampos {
     }
 
     public function ValidarCadastroMonitor($dados) {
-        
+
         $auth = new Autenticacao();
         $conexao = new Conexao();
         $objRetorno = new stdClass();
@@ -146,7 +146,7 @@ class ValidarCampos {
         $turma = ($dados['turma_id']) ? filter_var($dados['turma_id'], FILTER_SANITIZE_STRING) : NULL;
         $turma = (int) $turma;
         $papel = 3;
-        
+
         $pass = $auth->hashHX($senha); #criptografando a senha
         $senhaAux = $pass['password']; #passando a senha criptografada
         $salt = $pass['salt']; #definindo o salt
@@ -331,7 +331,7 @@ class ValidarCampos {
         $objRetorno->dados = [];
         $objRetorno->status = TRUE;
 
-        $categoria_id = ($dados['tipoQuestao']) ? filter_var($dados['tipoQuestao'], FILTER_SANITIZE_STRING) : null;
+        $categoria_id = ($dados['categoria_id']) ? filter_var($dados['categoria_id'], FILTER_SANITIZE_STRING) : null;
         $atividade_id = ($dados['atividade_id']) ? filter_var($dados['atividade_id'], FILTER_SANITIZE_STRING) : null;
         $pergunta = ($dados['pergunta']) ? filter_var($dados['pergunta'], FILTER_SANITIZE_STRING) : null;
         $alternativa_a = ($dados['alternativa_a']) ? filter_var($dados['alternativa_a'], FILTER_SANITIZE_STRING) : null;
@@ -339,12 +339,20 @@ class ValidarCampos {
         $alternativa_c = ($dados['alternativa_c']) ? filter_var($dados['alternativa_c'], FILTER_SANITIZE_STRING) : null;
         $alternativa_d = ($dados['alternativa_d']) ? filter_var($dados['alternativa_d'], FILTER_SANITIZE_STRING) : null;
         $alternativa_e = ($dados['alternativa_e']) ? filter_var($dados['alternativa_e'], FILTER_SANITIZE_STRING) : null;
+        $alternativa = ($dados['alternativa']) ? filter_var($dados['alternativa'], FILTER_SANITIZE_STRING) : null;
         $solucao = ($dados['solucao']) ? filter_var($dados['solucao'], FILTER_SANITIZE_STRING) : null;
         $numero = $this->retornarNumeroQuestao($atividade_id);
         $nivel_id = ($dados['nivel_id']) ? filter_var($dados['nivel_id'], FILTER_SANITIZE_STRING) : null;
         $perguntaSubjetiva = ($dados['perguntaSubjetiva']) ? filter_var($dados['perguntaSubjetiva'], FILTER_SANITIZE_STRING) : null;
         $valor = $dados['valor'];
-        
+        $categoria_id = intval($categoria_id);
+      
+        if (!is_null($valor)) {
+            $objRetorno->dados = array_merge($objRetorno->dados, ['valor' => $valor]);
+        } else {
+            $objRetorno->erro[] = 'O campo valor nao foi preenchido corretamente';
+            $objRetorno->status = FALSE;
+        }
         if ($categoria_id == 2) {
             $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
                 'categoria_id' => $categoria_id,
@@ -370,7 +378,9 @@ class ValidarCampos {
             }
         } elseif ($categoria_id == 1) {
             if (!is_null($categoria_id) && (($categoria_id > 0) && ($categoria_id < 3))) {
-                $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id
+                $objRetorno->dados = array_merge($objRetorno->dados, [
+                    'atividade_id' => intval($atividade_id),
+                    'categoria_id' => $categoria_id
                 ]);
             } else {
                 $objRetorno->erro[] = 'O campo Tipo da questão nao foi preenchido corretamente';
@@ -400,9 +410,15 @@ class ValidarCampos {
                 $objRetorno->erro[] = 'Deve ter ao menos duas auternativas';
                 $objRetorno->status = FALSE;
             }
+            if (!is_null($alternativa)) {
+                $objRetorno->dados = array_merge($objRetorno->dados, ['alternativa' => $alternativa]);
+            } else {
+                $objRetorno->erro[] = 'O campo resposta nao foi preenchido corretamente';
+                $objRetorno->status = FALSE;
+            }
         }
         if (!is_null($nivel_id)) {
-            $objRetorno->dados = array_merge($objRetorno->dados, ['nivel_id' => $nivel_id]);
+            $objRetorno->dados = array_merge($objRetorno->dados, ['nivel_id' => intval($nivel_id)]);
         } else {
             $objRetorno->erro[] = 'O campo Nivel nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
@@ -429,7 +445,14 @@ class ValidarCampos {
         $solucao = ($dados['solucao']) ? filter_var($dados['solucao'], FILTER_SANITIZE_STRING) : null;
         $atividade_id = ($dados['atividade_id']) ? filter_var($dados['atividade_id'], FILTER_SANITIZE_STRING) : null;
         $numero = $this->retornarNumeroQuestao($atividade_id);
+        $valor = ($dados['valor']) ? filter_var($dados['valor'], FILTER_SANITIZE_STRING) : null;
 
+        if (!is_null($valor)) {
+            $objRetorno->dados = array_merge($objRetorno->dados, ['valor' => $valor]);
+        } else {
+            $objRetorno->erro[] = 'O campo valor nao foi preenchido corretamente';
+            $objRetorno->status = FALSE;
+        }
         if ($categoria_id == 2) {
 
             $objRetorno->dados = array_merge($objRetorno->dados, ['atividade_id' => $atividade_id,
@@ -616,22 +639,32 @@ class ValidarCampos {
         $matricula = ($dados['matricula']) ? filter_var($dados['matricula'], FILTER_SANITIZE_STRING) : NULL;
         $senha = ($dados['senha']) ? filter_var($dados['senha'], FILTER_SANITIZE_STRING) : false;
         $repetaSenha = ($dados['repeta-senha']) ? filter_var($dados['repeta-senha'], FILTER_SANITIZE_STRING) : false;
+        $auth = new Autenticacao();
+        $newSenha = $auth->hashHX($senha);
+        $newRepetaSenha = $auth->hashHX($repetaSenha, $newSenha['salt']);
 
-        if (is_null($senha)) {
-            $objRetorno->erro[] = 'O campo senha nao foi preenchido corretamente';
+        if (is_null($matricula)) {
+            $objRetorno->erro[] = 'O campo matricula nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
-        }
-        if ($senha != $repetaSenha) {
+        } elseif (is_null($senha) && (is_null($repetaSenha))) {
+            $pass = $auth->hashHX($matricula);
+            $senha = $pass['password'];
+            $salt = $pass['salt'];
+            $objRetorno->dados = array_merge($objRetorno->dados, [
+                'matricula' => $matricula,
+                'senha' => $senha,
+                'salt' => $salt
+            ]);
+        } elseif ($newSenha['password'] != $newRepetaSenha['password']) {
             $objRetorno->erro[] = 'As senhas informadas nao coincedem';
             $objRetorno->status = FALSE;
         } else {
-            $objRetorno->dados = array_merge($objRetorno->dados, ['senha' => md5($senha)]);
+            $senha = $newSenha['password'];
+            $salt = $newSenha['salt'];
+            $objRetorno->dados = array_merge($objRetorno->dados, ['senha' => $senha]);
             $objRetorno->dados = array_merge($objRetorno->dados, ['matricula' => $matricula]);
         }
-        if ((!$senha) && (!$repetaSenha)) {
-            $objRetorno->dados = array_merge($objRetorno->dados, ['senha' => md5($matricula)]);
-            $objRetorno->dados = array_merge($objRetorno->dados, ['matricula' => $matricula]);
-        }
+
 
 
         return $objRetorno;
