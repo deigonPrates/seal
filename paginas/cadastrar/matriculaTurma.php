@@ -35,12 +35,19 @@ require_once "$header";
                 <br>
                 <br>
                 <?php
+                if (!empty($_SESSION['sucesso'])) {
+                    $autenciar = new Autenticacao();
+                    $autenciar->SweetAlertDown('(:', 'cadastro realizado!!', 'success');
+
+                    unset($_SESSION['sucesso']);
+                }
                 if (!empty($_SESSION['erros'])) {
                     $autenciar = new Autenticacao();
                     $autenciar->SweetAlertDown('Opss! /:', $_SESSION['erros']['erro'], 'error');
 
                     unset($_SESSION['erros']);
                 }
+                
                 ?>
                 <form action="/matriculando/turma" class="form-horizontal" role="form" method="post">                                    
                     <div class="form-group">
