@@ -121,7 +121,10 @@ class Cadastrar extends Conexao {
     }
 
     private function cadastrarSolucao($dados) {
-
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $aluno_id = $this->BDRetornaID($_SESSION['matricula']);
         $lastID = $this->BDSeleciona('questoes', 'id', "order by id desc LIMIT 1");
         $id = $lastID[0]['id'];
         if (isset($dados['solucao']) && ($dados['solucao'] == 1)) {
@@ -129,13 +132,15 @@ class Cadastrar extends Conexao {
             $solucao = $dados['solucao'];
             $grava = [
                 'questoes_id' => $id,
-                'solucao' => $solucao
+                'solucao' => $solucao,
+                'aluno_id' =>$aluno_id
             ];
         } else {
             $alternativa = $dados['alternativa'];
             $grava = [
                 'questoes_id' => $id,
-                'alternativa' => $alternativa
+                'alternativa' => $alternativa,
+                'aluno_id' =>$aluno_id
             ];
         }
 
