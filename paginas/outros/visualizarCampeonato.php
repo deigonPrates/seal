@@ -50,39 +50,64 @@ $conexao->BDFecharConexao($con);
                 <br>
                 <br>
                 <div class="col-sm-18">
-                    <table class="table">
+                    <table id="demo-foo-filtering" class="table table-striped toggle-circle m-b-0" data-page-size="7">
                         <thead>
                             <tr>
-                                <th class='danger'><strong>Classificação</strong></th>
-                                <th class='danger'><strong>Nome</strong></th>
-                                <th class='danger'><strong>Matricula</strong></th>
-                                <th class='danger'><strong>Pontos</strong></th>
+                                <th data-toggle="true" class="danger">Classificação</th>
+                                <th data-toggle="true" class="danger">Nome</th>
+                                <th data-toggle="true" class="danger">Matricula</th>
+                                <th data-toggle="true" class="danger">Pontos</th>
                             </tr>
                         </thead>
-                        <tbody>  
+                        <div class="form-inline m-b-20">
+                            <div class="row">
+                                <div class="col-sm-12 text-xs-center text-right">
+                                    <div class="form-group">
+                                        <label>Pesquisar:</label>
+                                        <input id="demo-foo-search" type="text" placeholder="Pesquisar" class="form-control input-sm" autocomplete="on">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <tbody>
                             <?php
-                            $cont = 1;
+                            if ($dados) {
+                                $cont = 1;
 
-                            foreach ($dados as $key => $value) {
-                                if ($cont == 1) {
-                                    echo "<tr class='success'>";
-                                    echo "<td>$cont</td>";
-                                    echo "<td>{$value['username']}</td>";
-                                    echo "<td>{$value['matricula']}</td>";
-                                    echo "<td>{$value['pontos']}</td>";
-                                    echo "</tr>";
-                                } else {
-                                    echo "<tr>";
-                                    echo "<td>$cont</td>";
-                                    echo "<td>{$value['username']}</td>";
-                                    echo "<td>{$value['matricula']}</td>";
-                                    echo "<td>{$value['pontos']}</td>";
-                                    echo "</tr>";
-                                }
-                                $cont++;
+                                foreach ($dados as $key => $value):
+                                    if ($cont == 1) {
+                                        echo "<tr class='success'>";
+                                        echo "<td>$cont</td>";
+                                        echo "<td>{$value['username']}</td>";
+                                        echo "<td>{$value['matricula']}</td>";
+                                        echo "<td>{$value['pontos']}</td>";
+                                        echo "</tr>";
+                                    } else {
+                                        echo "<tr>";
+                                        echo "<td>$cont</td>";
+                                        echo "<td>{$value['username']}</td>";
+                                        echo "<td>{$value['matricula']}</td>";
+                                        echo "<td>{$value['pontos']}</td>";
+                                        echo "</tr>";
+                                    }
+                                    $cont++;
+                                endforeach;
+                            } else {
+                                echo "<tr>";
+                                echo "<td>Nenuma atividade cadastrada</td>";
+                                echo "</tr>";
                             }
                             ?>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="text-right">
+                                        <ul class="pagination pagination-split m-t-30 m-b-0"></ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
