@@ -1,4 +1,4 @@
-Total do sistema feito até o momento 85%
+Total do sistema feito até o momento 92%
 
 RF01 - bloquear questoes por data
 RF01 - cadastrar aluno - Feito 
@@ -26,8 +26,8 @@ RF22 - Visualizar historico do aluno
 ***RF23 - Cancelar(anular) caso mude de tela
 RF24 - Cadastrar questoes por niveis de dificuldade - Feito 
 RF25 - Logar no sistema - Feito 
-***RF26 - Gerar Rancking do campeonato
-***RF27 - consultar Rancking do campeonato
+RF26 - Gerar Rancking do campeonato
+RF27 - consultar Rancking do campeonato
 RF28 - visualizar questoes pelo aluno - Feito
 RF29 - cadastro de monitores - Feito 
 RF30 - atualizar dados dos monitores - Feito
@@ -56,6 +56,7 @@ Tijolim fazer o sql para o historico, finalizar o historico,***RNF06 - Corrigir 
 Deigon Fazer funcionar o codemirror no sistema
 Zaquel, Cimara achar um jeito de avisar caso mude de tela. ***RNF03 - segundo plano
 implementar a visualização do aluno da prova que havia feito
+atualizar o salvar resposta do aluno. acressentando o id dele tb
 
 /***********************/
 Sistema corrigi sozinho questoes objetivas
