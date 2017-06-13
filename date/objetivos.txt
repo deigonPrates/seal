@@ -1,7 +1,6 @@
-Total do sistema feito até o momento 73,8%
+Total do sistema feito até o momento 85%
 
 RF01 - bloquear questoes por data
-
 RF01 - cadastrar aluno - Feito 
 RF02 - atualizar dados do aluno - Feito 
 RF03 - Bloquear aluno - Feito 
@@ -44,17 +43,21 @@ RF39 - Permitir que o aluno faça matricula na turma- Feito
 RF40 - Listar todas as questões salvas no banco
 
 RNF01 - Ataque bustsforce 
-***RNF02 - limite de tempo
+***RNF02 - limite de tempo DESCONTINUADO
 ***RNF03 - segundo plano
 RNF04 - Desenvolver em web - Feito 		
 RNF05 - Cadastro do banco de questoes
-***RNF06 - Corrigir questoes objetivas
+RNF06 - Corrigir questoes objetivas -Feito
 RNF07 - Possibilitar apenas um unico login para cada usuario. - Feito 
 
 
 Proxima entrega 
-Implementar o progress bar na geração do pdf
-Implementar um alerta customizado informado sobre o bloqueio
 Tijolim fazer o sql para o historico, finalizar o historico,***RNF06 - Corrigir questoes objetivas
-Deigon Fazer funcionar o codemirror no sistema,  ***RNF02 - limite de tempo
+Deigon Fazer funcionar o codemirror no sistema
 Zaquel, Cimara achar um jeito de avisar caso mude de tela. ***RNF03 - segundo plano
+implementar a visualização do aluno da prova que havia feito
+
+/***********************/
+Sistema corrigi sozinho questoes objetivas
+Professor corrige questoes subjetivas
+
