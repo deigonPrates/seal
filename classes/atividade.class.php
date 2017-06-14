@@ -169,5 +169,12 @@ class Atividade extends Conexao {
         $autenticacao->SweetAlertDown('Correção salva (:', 'Redirecionando!', 'down');
         header("Refresh: 2, /listar/corrigir#elegant");
     }
+    public function definirVisualizacaoAtividade($dados) {
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $_SESSION['atividade_id']= $dados['atividade_id'];
+        header('Location: /listar/visualizarCorrecao#elegant');
+    }
 
 }
