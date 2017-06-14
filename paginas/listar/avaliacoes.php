@@ -46,7 +46,7 @@ $conexao->BDFecharConexao($con);
                 <br>
                 <br>
                 <div class="card-box">
-                    <form action="#" class="form-horizontal" role="form" method="post">
+                    <form action="/listando/questoesAtividade" class="form-horizontal" role="form" method="post">
                         <table id="demo-foo-filtering" class="table table-striped toggle-circle m-b-0" data-page-size="7">
                             <thead>
                                 <tr>
@@ -87,7 +87,7 @@ $conexao->BDFecharConexao($con);
                                         echo "<td>{$valor['dataInicio']}</td>";
                                         echo "<td>4</td>";
                                         $aux = $valor['id'];
-                                        echo "<td><button class='btn btn-primary btn-xs'id='$aux' data-toggle='modal' data-target='#modal' type='button'><span></span>Exibir</button></td>";
+                                        echo "<td><button class='btn btn-primary btn-xs'name='atividade_id' value='$aux' type='submit'><span></span>Exibir</button></td>";
                                         echo "</tr>";
                                     endforeach;
                                 else:
@@ -114,19 +114,6 @@ $conexao->BDFecharConexao($con);
     </div>
 </div>
 </div>
-<div id="<?php echo 'modal'; ?>" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content  col-sm-12">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"><strong>Detalhes da Avaliação</strong></h4>
-            </div>   
-            <div class="modal-footer  col-sm-12">
-                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Fechar</button>
-            </div>
-        </div>
-    </div>
-</div><!-- /.modal -->
 
 <?php
 require_once './footer.php';
