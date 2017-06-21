@@ -20,6 +20,7 @@ $consulta = $conexao->BDSeleciona("$tabela", '*', "WHERE(matricula like '{$_SESS
 $nome = $consulta[0]['nome'];
 $email = $consulta[0]['email'];
 $username = $consulta[0]['username'];
+
 if ($tabela != 'professores') {
     $semestre = $consulta[0]['semestre'];
     $ano = $consulta[0]['ano'];
