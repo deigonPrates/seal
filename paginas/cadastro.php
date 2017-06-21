@@ -27,7 +27,7 @@ include_once '/classes/autenticacao.class.php';
         <script src="../assets/js/modernizr.min.js"></script>
 
     </head>
-    <body>
+    <body style="color: white;">
         <?php
         if (isset($_SESSION['erro'])) {
             $auth = new Autenticacao();
