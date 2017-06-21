@@ -35,13 +35,14 @@ require_once "$header";
                 <br>
                 <br>
                 <?php
-                if (!empty($_SESSION['sucesso'])) {
+                if (isset($_SESSION['sucesso'])) {
                     $autenciar = new Autenticacao();
-                    $autenciar->SweetAlertDown('(:', 'cadastro realizado!!', 'success');
+                    $autenciar->SweetAlertDown('(:', 'Matricula realizada!!', 'success');
 
                     unset($_SESSION['sucesso']);
                 }
-                if (!empty($_SESSION['erros'])) {
+                
+                if (isset($_SESSION['erros'])) {
                     $autenciar = new Autenticacao();
                     $autenciar->SweetAlertDown('Opss! /:', $_SESSION['erros']['erro'], 'error');
 
