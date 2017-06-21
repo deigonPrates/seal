@@ -43,7 +43,7 @@ class Autenticacao {
             $consulta = false;
 
             if ($tabela) {
-                $consulta = $login->BDSeleciona("$tabela", '*', "where(matricula like '{$matricula}')");
+                $consulta = $login->BDSeleciona("$tabela", '*', "where(matricula like '{$matricula}')");      
             }
             if ($consulta != FALSE) {
 
@@ -52,10 +52,11 @@ class Autenticacao {
                 $bdSalt = $consulta[0]['salt'];
                 $bdTabela = $tabela;
                 $ativo = (int) $consulta[0]['ativo'];
-                /*recebe o salt do banco e gera uma senha*/
+                
+                /* recebe o salt do banco e gera uma senha */
                 $password = $this->hashHX($senha, $bdSalt);
                 $senha = $password['password'];
-                 
+
                 if ($bdMatricula == false) {
                     $erro = array_merge($erro, ["Dados invalidos"]);
                 } else {
