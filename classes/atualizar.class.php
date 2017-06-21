@@ -21,8 +21,6 @@ class Atualizar extends Conexao {
         $dados = $teste->dados;
         if ($teste) {
             $dados = array_filter($dados); //limpa o array de null e vazios
-            //cria uma string so com as keys
-
 
             $tabela = $this->BDRetornarTabela($_SESSION["matricula"]);
             unset($dados['senha-antiga']);
@@ -41,6 +39,25 @@ class Atualizar extends Conexao {
             for ($i = 0; $i < count($indices); $i++) {
                 $this->BDAtualiza("$tabela", "WHERE(matricula like '{$_SESSION["matricula"]}')", $indices[$i], $valores[$i]);
             }
+
+            if (!empty($teste->dados['senha-antiga'])) {
+
+                if (!empty($teste->dados['senha-nova']) && !empty(!empty($teste->dados['repeta-senha']))) {
+                    if ($teste->dados['senha-nova'] == $teste->dados['repeta-senha']) {
+                        $senhaCriptografada = $autenticacao->hashHX($teste->dados['senha-nova']);
+                        $pass = "'" . $senhaCriptografada['password'] . "'";
+                        $saltCript = "'" . $senhaCriptografada['salt'] . "'";
+                        $this->BDAtualiza($tabela, "where matricula = '{$_SESSION['matricula']}' ", 'senha', $pass);
+                        $this->BDAtualiza($tabela, "where matricula = '{$_SESSION['matricula']}' ", 'salt', $saltCript);
+                    } else {
+                        $autenticacao->SweetAlertDown('Erro ):', 'Por favor tente novamente!', 'down');
+                        header("Refresh: 1,  /editar/perfil");
+                    }
+                } else {
+                    $autenticacao->SweetAlertDown('Erro ):', 'As senhas não conferem, tente novamente!', 'down');
+                    header("Refresh: 1,  /editar/perfil");
+                }
+            }
             $autenticacao->SweetAlertDown('Cadastro atualizado (:', 'Seu cadastro foi atualizado com sucesso!', 'down');
             header("Refresh: 1,  /editar/perfil");
         } else {
@@ -55,10 +72,10 @@ class Atualizar extends Conexao {
 
         $teste = $validar->validarEdicaoSenha($dados);
         $dados = $teste->dados;
-
-        $tabela = $this->BDRetornarTabela($dados['matricula']);
         
-        if(!$tabela){
+        $tabela = $this->BDRetornarTabela($dados['matricula']);
+
+        if (!$tabela) {
             $autenticacao->SweetAlertDown('Opss ):', 'Matricula invalida', 'error');
             header("Refresh: 3, /editar/senha");
         }
@@ -68,8 +85,9 @@ class Atualizar extends Conexao {
         } else {
             $conn = $this->BDAbreConexao();
             $this->BDAtualiza("$tabela", "WHERE(matricula like '{$dados['matricula']}')", 'senha', "'{$dados['senha']}'");
+            $this->BDAtualiza("$tabela", "WHERE(matricula like '{$dados['matricula']}')", 'salt', "'{$dados['salt']}'");
             $this->BDFecharConexao($conn);
-            $autenticacao->SweetAlertDown('Cadastro atualizado (:', 'Seu cadastro foi atualizado com sucesso!', 'down');
+            $autenticacao->SweetAlertDown('Cadastro atualizado (:', 'Cadastro foi atualizado com sucesso!', 'down');
             header("Refresh: 3,  /editar/senha");
         }
     }
@@ -104,7 +122,7 @@ class Atualizar extends Conexao {
         $tabela = $this->BDRetornarTabela($matricula);
 
         $this->BDAtualiza("alunos", "WHERE(id = $id)", 'ativo', '0') or die('error');
-        
+
         header("Location: /listar/usuario");
     }
 

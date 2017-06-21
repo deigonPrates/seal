@@ -28,7 +28,6 @@ class ValidarCampos {
             $objRetorno->erro[] = 'O campo senha nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
         } else {
-            $senha = md5($senha);
             $objRetorno->dados[] = ['senha' => $senha];
         }
 
@@ -346,7 +345,7 @@ class ValidarCampos {
         $perguntaSubjetiva = ($dados['perguntaSubjetiva']) ? filter_var($dados['perguntaSubjetiva'], FILTER_SANITIZE_STRING) : null;
         $valor = $dados['valor'];
         $categoria_id = intval($categoria_id);
-      
+
         if (!is_null($valor)) {
             $objRetorno->dados = array_merge($objRetorno->dados, ['valor' => $valor]);
         } else {
@@ -640,13 +639,11 @@ class ValidarCampos {
         $senha = ($dados['senha']) ? filter_var($dados['senha'], FILTER_SANITIZE_STRING) : false;
         $repetaSenha = ($dados['repeta-senha']) ? filter_var($dados['repeta-senha'], FILTER_SANITIZE_STRING) : false;
         $auth = new Autenticacao();
-        $newSenha = $auth->hashHX($senha);
-        $newRepetaSenha = $auth->hashHX($repetaSenha, $newSenha['salt']);
 
         if (is_null($matricula)) {
             $objRetorno->erro[] = 'O campo matricula nao foi preenchido corretamente';
             $objRetorno->status = FALSE;
-        } elseif (is_null($senha) && (is_null($repetaSenha))) {
+        } elseif (!$senha && !$repetaSenha) {
             $pass = $auth->hashHX($matricula);
             $senha = $pass['password'];
             $salt = $pass['salt'];
@@ -655,18 +652,21 @@ class ValidarCampos {
                 'senha' => $senha,
                 'salt' => $salt
             ]);
-        } elseif ($newSenha['password'] != $newRepetaSenha['password']) {
-            $objRetorno->erro[] = 'As senhas informadas nao coincedem';
-            $objRetorno->status = FALSE;
-        } else {
-            $senha = $newSenha['password'];
-            $salt = $newSenha['salt'];
-            $objRetorno->dados = array_merge($objRetorno->dados, ['senha' => $senha]);
-            $objRetorno->dados = array_merge($objRetorno->dados, ['matricula' => $matricula]);
+        } elseif (!is_null($senha) && (!is_null($repetaSenha))) {
+            if ($senha != $repetaSenha) {
+                $objRetorno->erro[] = 'As senhas informadas nao coincedem';
+                $objRetorno->status = FALSE;
+            } else {
+                $pass = $auth->hashHX($senha);
+                $senha = $pass['password'];
+                $salt = $pass['salt'];
+                $objRetorno->dados = array_merge($objRetorno->dados, [
+                    'matricula' => $matricula,
+                    'senha' => $senha,
+                    'salt' => $salt
+                ]);
+            }
         }
-
-
-
         return $objRetorno;
     }
 
