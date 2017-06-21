@@ -132,10 +132,6 @@ class Atividade extends Conexao {
         }
     }
 
-    public function definirAtividadeCorrecao($dados) {
-        
-    }
-
     public function definirAvaliacaoCorrecao($dados) {
 
         if (!isset($_SESSION)) {
