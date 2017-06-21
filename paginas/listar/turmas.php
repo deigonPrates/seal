@@ -80,14 +80,20 @@ $conexao->BDFecharConexao($con);
                             </div>
                             <tbody>
                                 <?php
-                                foreach ($dados as $key => $valor):
+                                if ($dados) {
+                                    foreach ($dados as $key => $valor):
+                                        echo "<tr>";
+                                        echo "<td>{$valor['nome']}</td>";
+                                        echo "<td>{$valor['professor']}</td>";
+                                        echo "<td>{$valor['ano']}</td>";
+                                        echo "<td>{$valor['semestre']}</td>";
+                                        echo "</tr>";
+                                    endforeach;
+                                }else {
                                     echo "<tr>";
-                                    echo "<td>{$valor['nome']}</td>";
-                                    echo "<td>{$valor['professor']}</td>";
-                                    echo "<td>{$valor['ano']}</td>";
-                                    echo "<td>{$valor['semestre']}</td>";
-                                    echo "</tr>";
-                                endforeach;
+                                    echo "<td> Nenhuma turma cadastrada</td>";
+                                    echo "<tr>";
+                                }
                                 ?>
                             </tbody>
                             <tfoot>
