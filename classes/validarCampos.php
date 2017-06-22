@@ -608,9 +608,6 @@ class ValidarCampos {
         } else {
             $objRetorno->dadosdados = array_merge($dados, ['username' => $username]);
         }if ($senhaAntiga) {
-            $senha = md5($senha);
-            $repetaSenha = md5($repetaSenha);
-
             if ($senha != $repetaSenha) {
                 $objRetorno->erro[] = 'As senhas informadas nao coincedem';
                 $objRetorno->status = FALSE;
