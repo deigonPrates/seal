@@ -50,10 +50,9 @@ RNF05 - Cadastro do banco de questoes
 RNF06 - Corrigir questoes objetivas -Feito
 RNF07 - Possibilitar apenas um unico login para cada usuario. - Feito 
 
-
 Proxima entrega 
-Tijolim fazer o sql para o historico, finalizar o historico,***RNF06 - Corrigir questoes objetivas
-Deigon Fazer funcionar o codemirror no sistema
+Tijolim fazer o sql para o historico, finalizar o historico
+Deigon Fazer funcionar o codemirror no sistema,***RNF06 - Corrigir questoes objetivas
 Zaquel, Cimara achar um jeito de avisar caso mude de tela. ***RNF03 - segundo plano
 implementar a visualização do aluno da prova que havia feito
 atualizar o salvar resposta do aluno. acressentando o id dele tb
@@ -61,4 +60,6 @@ atualizar o salvar resposta do aluno. acressentando o id dele tb
 /***********************/
 Sistema corrigi sozinho questoes objetivas
 Professor corrige questoes subjetivas
-
+->Matricula no aluno na turma
+->Atualizar senha (pela pagina do professor)
+->Corrigir o processo de atualizar a senha
