@@ -78,6 +78,7 @@ $conexao->BDFecharConexao($con);
                             </div>
                             <tbody>
                                 <?php
+                                if ($dados) {
                                     foreach ($dados as $key => $valor):
                                         echo "<tr>";
                                         echo "<td>{$valor['nome']}</td>";
@@ -88,6 +89,11 @@ $conexao->BDFecharConexao($con);
                                         echo "<td><button type='submit' name='alunos_atividades_id' value='{$aux}'class='btn btn-primary btn-xs'>Exibir</button></td>";
                                         echo "</tr>";
                                     endforeach;
+                                }else {
+                                    echo "<tr>";
+                                    echo "<td>Nenhuma questão encontrada para essa atividade</td>";
+                                    echo "<tr>";
+                                }
                                 ?>
                             </tbody>
                             <tfoot>
