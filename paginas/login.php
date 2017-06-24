@@ -39,7 +39,7 @@ if (isset($_SESSION['matricula'])) {
                 $autenciar = new Autenticacao();
                 #cor da div , conteudo da div
                 #$autenciar->alert('danger', $_SESSION['erro'][0]);
-                
+               
                 $autenciar->SweetAlertDown('Opss! /:', $_SESSION['erro'][0],'down');
                 
                 unset($_SESSION['erro']);
