@@ -99,7 +99,7 @@ $conexao->BDFecharConexao($con);
                                     echo "<td>{$valor['matricula']}</td>";
                                     echo "<td>{$valor['semestre']}</td>";
                                     $aux = $valor['id'];
-                                    echo "<td><button class='btn btn-xs'id='$aux' data-toggle='modal' data-target='#abrir' type='button'><span class='glyphicon glyphicon-eye-open'></span></button></td>";
+                                    echo "<td><button class='btn btn-xs'id='$aux' data-toggle='modal' data-target='#$aux' type='button'><span class='glyphicon glyphicon-eye-open'></span></button></td>";
                                     if ($valor['status'] == 0):
                                         $aux = $valor['id'];
                                         echo "<td><span><button type='submit' class='btn btn-success btn-xs' name='$aux' >liberar</button></span></td>";
@@ -108,7 +108,7 @@ $conexao->BDFecharConexao($con);
                                         echo "<td><span><button type='submit' class='btn btn-danger btn-xs' name='$aux'>bloquear</button></span></td>";
                                     endif;
                                     ?>   
-                                <div id="<?php echo 'abrir'; ?>" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                <div id="<?php echo $aux; ?>" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                                     <div class="modal-dialog">
                                         <div class="modal-content  col-sm-12">
                                             <div class="modal-header">
