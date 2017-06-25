@@ -92,7 +92,7 @@
                                     <li><a href="/editar/definirAtividade">Atividade</a></li>
                                     <li><a href="/editar/definirAvaliacao">Avaliação</a></li>
                                     <li><a href="/editar/senha">Senha</a></li>
-                                    <li><a href="/editar/turma">Turma</a></li>
+                                    <li><a href="/editar/definirTurma">Turma</a></li>
                                 </ul>
                             </li>
 
