@@ -26,6 +26,16 @@ if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'atualiz
     $atualizar = new Atualizar();
     $atualizar->atualizarPerfil($_POST);
 endif;
+if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'atualizando/turma')):
+    include_once'./classes/atualizar.class.php';
+    $atualizar = new Atualizar();
+    $atualizar->definirTurmaEdicao($_POST);
+endif;
+if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'salvando/turma')):
+    include_once'./classes/atualizar.class.php';
+    $atualizar = new Atualizar();
+    $atualizar->atualizarTurma($_POST);
+endif;
 if ((isset($URL[0])) && (isset($URL[1])) && ($URL[0] . '/' . $URL[1] == 'resolucao/atividade')):
     include_once'./classes/cadastrar.class.php';
     $cadastrar = new Cadastrar();
