@@ -9,16 +9,20 @@ include_once("./classes/conexao.class.php");
 
 $conexao = new Conexao();
 $con = $conexao->BDAbreConexao();
-$bdID = (int)$conexao->BDRetornaID($_SESSION['matricula']);
 
-$alunos = $conexao->BDSeleciona('alunos', 'alunos.nome, alunos.email,alunos.matricula', "WHERE(id = 1)");
-$turmas = $conexao->BDSeleciona('turmas', 'turmas.ano, turmas.semestre', "WHERE(id = 1)");
+if (isset($_GET['id'])) {
+    $bdID = (int) $_GET['id'];
+} else {
+    $bdID = (int) $conexao->BDRetornaID($_SESSION['matricula']);
+}
+$alunos = $conexao->BDSeleciona('alunos', 'alunos.nome, alunos.email,alunos.matricula', "WHERE(id = $bdID)");
+$turmas = $conexao->BDSeleciona('turmas', 'turmas.ano, turmas.semestre');
 $consultabd = $conexao->BDSQL("SELECT sum(questoes.valor) as nota, atividades.conteudo, atividades.dataInicio from alunos "
         . "join alunos_atividades on alunos.id = alunos_atividades.aluno_id "
         . "JOIN atividades on atividades.id = alunos_atividades.avaliacao_id "
         . "JOIN questoes on atividades.id = questoes.atividade_id "
         . "join respostas on questoes.id = respostas.questao_id "
-        . "WHERE(respostas.resultado = 1 and alunos.id = $bdID) "
+        . "WHERE(respostas.resultado = 1 and respostas.aluno_id = $bdID) "
         . "GROUP by atividades.conteudo, atividades.dataInicio");
 $conexao->BDFecharConexao($con);
 
@@ -32,7 +36,7 @@ foreach ($alunos as $key => $value) {
 foreach ($turmas as $key => $value) {
     $lacoTurma .= "<tr>";
     $lacoTurma .= "<td><strong>Graduação:&nbsp;&nbsp;&nbsp;</strong> Curso Superior de Tecnologia em Análise e Desenvolvimento de Sistemas <br>";
-    $lacoTurma .= "<strong>Ano:&nbsp;&nbsp;&nbsp;</strong>{$value['ano']}".'.';
+    $lacoTurma .= "<strong>Ano:&nbsp;&nbsp;&nbsp;</strong>{$value['ano']}" . '.';
     $lacoTurma .= "{$value['semestre']}</td>";
     $lacoTurma .= "</tr>";
 }
@@ -51,7 +55,7 @@ $pagina = "
       <br>
      
 ";
-$pagina.="
+$pagina .= "
       <TABLE width='1000' > <!-- Tabela Herder  -->
           <TR> 
               <TD width='100' bgcolor='#A9A9A9'><center>IDENTIFICAÇÃO</center></TD>
@@ -82,7 +86,7 @@ $pagina.="
    </div>
 </div>
 </div>
-"; 
+";
 $arquivo = "histórico.pdf";
 
 $mpdf = new mPDF();

@@ -13,7 +13,6 @@ $header = $autenticacao->definirNiveisAcesso();
 require_once "$header";
 
 if (!$autenticacao->ValidarAcesso($_SESSION['matricula'], 1)) {
-    ;
     echo "<script>location.href='/inicio';</script>";
     exit();
 }
@@ -58,7 +57,6 @@ $conexao->BDFecharConexao($con);
                 <br>
                 <br>
                 <div class="card-box">
-                    <form action="/atualizar/status/usuario/alunos" class="form-horizontal" role="form" method="post">
                         <table id="demo-foo-filtering" class="table table-striped toggle-circle m-b-0" data-page-size="7">
                             <thead>
                                 <tr>
@@ -99,7 +97,7 @@ $conexao->BDFecharConexao($con);
                                     echo "<td>{$valor['matricula']}</td>";
                                     $aux = $valor['id'];
                                     echo "<td><button class='btn btn-xs'id='$aux' data-toggle='modal' data-target='#modal$aux' type='button'><span class='glyphicon glyphicon-eye-open'></span></button></td>";
-                                    echo "<td><button class='btn btn-primary btn-xs'id='$aux' data-toggle='modal' data-target='#historico$aux' type='button'>Gerar Historico</button></td>";
+                                    echo "<td><a href='/outros/historico?id=$aux'target='_blank'><button class='btn btn-primary btn-xs' type='button'>Gerar Historico</button></a></td>";
                                     ?>   
                                 <div id="<?php echo 'modal' . $aux; ?>" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                                     <div class="modal-dialog">
@@ -156,19 +154,6 @@ $conexao->BDFecharConexao($con);
                                 <?php
                             endforeach;
                             ?>
-                            <div id="<?php echo 'historico' . $aux; ?>" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                                <div class="modal-dialog">
-                                    <div class="modal-content  col-sm-12">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        </div>   
-                                        <div class="col-sm-12">
-                                            <iframe src="/assets/Exemplo01.pdf" width="100%" height="680px" style="border: none;"></iframe>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- /.modal -->
-
                             </tbody>
                             <tfoot>
                                 <tr>
