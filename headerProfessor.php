@@ -120,7 +120,7 @@
                                 <a href="#" class="waves-effect"><i class="ti-spray"></i> <span>Outros</span> </a>
                                 <ul class="list-unstyled">
                                     <li><a href="/outros/historico_admin">Histórico</a></li>
-                                    <li><a href="/outros/recuperarSenha">Recuperar senha</a></li>
+                                    <li><a href="/outros/relatorioDesemenho">Relatório de Desempenho</a></li>
                                     <li><a href="/outros/statusAluno">Status aluno</a></li>
                                     <li><a href="/outros/visualizarCampeonato">Visualizar campeonato</a></li>
                                 </ul>
