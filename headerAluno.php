@@ -128,7 +128,7 @@ $conn->BDFecharConexao($conexao);
                             <li class="has_sub">
                                 <a href="#" class="waves-effect"><i class="ti-spray"></i> <span>Outros</span> </a>
                                 <ul class="list-unstyled">
-                                    <li><a href="/outros/historico">Histórico</a></li>
+                                    <li><a href="/outros/historico" target="_blank">Histórico</a></li>
                                     <li><a href="/outros/visualizarCampeonato">Visualizar campeonato</a></li>
                                 </ul>
                             </li>
