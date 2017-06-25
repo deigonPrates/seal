@@ -299,5 +299,29 @@ class Atualizar extends Conexao {
         #$this->BDExecutaQuery("UPDATE questoes SET {$aux} where id = {$id}");
         header("Location: /editar/atividade");
     }
+    
+    public function definirTurmaEdicao($dados) {
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $_SESSION['turma'] = $dados['id'];
+        header("Location: /editar/turma");
+    }
+    public function atualizarTurma($dados){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $id = (int) $_SESSION['turma'];
+        $nome = "'".$dados['nome']."'";
+        $codigo = "'".$dados['codigo']."'";
+        $ano = "'".$dados['ano']."'";
+        $semestre = "'".$dados['semestre']."'";
+        
+        $this->BDAtualiza('turmas', "where id = $id", 'nome',$nome);
+        $this->BDAtualiza('turmas', "where id = $id", 'codigo',$codigo);
+        $this->BDAtualiza('turmas', "where id = $id", 'ano',$ano);
+        $this->BDAtualiza('turmas', "where id = $id", 'semestre',$semestre);
+        header("Location: /editar/definirTurma");
+    }
 
 }
