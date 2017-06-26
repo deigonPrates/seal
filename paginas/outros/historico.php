@@ -16,14 +16,17 @@ if (isset($_GET['id'])) {
     $bdID = (int) $conexao->BDRetornaID($_SESSION['matricula']);
 }
 $alunos = $conexao->BDSeleciona('alunos', 'alunos.nome, alunos.email,alunos.matricula', "WHERE(id = $bdID)");
-$turmas = $conexao->BDSeleciona('turmas', 'turmas.ano, turmas.semestre');
-$consultabd = $conexao->BDSQL("SELECT sum(questoes.valor) as nota, atividades.conteudo, atividades.dataInicio from alunos "
-        . "join alunos_atividades on alunos.id = alunos_atividades.aluno_id "
-        . "JOIN atividades on atividades.id = alunos_atividades.avaliacao_id "
-        . "JOIN questoes on atividades.id = questoes.atividade_id "
-        . "join respostas on questoes.id = respostas.questao_id "
-        . "WHERE(respostas.resultado = 1 and respostas.aluno_id = $bdID) "
-        . "GROUP by atividades.conteudo, atividades.dataInicio");
+$turmas = $conexao->BDSQL("select turmas.ano,turmas.semestre from alunos 
+                            join registros on alunos.id = registros.aluno_id 
+                            join turmas on turmas.id = registros.turma_id
+                            WHERE(alunos.id = $bdID)");
+$consultabd = $conexao->BDSQL("select atividades.conteudo, atividades.nota as valor,  sum(questoes.valor) as nota, atividades.dataInicio  from alunos 
+                                inner join alunos_atividades on alunos.id = alunos_atividades.aluno_id 
+                                inner JOIN atividades on atividades.id = alunos_atividades.avaliacao_id 
+                                inner JOIN questoes on atividades.id = questoes.atividade_id 
+                                inner join respostas on questoes.id = respostas.questao_id 
+                                 WHERE respostas.resultado = 1 and respostas.aluno_id = $bdID
+                                 GROUP by atividades.conteudo, atividades.dataInicio,atividades.nota");
 $conexao->BDFecharConexao($con);
 
 foreach ($alunos as $key => $value) {
@@ -43,6 +46,7 @@ foreach ($turmas as $key => $value) {
 foreach ($consultabd as $key => $value) {
     $lacoDisciplina .= "<tr>";
     $lacoDisciplina .= "<td><center>{$value['conteudo']}</center></td>";
+    $lacoDisciplina .= "<td><center>{$value['valor']}</center></td>";
     $lacoDisciplina .= "<td><center>{$value['nota']}</center></td>";
     $lacoDisciplina .= "<td><center>{$value['dataInicio']}</center></td>";
     $lacoDisciplina .= "</tr>";
@@ -73,6 +77,7 @@ $pagina .= "
       <TABLE width='1000'> <!-- Tabela Herder  -->
           <TR> 
               <TD width='100' bgcolor='#A9A9A9' ><center>AVALIAÇÃO</center></TD> 
+              <TD width='100' bgcolor='#A9A9A9' ><center>VALOR</center></TD> 
               <TD width='100' bgcolor='#A9A9A9'><center>NOTA</center></TD>
               <TD width='100' bgcolor='#A9A9A9'><center>DATA</center></TD>
           </TR> 
